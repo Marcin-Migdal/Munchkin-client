@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import * as serviceWorker from './serviceWorker';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 
 const theme = createMuiTheme({
@@ -14,7 +13,8 @@ const theme = createMuiTheme({
       main: '#ffffff',
     },
     background: {
-      default: '#ffd966',
+      default: '#ffdf80',
+      paper: '#ffecb3'
     }
   }
 })
@@ -27,5 +27,3 @@ ReactDOM.render(
   </ThemeProvider>,
   document.getElementById('root'),
 );
-
-serviceWorker.unregister();
