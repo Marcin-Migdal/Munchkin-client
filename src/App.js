@@ -3,7 +3,9 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import ResponsiveComponent from './components/ResponsiveComponent/ResponsiveComponent';
 import DefaultPage from './components/DefaultPage/DefaultPage';
 import Login from './containers/Login/Login';
-import MainLayout from './containers/MainLayout/MainLayout';
+import Register from './containers/Register/Register';
+import MainLayout from './containers/MainLayout/Desktop/MainLayout';
+import MainLayoutMobile from './containers/MainLayout/Mobile/MainLayoutMobile';
 import { desktopClasses } from './components/DefaultPage/DefaultPage.styles'
 import { mobileClasses } from './components/DefaultPage/DefaultPageMobile.styles'
 import './App.css'
@@ -15,8 +17,13 @@ function App() {
         <Route path="/login">
           <Login />
         </Route>
+        <Route path="/register">
+          <Register />
+        </Route>
         <Route path="/mainLayout">
-          <MainLayout />
+          <ResponsiveComponent
+            MobileComponent={<MainLayoutMobile />}
+            DesktopComponent={<MainLayout />} />
         </Route>
         <Route path="/">
           <ResponsiveComponent

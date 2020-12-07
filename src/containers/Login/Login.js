@@ -50,11 +50,11 @@ export default function Login() {
       {setLogin}
       {setPassword}
       <ButtonComponent
-        text={"Zaloguj się"}
+        text='Zaloguj się'
         btnStyle={styles.button}
         variantStyle='contained'
         paletteColor='secondary'
-        onClick={signIn} />
+        action={signIn} />
       {error && error}
     </div>
   );
