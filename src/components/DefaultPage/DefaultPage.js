@@ -9,7 +9,7 @@ export default function DefaultPage({classes}) {
       <span className={styles.title}>Munchkin</span>
       <div className={styles.container}>
         <span className={styles.description}>Uprość swoją rozgrywkę w grze karcianej Munchkin dzieki zapisywaniu postępu swojej postaci oraz możliwości natychmiastowego sprawdzania postępu swoich przeciwników</span>
-        <div>
+        <div className={styles.buttonContainer}>
           <ButtonComponent
             to="/login"
             text="Logowanie"

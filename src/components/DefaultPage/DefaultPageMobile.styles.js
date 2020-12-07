@@ -21,23 +21,23 @@ export const mobileClasses = makeStyles( theme => ({
   title: {
     position:'absolute',
     top:'10vh',
-    fontSize: '5.5vh',
+    fontSize: '6vh',
     color: theme.palette.secondary.main,
   },
   
   description: {
     textAlign: 'center',
     width: '75vw',
-    marginTop:'55%',
+    marginTop:'50%',
     fontSize: '2.5vh',
     color: theme.palette.secondary.main,
   },
 
   buttonContainer: {
     display: 'flex',
+    flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    flexDirection: 'column',
     marginTop: '3vh',
   },
 
@@ -46,6 +46,6 @@ export const mobileClasses = makeStyles( theme => ({
     fontSize: '1.4vh',
     width: '27vw',
     color: theme.palette.primary.main,
-    margin: '1vh 0'
+    margin: '0.75vh 0'
   },
 }));

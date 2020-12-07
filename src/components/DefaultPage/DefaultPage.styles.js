@@ -20,7 +20,7 @@ export const desktopClasses = makeStyles( theme => ({
 
   title: {
     position:'absolute',
-    top:'0.5vh',
+    top:'1vh',
     left:'45%',
     fontSize: '5vh',
     color: theme.palette.primary.main,
