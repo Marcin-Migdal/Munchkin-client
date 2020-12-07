@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { IconContext } from 'react-icons';
+import Navbar from '../../Navbar/Navbar';
 import { classes } from './MainLayoutMobile.styles'
 
 export default function MainLayoutMobile() {
@@ -10,8 +11,8 @@ export default function MainLayoutMobile() {
   return (
     <IconContext.Provider value={{ color: '#fff' }}>
       <div className={styles.container}>
-        <div className={styles.topContainer} onClick={toggleSideMenu}>
-
+        <div className={styles.topContainer}>
+          <Navbar toggleSideMenu={toggleSideMenu}/>
         </div>
         <div className={styles.bottomContainer}>
           <div className={sideMenuActive ? styles.sideMenuEnabled : styles.sideMenuDisabled}>

@@ -11,13 +11,13 @@ export default function DefaultPage({classes}) {
         <span className={styles.description}>Uprość swoją rozgrywkę w grze karcianej Munchkin dzieki zapisywaniu postępu swojej postaci oraz możliwości natychmiastowego sprawdzania postępu swoich przeciwników</span>
         <div className={styles.buttonContainer}>
           <ButtonComponent
-            to="/login"
+            url="/login"
             text="Logowanie"
             btnStyle={styles.button}
             variantStyle='contained'
             paletteColor='secondary' />
           <ButtonComponent
-            to="/register"
+            url="/register"
             text="Rejestracja"
             btnStyle={styles.button}
             variantStyle='contained'

@@ -20,7 +20,7 @@ function App() {
         <Route path="/register">
           <Register />
         </Route>
-        <Route path="/mainLayout">
+        <Route path="/home">
           <ResponsiveComponent
             MobileComponent={<MainLayoutMobile />}
             DesktopComponent={<MainLayout />} />

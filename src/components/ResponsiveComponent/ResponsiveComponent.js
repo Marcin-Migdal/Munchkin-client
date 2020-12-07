@@ -1,13 +1,11 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from 'react';
 
 const viewportContext = createContext({});
 
 const ViewportProvider = ({ children }) => {
   const [width, setWidth] = useState(window.innerWidth);
-  const [height, setHeight] = useState(window.innerHeight);
   const handleWindowResize = () => {
     setWidth(window.innerWidth);
-    setHeight(window.innerHeight);
   };
 
   useEffect(() => {
@@ -16,19 +14,19 @@ const ViewportProvider = ({ children }) => {
   }, []);
 
   return (
-    <viewportContext.Provider value={{ width, height }}>
+    <viewportContext.Provider value={width}>
       {children}
     </viewportContext.Provider>
   );
 };
 
 const useViewport = () => {
-  const { width, height } = useContext(viewportContext);
-  return { width, height };
+  const width = useContext(viewportContext);
+  return width;
 };
 
 const MyComponent = ({ MobileComponent, DesktopComponent }) => {
-  const { width } = useViewport();
+  const width = useViewport();
   const breakpoint = 620;
 
   return width < breakpoint ? MobileComponent : DesktopComponent;

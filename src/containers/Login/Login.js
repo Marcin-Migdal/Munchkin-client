@@ -33,7 +33,7 @@ export default function Login() {
     if (validate()) {
       const authorization = { usernameOrEmail: `${login.value}`, userPassword: `${password.value}` };
       authService.signIn(authorization)
-        .then(resp => history.replace('/mainLayout'))
+        .then(resp => history.replace('/home'))
         .catch(e => setError(
           <div className={styles.errorBadCredentials}>
             Niepowodzenie podczas logowania!

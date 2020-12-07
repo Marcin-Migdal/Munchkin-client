@@ -7,8 +7,10 @@ export const classes = makeStyles( theme => ({
   },
 
   topContainer: {
+    display: 'flex',
+    alignItems: 'center',
     height:'8vh',
-    backgroundColor:'red'
+    backgroundColor: theme.palette.background.default,
   },
 
   bottomContainer: {
@@ -40,7 +42,6 @@ export const classes = makeStyles( theme => ({
   contentContainer: {
     height:'92vh',
     width:'100%',
-    backgroundColor:'yellow'
   },
 }));
 
