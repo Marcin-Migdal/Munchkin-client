@@ -9,21 +9,20 @@ export const classes = makeStyles(theme => ({
   topContainer: {
     display: 'flex',
     alignItems: 'center',
-    height: '7vh',
+    height: '6vh',
     backgroundColor: theme.palette.background.default,
   },
 
   bottomContainer: {
     display: 'flex',
     flexDirection: 'row',
-    height: '93vh',
+    height: '94vh',
     width: '100vw'
   },
 
   LeftContainerEnabled: {
     height: '100%',
-    width: '23vw',
-    backgroundColor: 'green'
+    width:'18vw',
   },
 
   LeftContainerDisabled: {
@@ -33,7 +32,7 @@ export const classes = makeStyles(theme => ({
 
   rightContainer: {
     height: '100%',
-    width: '100%',
+    width: '82vw',
   },
 }));
 

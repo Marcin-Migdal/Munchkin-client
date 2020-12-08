@@ -1,18 +1,19 @@
 import { makeStyles } from "@material-ui/core";
 
 export const classes = makeStyles(theme => ({
-  navbarContainer: {
+  sideMenuItem: {
     display: 'flex',
     alignItems: 'center',
-    marginLeft: '2.7vh',
-    fontSize: '4vh',
-  },
-
-  text: {
+    height: '7vh',
+    width: '95%',
+    margin: '1vh 1vh',
+    padding: '1vh 2vh',
     fontSize: '3.5vh',
-    marginLeft: '1vh',
-    color: theme.palette.secondary.main,
-
+    borderRadius: '8px',
+    color: '#ffffff',
+    "&:hover": {
+      backgroundColor: theme.palette.primary.main,
+    },
     webkitRouchCallout: 'none',
     webkitUserSelect: 'none',
     khtmlUserSelect: 'none',
@@ -20,10 +21,9 @@ export const classes = makeStyles(theme => ({
     msUserSelect: 'none',
     userSelect: 'none',
   },
+
+  sideMenuItemText: {
+    marginLeft: '1.3vh',
+    fontSize: '3vh',
+  },
 }));
-
-
-
-
-
-

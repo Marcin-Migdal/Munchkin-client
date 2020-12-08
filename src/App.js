@@ -11,6 +11,16 @@ import { mobileClasses } from './components/DefaultPage/DefaultPageMobile.styles
 import './App.css'
 
 function App() {
+  const HomePage = () => {
+    return localStorage.getItem('token') ?
+      <ResponsiveComponent
+        MobileComponent={<MainLayoutMobile />}
+        DesktopComponent={<MainLayout />} /> :
+      <ResponsiveComponent
+        MobileComponent={<DefaultPage classes={mobileClasses} />}
+        DesktopComponent={<DefaultPage classes={desktopClasses} />} />
+  }
+
   return (
     <Router>
       <Switch>
@@ -20,15 +30,8 @@ function App() {
         <Route path="/register">
           <Register />
         </Route>
-        <Route path="/home">
-          <ResponsiveComponent
-            MobileComponent={<MainLayoutMobile />}
-            DesktopComponent={<MainLayout />} />
-        </Route>
         <Route path="/">
-          <ResponsiveComponent
-            MobileComponent={<DefaultPage classes={mobileClasses} />}
-            DesktopComponent={<DefaultPage classes={desktopClasses} />} />
+          <HomePage />
         </Route>
       </Switch>
     </Router>

@@ -12,6 +12,7 @@ class Authentication {
 
   signOut() {
     localStorage.removeItem('token');
+    window.location.reload(false);
   }
 
   saveToken = (response) => {
