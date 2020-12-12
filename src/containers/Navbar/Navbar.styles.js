@@ -4,7 +4,7 @@ export const classes = makeStyles(theme => ({
   navbarContainer: {
     display: 'flex',
     alignItems: 'center',
-    marginLeft: '2.7vh',
+    marginLeft: '1.7vh',
     fontSize: '4vh',
   },
 

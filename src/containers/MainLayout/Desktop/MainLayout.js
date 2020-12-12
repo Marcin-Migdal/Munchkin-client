@@ -8,7 +8,7 @@ import Rooms from '../../Rooms/Rooms';
 import History from '../../../prepPages/History';
 import Settings from '../../../prepPages/Settings';
 import { classes } from './MainLayout.styles'
-import { sideMenuClasses } from '../../SideMenu/SideMenu.styles'
+import { roomClasses } from '../../Rooms/Rooms.styles';
 
 export default function MainLayout() {
   const [sideMenuActive, setSideMenuActive] = useState(true);
@@ -17,7 +17,7 @@ export default function MainLayout() {
   const styles = classes();
 
   useEffect(() => {
-    history.replace('/home');
+    history.replace('/rooms');
   }, []);
 
   return (
@@ -26,18 +26,16 @@ export default function MainLayout() {
         <div className={styles.topContainer} >
           <Navbar toggleSideMenu={toggleSideMenu} />
         </div>
-        <div className={styles.bottomContainer}>
-          <div className={sideMenuActive ? styles.LeftContainerEnabled : styles.LeftContainerDisabled}>
-            <SideMenu
-              sideMenuActive={sideMenuActive}
-              classes={sideMenuClasses} />
+        <div className={sideMenuActive ? styles.bottomConteinerSideMenuEnabled : styles.bottomConteinerSideMenuDisabled}>
+          <div id='sideMenuConteiner' className={styles.sideMenuConteiner}>
+            <SideMenu />
           </div>
-          <div className={styles.rightContainer}>
+          <div id='contentConteiner' className={styles.contentConteiner}>
             <Route path="/home">
               <Home />
             </Route>
             <Route path="/rooms">
-              <Rooms />
+              <Rooms roomClasses={roomClasses} mobile={false} />
             </Route>
             <Route path="/history">
               <History />

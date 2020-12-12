@@ -13,27 +13,45 @@ export const classes = makeStyles(theme => ({
     backgroundColor: theme.palette.background.default,
   },
 
-  bottomContainer: {
+  bottomConteinerSideMenuEnabled: {
     display: 'flex',
     flexDirection: 'row',
     height: '94vh',
-    width: '100vw'
+    width: '100vw',
+    '& #sideMenuConteiner': {
+      transition: '300ms',
+      left: 0,
+    },
+    '& #contentConteiner': {
+      marginLeft: '6vw'
+    }
   },
 
-  LeftContainerEnabled: {
-    height: '100%',
-    width:'18vw',
+  bottomConteinerSideMenuDisabled: {
+    display: 'flex',
+    flexDirection: 'row',
+    height: '94vh',
+    width: '100vw',
+    '& #sideMenuConteiner': {
+      transition: '600ms',
+      left: '-100%',
+    },
   },
 
-  LeftContainerDisabled: {
+  sideMenuConteiner: {
     height: '100%',
-    width: '0vw',
+    width: '18vw',
+    position: 'fixed',
+    zIndex: 2,
+    backgroundColor: theme.palette.background.default,
   },
 
-  rightContainer: {
+  contentConteiner: {
+    display: 'flex',
+    justifyContent: 'center',
     height: '100%',
-    width: '82vw',
-  },
+    width: '100%',
+  }
 }));
 
 

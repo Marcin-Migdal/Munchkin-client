@@ -6,10 +6,10 @@ export const roomClasses = makeStyles(theme => ({
     height: '92vh',
     zIndex: 1,
   },
-  
+
   topScrollContainer: {
     marginTop: '13vh',
-    width: '52vw'
+    width: '90vw'
   },
 
   scrollContentContainer: {
@@ -44,4 +44,4 @@ export const roomClasses = makeStyles(theme => ({
     fontWeight: 600,
     color: theme.palette.secondary.main,
   },
-}))
+}));

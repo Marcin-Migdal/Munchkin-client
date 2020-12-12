@@ -1,25 +1,27 @@
 import React from 'react'
 import { AiOutlineLogout } from 'react-icons/ai';
 import authenticationService from '../../api/authentication.api';
+import ListComponent from '../../components/ListComponent/ListComponent';
 import SideMenuButton from '../../components/SideMenuButton/SideMenuButton';
 import { SideMenuData } from '../../utils/SideMenuUtils';
+import { classes } from './SideMenu.styles';
 
-export default function SideMenu({ sideMenuActive, closeSideMenu, classes }) {
+export default function SideMenu({ closeSideMenu }) {
   const styles = classes();
 
   return (
-    <div className={sideMenuActive ? styles.sideMenuEnabled : styles.sideMenuDisabled}>
+    <div>
       <hr className={styles.sideMenuHr} />
-      <ul className={styles.sideMenuItems} >
-        {SideMenuData.map((item, index) => {
+      <ul>
+        <ListComponent data={SideMenuData} mapFunction={(item, index) => {
           return (
-            <li className={styles.sideMenuItem} key={index} onClick={closeSideMenu}>
-              <SideMenuButton path={item.path} icon={item.icon} title={item.title} textStyle={styles.sideMenuItemText} />
+            <li key={index} onClick={closeSideMenu}>
+              <SideMenuButton path={item.path} icon={item.icon} page={item.page} />
             </li>
-          );
-        })}
+          )
+        }} />
         <div onClick={authenticationService.signOut}>
-          <SideMenuButton ssd={styles.sideMenuItem} path='/' icon={<AiOutlineLogout />} title='Wyloguj' textStyle={styles.sideMenuItemText}/>
+          <SideMenuButton path='/' icon={<AiOutlineLogout />} page='Wyloguj' />
         </div>
       </ul>
     </div>

@@ -5,17 +5,17 @@ import * as MdIcons from "react-icons/md"
 
 export const SideMenuData = [
   {
-    title: 'Pokoje',
+    page: 'Pokoje',
     path: '/rooms',
     icon: <AiIcons.AiFillHome />,
     className: 'nav-menu-item'
   },{
-    title: 'Historia',
+    page: 'Historia',
     path: '/history',
     icon: <MdIcons.MdHistory />,
     className: 'nav-menu-item'
   },{
-    title: 'Ustawienia',
+    page: 'Ustawienia',
     path: '/settings',
     icon: <IoIcons.IoIosSettings />,
     className: 'nav-menu-item'

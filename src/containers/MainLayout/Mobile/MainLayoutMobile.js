@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Route, useHistory } from 'react-router-dom';
 import { IconContext } from 'react-icons';
 import Navbar from '../../Navbar/Navbar';
 import SideMenu from '../../SideMenu/SideMenu';
@@ -7,18 +8,17 @@ import Rooms from '../../Rooms/Rooms';
 import History from '../../../prepPages/History';
 import Settings from '../../../prepPages/Settings';
 import { classes } from './MainLayoutMobile.styles'
-import { sideMenuClasses } from '../../SideMenu/SideMenuMobile.styles'
-import { Route, useHistory } from 'react-router-dom';
+import { roomClasses } from '../../Rooms/RoomsMobile.styles';
 
 export default function MainLayoutMobile() {
-  const [sideMenuActive, setSideMenuActive] = useState(true);
+  const [sideMenuActive, setSideMenuActive] = useState(false);
   const toggleSideMenu = () => setSideMenuActive(!sideMenuActive);
   const closeSideMenu = () => setSideMenuActive(false);
   const history = useHistory();
   const styles = classes();
 
   useEffect(() => {
-    history.replace('/home');
+    history.replace('/rooms');
   }, []);
 
   return (
@@ -29,17 +29,14 @@ export default function MainLayoutMobile() {
         </div>
         <div className={styles.bottomContainer}>
           <div className={sideMenuActive ? styles.sideMenuEnabled : styles.sideMenuDisabled}>
-            <SideMenu
-              sideMenuActive={sideMenuActive}
-              closeSideMenu={closeSideMenu}
-              classes={sideMenuClasses} />
+            <SideMenu closeSideMenu={closeSideMenu} />
           </div>
           <div className={styles.contentContainer}>
             <Route path="/home">
               <Home />
             </Route>
             <Route path="/rooms">
-              <Rooms />
+              <Rooms roomClasses={roomClasses} mobile={true} />
             </Route>
             <Route path="/history">
               <History />

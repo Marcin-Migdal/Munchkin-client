@@ -2,7 +2,7 @@ import React from 'react'
 import { useHistory } from 'react-router-dom';
 import { classes } from './SideMenuButton.styles';
 
-export default function SideMenuButton({ path, icon, title }) {
+export default function SideMenuButton({ path, icon, page }) {
   const history = useHistory();
   const styles = classes();
 
@@ -14,7 +14,7 @@ export default function SideMenuButton({ path, icon, title }) {
     <div className={styles.sideMenuItem} onClick={goToPage}>
       {icon}
       <span className={styles.sideMenuItemText}>
-        {title}
+        {page}
       </span>
     </div>
   )

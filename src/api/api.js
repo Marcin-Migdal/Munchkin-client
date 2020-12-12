@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const backendUrl = 'http://localhost:5000';
+export const backendUrl = 'http://192.168.0.110:5000';
 
 class ApiService {
   httpGET(url) {
@@ -33,7 +33,7 @@ class ApiService {
   authorize = () => {
     const token = JSON.parse(localStorage.getItem('token'));
     if (token) {
-      return { headers: { Authorization: `Bearer${token}` } };
+      return { headers: { Authorization: 'Bearer ' + token } };
     }
     return null;
   }

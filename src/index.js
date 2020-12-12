@@ -14,7 +14,9 @@ const theme = createMuiTheme({
     },
     background: {
       default: '#ffd966',
-      paper: '#ffecb3'
+      paper: '#ffe699',
+      hover: '#fffbf0',
+      active: '#fff1cc'
     }
   }
 })
