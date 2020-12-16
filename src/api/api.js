@@ -9,6 +9,7 @@ class ApiService {
         .then(this.mapResponse);
     } else {
       window.location.reload(false);
+      
     }
   }
 
