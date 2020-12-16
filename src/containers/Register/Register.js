@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import authService from '../../api/authentication.api';
 import { FormControlLabel, Radio, RadioGroup, useMediaQuery } from '@material-ui/core';
-import SignUpValidation from '../../utils/SignUpValidation';
+import authService from '../../api/authentication.api';
 import useInput from '../../hooks/UseInput/useInput';
-import { classes } from './Register.styles'
 import ButtonComponent from '../../components/ButtonComponent/ButtonComponent';
+import val from '../../utils/ValidationUtil';
+import { classes } from './Register.styles'
 
 export default function Register() {
-  const [setInGameName, inGameName] = useInput({ inputType: "text", inputLabel: "Ksywka" });
-  const [setUserName, userName] = useInput({ inputType: "text", inputLabel: "Login" });
-  const [setEmail, email] = useInput({ inputType: "text", inputLabel: "Email" });
-  const [setPassword, password] = useInput({ inputType: "password", inputLabel: "Hasło" });
-  const [setRePassword, rePassword] = useInput({ inputType: "password", inputLabel: "Powtórz hasło" });
+  const [inGameNameInput, inGameName, setInGameName] = useInput({ inputType: "text", inputLabel: "Ksywka" });
+  const [userNameInput, userName, setUserName] = useInput({ inputType: "text", inputLabel: "Login" });
+  const [emailInput, email, setEmail] = useInput({ inputType: "text", inputLabel: "Email" });
+  const [passwordInput, password, setPassword] = useInput({ inputType: "password", inputLabel: "Hasło" });
+  const [rePasswordInput, rePassword, setRePassword] = useInput({ inputType: "password", inputLabel: "Powtórz hasło" });
   const [gender, setGender] = useState('male');
   const [error, setError] = useState('');
   const history = useHistory();
@@ -25,7 +25,9 @@ export default function Register() {
   };
 
   const signUp = () => {
-    if (SignUpValidation(inGameName, userName, email, password, rePassword)) {
+    if (val.signUp(inGameName, setInGameName, userName, setUserName, email, setEmail,
+      password, setPassword, rePassword, setRePassword)) {
+           
       const signUpRequest = {
         inGameName: `${inGameName.value}`,
         username: `${userName.value}`,
@@ -49,11 +51,11 @@ export default function Register() {
     <div className={mobile ? styles.containerMobile : styles.containerDesktop}>
       <span className={styles.title}>Rejestracja</span>
       <div className={styles.container}>
-        {setInGameName}
-        {setUserName}
-        {setEmail}
-        {setPassword}
-        {setRePassword}
+        {inGameNameInput}
+        {userNameInput}
+        {emailInput}
+        {passwordInput}
+        {rePasswordInput}
         <RadioGroup className={styles.genderRadioContener} aria-label="gender" name="gender1" value={gender} onChange={handleChange}>
           <FormControlLabel value="female" control={<Radio />} label="Female" />
           <FormControlLabel value="male" control={<Radio />} label="Male" />

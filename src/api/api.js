@@ -1,11 +1,15 @@
 import axios from 'axios';
-
+import jwt_decode from 'jwt-decode';
 export const backendUrl = 'http://192.168.0.110:5000';
 
 class ApiService {
   httpGET(url) {
-    return axios.get(backendUrl + url, this.authorize())
-      .then(this.mapResponse);
+    if (this.validateToken()) {
+      return axios.get(backendUrl + url, this.authorize())
+        .then(this.mapResponse);
+    } else {
+      window.location.reload(false);
+    }
   }
 
   httpPOST(url, data = {}) {
@@ -23,9 +27,9 @@ class ApiService {
       .then(this.mapResponse);
   }
 
-  httpPATCH(url, data = {}){
+  httpPATCH(url, data = {}) {
     return axios.patch(backendUrl + url, data, this.authorize())
-    .then(this.mapResponse);
+      .then(this.mapResponse);
   }
 
   mapResponse = (response) => response.data
@@ -36,6 +40,19 @@ class ApiService {
       return { headers: { Authorization: 'Bearer ' + token } };
     }
     return null;
+  }
+
+  validateToken = () => {
+    const decodedToken = jwt_decode(localStorage.getItem('token'))
+    const currentDate = new Date();
+    if (decodedToken.exp * 1000 < currentDate.getTime()) {
+      console.log("Token expired.");
+      localStorage.removeItem('token')
+      return false;
+    } else {
+      console.log("Valid token");
+      return true;
+    }
   }
 }
 

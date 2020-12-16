@@ -32,14 +32,14 @@ export const roomClasses = makeStyles(theme => ({
   },
 
   addRoomButton: {
-    fontSize: '1.75vmin',
+    fontSize: '1.75vh',
     borderRadius: '8px',
     fontWeight: 600,
     color: theme.palette.primary.main,
   },
 
   button: {
-    fontSize: '1.75vmin',
+    fontSize: '1.75vh',
     borderRadius: '8px',
     fontWeight: 600,
     color: theme.palette.secondary.main,

@@ -6,16 +6,21 @@ import LoadingComponent from '../../components/LoadingComponent/LoadingComponent
 import InfoModal from '../../components/InfoModal/InfoModal';
 import ListComponent from '../../components/ListComponent/ListComponent';
 import RoomListComponent from '../../components/RoomListComponent/RoomListComponent';
+import AddRoomSideMenu from '../RoomSideMenu/AddRoomSideMenu';
+import EditRoomSideMenu from '../RoomSideMenu/EditRoomSideMenu';
+import MyHr from '../../components/MyHr/MyHr';
+import * as AiIcons from "react-icons/ai"
+import PickRoomSideMenu from '../RoomSideMenu/PickRoomSideMenu';
 import 'react-perfect-scrollbar/dist/css/styles.css';
-import api from '../../api/api';
 
 export default function Rooms({ roomClasses, mobile }) {
   const pageSize = 15;
   const [page, setPage] = useState(0);
-  const [query, setQuery] = useState('/api/rooms/getAll/' + page + '/' + pageSize);
+  const [query, setQuery] = useState('/getAll/' + page + '/' + pageSize);
   const [errorFlag, setErrorFlag] = useState(0);
-  const { status, data, error, lastPage } = useFetchPagebale({
-    url: query,
+  const [roomSideMenu, setRoomSideMenu] = useState();
+  const { status, data, lastPage } = useFetchPagebale({
+    query: query,
     errorFlag,
     incrementPage: () => { setPage(page + 1) }
   });
@@ -23,7 +28,7 @@ export default function Rooms({ roomClasses, mobile }) {
   const styles = roomClasses();
 
   const loadMoreRooms = () => {
-    setQuery('/api/rooms/getAll/' + (page) + '/' + pageSize);
+    setQuery('/getAll/' + (page) + '/' + pageSize);
   }
 
   const loadRoomsAfterError = () => {
@@ -31,16 +36,26 @@ export default function Rooms({ roomClasses, mobile }) {
   }
 
   const addRoom = () => {
-    console.log('To do, pick room')
+    setRoomSideMenu(
+      <AddRoomSideMenu />
+    )
   }
 
-  const pickRoom = () => {
-    console.log('To do, pick room')
+  const pickRoom = (item) => {
+    setRoomSideMenu(
+      <PickRoomSideMenu room={item} changeToEditRoom={(roomId) => { editRoom(roomId) }} />
+    )
+  }
+
+  const editRoom = (roomId) => {
+    setRoomSideMenu(
+      <EditRoomSideMenu roomId={roomId} />
+    )
   }
 
   return (
     <div className={styles.scrollContainer}>
-      <PerfectScrollbar onYReachEnd={() => { if (!lastPage && data && status === 'fetched' && !error) loadMoreRooms() }}>
+      <PerfectScrollbar onYReachEnd={() => { if (!lastPage && data && status === 'fetched') loadMoreRooms() }}>
         <div className={styles.scrollContentContainer}>
           <div className={styles.topScrollContainer}>
             <ButtonComponent
@@ -60,11 +75,11 @@ export default function Rooms({ roomClasses, mobile }) {
                   slots={item.slots}
                   usersInRoom={item.usersInRoom}
                   mobile={mobile}
-                  action={() => { pickRoom() }} />)
+                  action={() => { pickRoom(item) }} />)
             }} />}
 
           <div className={styles.bottomScrollContainer}>
-            {(error && status === 'fetched') &&
+            {(status === 'error') &&
               <div className={styles.errorContainer}>
                 <ButtonComponent
                   text='Wczytaj Pokoje'
@@ -80,6 +95,14 @@ export default function Rooms({ roomClasses, mobile }) {
           </div>
         </div>
       </PerfectScrollbar>
+
+      <div className={roomSideMenu ? styles.roomSideMenuEnabled : styles.roomSideMenuDisabled}>
+        <MyHr />
+        <div className={styles.iconContainer} onClick={() => setRoomSideMenu(false)}>
+          <AiIcons.AiOutlineClose className={styles.closeIcon} />
+        </div>
+        {roomSideMenu && roomSideMenu}
+      </div>
     </div>
   )
 }

@@ -7,7 +7,7 @@ export default function RoomListComponent({ roomName, slots, usersInRoom, action
   return (
     <div className={mobile ? styles.roomContainerMobile : styles.roomContainerDesktop} onClick={action} >
       <p>{roomName}</p>
-      <p>Stoty: {usersInRoom}/{slots}</p>
+      <p>Sloty: {usersInRoom}/{slots}</p>
     </div>
   )
 }

@@ -8,18 +8,26 @@ import MainLayout from './containers/MainLayout/Desktop/MainLayout';
 import MainLayoutMobile from './containers/MainLayout/Mobile/MainLayoutMobile';
 import { desktopClasses } from './components/DefaultPage/DefaultPage.styles'
 import { mobileClasses } from './components/DefaultPage/DefaultPageMobile.styles'
+import api from './api/api';
 import './App.css'
 
 function App() {
   const HomePage = () => {
-    return localStorage.getItem('token') ?
-      <ResponsiveComponent
-        MobileComponent={<MainLayoutMobile />}
-        DesktopComponent={<MainLayout />} /> :
-      <ResponsiveComponent
-        MobileComponent={<DefaultPage classes={mobileClasses} />}
-        DesktopComponent={<DefaultPage classes={desktopClasses} />} />
+    if (localStorage.getItem('token') && api.validateToken()) {
+      return (
+        <ResponsiveComponent
+          MobileComponent={<MainLayoutMobile />}
+          DesktopComponent={<MainLayout />} />
+      )
+    } else {
+      return (
+        < ResponsiveComponent
+          MobileComponent={< DefaultPage classes={mobileClasses} />}
+          DesktopComponent={< DefaultPage classes={desktopClasses} />} />
+      )
+    }
   }
+
 
   return (
     <Router>

@@ -4,33 +4,20 @@ import authService from '../../api/authentication.api';
 import useInput from '../../hooks/UseInput/useInput';
 import ButtonComponent from '../../components/ButtonComponent/ButtonComponent';
 import { useMediaQuery } from '@material-ui/core';
+import val from '../../utils/ValidationUtil';
 import { classes } from './Login.styles'
 
 export default function Login() {
-  const [setLogin, login] = useInput({ inputType: 'text', inputLabel: "Login lub Email" });
-  const [setPassword, password] = useInput({ inputType: 'password', inputLabel: "Hasło" });
+  const [loginInput, login, setLogin] = useInput({ inputType: 'text', inputLabel: "Login lub Email" });
+  const [passwordInput, password, setPassword] = useInput({ inputType: 'password', inputLabel: "Hasło" });
   const [error, setError] = useState('');
   const history = useHistory();
   const styles = classes();
-  
+
   const mobile = useMediaQuery('(max-width:620px)');;
 
-  const validate = () => {
-    if (!login.value) {
-      login.setInputError(true);
-      login.setErrorMessage('Podaj login');
-      return false;
-    }
-    if (!password.value) {
-      password.setInputError(true);
-      password.setErrorMessage('Podaj Hasło');
-      return false;
-    }
-    return true;
-  };
-
   const signIn = () => {
-    if (validate()) {
+    if (val.signIn(login.value, setLogin, password.value, setPassword)) {
       const authorization = { usernameOrEmail: `${login.value}`, userPassword: `${password.value}` };
       authService.signIn(authorization)
         .then(resp => history.replace('/home'))
@@ -47,8 +34,8 @@ export default function Login() {
   return (
     <div className={mobile ? styles.containerMobile : styles.containerDesktop}>
       <span className={styles.title}>Logowanie</span>
-      {setLogin}
-      {setPassword}
+      {loginInput}
+      {passwordInput}
       <ButtonComponent
         text='Zaloguj się'
         btnStyle={styles.button}
