@@ -6,9 +6,9 @@ export const roomClasses = makeStyles(theme => ({
     height: '92vh',
     zIndex: 1,
   },
-  
+
   topScrollContainer: {
-    marginTop: '13vh',
+    margin: '10vh 0 0.5vh 0',
     width: '52vw'
   },
 
@@ -32,16 +32,48 @@ export const roomClasses = makeStyles(theme => ({
   },
 
   addRoomButton: {
-    fontSize: '1.75vmin',
+    fontSize: '1.75vh',
     borderRadius: '8px',
     fontWeight: 600,
     color: theme.palette.primary.main,
   },
 
   button: {
-    fontSize: '1.75vmin',
+    fontSize: '1.75vh',
     borderRadius: '8px',
     fontWeight: 600,
     color: theme.palette.secondary.main,
+  },
+
+  roomSideMenuEnabled: {
+    width: '32ch',
+    height: '98vh',
+    position: 'fixed',
+    transition: '300ms',
+    top: '6vh',
+    right: 0,
+    backgroundColor: theme.palette.background.default,
+  },
+
+  roomSideMenuDisabled: {
+    width: '32ch',
+    height: '98vh',
+    position: 'fixed',
+    transition: '600ms',
+    top: '6vh',
+    right: '-100%',
+    backgroundColor: theme.palette.background.default,
+  },
+
+  iconContainer: {
+    padding: '1vh',
+    fontSize: '3vh',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    '& :hover': {
+      borderRadius: '6px',
+      backgroundColor: theme.palette.primary.main,
+    }
   },
 }))

@@ -2,35 +2,36 @@ import React, { useState } from 'react';
 import { TextField } from '@material-ui/core';
 import { classes } from './useInput.styles'
 
-export default function useInput({ inputType, inputLabel }) {
+export default function useInput({ inputType, inputLabel, size }) {
+  const [values, setValue] = useState({
+    value: '',
+    inputError: false,
+    errorMessage: ''
+  });
+
   const styles = classes();
-  const [value, setValue] = useState('');
-  const [inputError, setInputError] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
 
   const input = (
     <div className={styles.root}>
       <TextField
         color='secondary'
-        label={inputLabel}
         variant="outlined"
+        size={size ? size : 'medium'}
+        label={inputLabel}
         type={inputType}
-        error={inputError}
-        helperText={errorMessage}
+        InputProps={{ inputProps: { min: 3, max: 8 } }}
+        error={values.inputError}
+        helperText={values.errorMessage}
         onChange={(e) => {
-          setValue(e.target.value);
-          setInputError(false)
-          setErrorMessage('')
+          setValue({
+            value: e.target.value,
+            inputError: false,
+            errorMessage: ''
+          });
         }}
       />
     </div>
   );
 
-  const inputComponent = {
-    value: value,
-    setInputError: setInputError,
-    setErrorMessage: setErrorMessage
-  }
-
-  return [input, inputComponent];
+  return [input, values, setValue];
 }

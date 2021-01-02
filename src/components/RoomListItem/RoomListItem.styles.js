@@ -10,12 +10,12 @@ export const classes = makeStyles(theme => ({
     padding: '0.5vh 1vh',
     border: '1px solid',
     borderColor: theme.palette.background.paper,
-    borderRadius: '10px',
+    borderRadius: '8px',
     fontSize: '4vh',
     color: theme.palette.primary.main,
     
     '& p:nth-of-type(1)': {
-      width:'75%',
+      width:'67%',
       fontSize: '4vh',
       whiteSpace:'nowrap',
       overflow:'hidden',
@@ -23,7 +23,7 @@ export const classes = makeStyles(theme => ({
     },
 
     '& p:nth-of-type(2)': {
-      fontSize: '3.25vh',
+      fontSize: '3vh',
     },
 
     '&:hover': {
@@ -52,7 +52,7 @@ export const classes = makeStyles(theme => ({
     padding: '0.3vh 1vh',
     border: '1px solid',
     borderColor: theme.palette.background.paper,
-    borderRadius: '10px',
+    borderRadius: '8px',
     color: theme.palette.primary.main,
 
     '& p:nth-of-type(1)': {

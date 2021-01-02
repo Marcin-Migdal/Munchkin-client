@@ -1,18 +1,17 @@
 import { useEffect, useState } from 'react';
-import api from '../api/api';
+import roomsService from '../api/rooms.api';
 
-export default function useFetchPagebale({ url, errorFlag, incrementPage }) {
+export default function useFetchGetPagebale({ query, errorFlag, incrementPage }) {
   const [status, setStatus] = useState('idle');
   const [data, setData] = useState();
-  const [error, setError] = useState(false);
   const [lastPage, setLastPage] = useState(false);
 
   useEffect(() => {
     let mounted = true;
-    if (!url) return;
+    if (!query) return;
     const fetchData = async () => {
-      setStatus('fetching');
-      await api.httpGET(url)
+      if (mounted) setStatus('fetching');
+      await roomsService.getPageableRooms(query)
         .then((response) => {
           if (mounted) {
             if (!data) {
@@ -21,20 +20,23 @@ export default function useFetchPagebale({ url, errorFlag, incrementPage }) {
               setData([...data, ...response.body.content])
             }
             incrementPage()
-            if(response.body.last) setLastPage(response.body.last)
-            if(error) setError(false)
+            setLastPage(response.body.last)
+            setStatus('fetched')
           }
         })
-        .catch((e) => {if (mounted) setError(true)})
-
-      if (mounted) setStatus('fetched')
+        .catch((e) => {
+          if (mounted) {
+            setStatus('error')
+            console.log(e)
+          } 
+        })
     };
     fetchData();
 
     return function cleanUp() {
       mounted = false;
     }
-  }, [url, errorFlag]);
+  }, [query, errorFlag]);
 
-  return { status, data, error, lastPage };
+  return [status, data, lastPage];
 };

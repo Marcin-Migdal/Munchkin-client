@@ -1,21 +1,26 @@
 import React, { useState } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar'
-import useFetchPagebale from '../../hooks/useFetchPagebale';
+import useFetchGetPagebale from '../../hooks/useFetchGetPagebale';
 import ButtonComponent from '../../components/ButtonComponent/ButtonComponent';
 import LoadingComponent from '../../components/LoadingComponent/LoadingComponent';
-import InfoModal from '../../components/InfoModal/InfoModal';
 import ListComponent from '../../components/ListComponent/ListComponent';
-import RoomListComponent from '../../components/RoomListComponent/RoomListComponent';
+import RoomListItem from '../../components/RoomListItem/RoomListItem';
+import InfoModal from '../../components/InfoModal/InfoModal';
+import MyHr from '../../components/MyHr/MyHr';
+import AddRoomSideMenu from '../RoomSideMenu/AddRoomSideMenu';
+import EditRoomSideMenu from '../RoomSideMenu/EditRoomSideMenu';
+import PickRoomSideMenu from '../RoomSideMenu/PickRoomSideMenu';
+import * as AiIcons from "react-icons/ai"
 import 'react-perfect-scrollbar/dist/css/styles.css';
-import api from '../../api/api';
 
 export default function Rooms({ roomClasses, mobile }) {
   const pageSize = 15;
   const [page, setPage] = useState(0);
-  const [query, setQuery] = useState('/api/rooms/getAll/' + page + '/' + pageSize);
+  const [query, setQuery] = useState('/getAll/' + page + '/' + pageSize);
   const [errorFlag, setErrorFlag] = useState(0);
-  const { status, data, error, lastPage } = useFetchPagebale({
-    url: query,
+  const [roomSideMenu, setRoomSideMenu] = useState();
+  const [status, data, lastPage] = useFetchGetPagebale({
+    query: query,
     errorFlag,
     incrementPage: () => { setPage(page + 1) }
   });
@@ -23,7 +28,7 @@ export default function Rooms({ roomClasses, mobile }) {
   const styles = roomClasses();
 
   const loadMoreRooms = () => {
-    setQuery('/api/rooms/getAll/' + (page) + '/' + pageSize);
+    setQuery('/getAll/' + (page) + '/' + pageSize);
   }
 
   const loadRoomsAfterError = () => {
@@ -31,16 +36,26 @@ export default function Rooms({ roomClasses, mobile }) {
   }
 
   const addRoom = () => {
-    console.log('To do, pick room')
+    setRoomSideMenu(
+      <AddRoomSideMenu mobile={mobile} />
+    )
   }
 
-  const pickRoom = () => {
-    console.log('To do, pick room')
+  const pickRoom = (room) => {
+    setRoomSideMenu(
+      <PickRoomSideMenu room={room} changeToEditRoom={() => { editRoom(room) }} mobile={mobile} />
+    )
+  }
+
+  const editRoom = (room) => {
+    setRoomSideMenu(
+      <EditRoomSideMenu room={room} changeToPickRoom ={() => { pickRoom(room) }} mobile={mobile} />
+    )
   }
 
   return (
     <div className={styles.scrollContainer}>
-      <PerfectScrollbar onYReachEnd={() => { if (!lastPage && data && status === 'fetched' && !error) loadMoreRooms() }}>
+      <PerfectScrollbar onYReachEnd={() => { if (!lastPage && data && status === 'fetched') loadMoreRooms() }}>
         <div className={styles.scrollContentContainer}>
           <div className={styles.topScrollContainer}>
             <ButtonComponent
@@ -54,17 +69,17 @@ export default function Rooms({ roomClasses, mobile }) {
           {(data) &&
             <ListComponent data={data} mapFunction={(item, index) => {
               return (
-                <RoomListComponent
+                <RoomListItem
                   key={index}
                   roomName={item.roomName}
                   slots={item.slots}
                   usersInRoom={item.usersInRoom}
                   mobile={mobile}
-                  action={() => { pickRoom() }} />)
+                  action={() => { pickRoom(item) }} />)
             }} />}
 
           <div className={styles.bottomScrollContainer}>
-            {(error && status === 'fetched') &&
+            {(status === 'error') &&
               <div className={styles.errorContainer}>
                 <ButtonComponent
                   text='Wczytaj Pokoje'
@@ -80,6 +95,14 @@ export default function Rooms({ roomClasses, mobile }) {
           </div>
         </div>
       </PerfectScrollbar>
+
+      <div className={roomSideMenu ? styles.roomSideMenuEnabled : styles.roomSideMenuDisabled}>
+        <MyHr />
+        <div className={styles.iconContainer} onClick={() => setRoomSideMenu()}>
+          <AiIcons.AiOutlineClose />
+        </div>
+        {roomSideMenu && roomSideMenu}
+      </div>
     </div>
   )
 }

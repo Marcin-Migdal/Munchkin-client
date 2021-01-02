@@ -9,7 +9,7 @@ export const classes = makeStyles(theme => ({
   },
 
   text: {
-    fontSize: '3.5vh',
+    fontSize: '4vh',
     marginLeft: '1vh',
     color: theme.palette.secondary.main,
 

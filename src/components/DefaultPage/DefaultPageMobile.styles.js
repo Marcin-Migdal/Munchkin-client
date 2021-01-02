@@ -48,4 +48,11 @@ export const mobileClasses = makeStyles( theme => ({
     color: theme.palette.primary.main,
     margin: '0.75vh 0'
   },
+
+  sesionExpiredText: {
+    width:'55vw',
+    textAlign:'center',
+    fontSize: '2vh',
+    color: theme.palette.secondary.main,
+  }
 }));

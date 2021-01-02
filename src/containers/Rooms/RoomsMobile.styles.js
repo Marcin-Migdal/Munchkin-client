@@ -32,16 +32,51 @@ export const roomClasses = makeStyles(theme => ({
   },
 
   addRoomButton: {
-    fontSize: '1.75vmin',
+    fontSize: '1.75vh',
     borderRadius: '8px',
     fontWeight: 600,
     color: theme.palette.primary.main,
   },
 
   button: {
-    fontSize: '1.75vmin',
+    fontSize: '1.75vh',
     borderRadius: '8px',
     fontWeight: 600,
     color: theme.palette.secondary.main,
+  },
+
+  roomSideMenuEnabled: {
+    width: '70vw',
+    height: '100%',
+    position: 'fixed',
+    transition: '100ms',
+    right: 0,
+    top: '8vh',
+    zIndex: 2,
+    backgroundColor: theme.palette.background.default,
+  },
+
+  roomSideMenuDisabled: {
+    width: '70vw',
+    height: '100%',
+    position: 'fixed',
+    transition: '200ms',
+    right: '-100%',
+    top: '8vh',
+    zIndex: 2,
+    backgroundColor: theme.palette.background.default,
+  },
+
+  iconContainer: {
+    padding: '1vh',
+    borderRadius: '6px',
+    fontSize: '4vh',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    '& :hover': {
+      borderRadius: '6px',
+      backgroundColor: theme.palette.primary.main,
+    }
   },
 }));

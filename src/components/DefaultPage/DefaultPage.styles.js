@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core";
 
-export const desktopClasses = makeStyles( theme => ({
+export const desktopClasses = makeStyles(theme => ({
   backgroundLayer: {
     display: 'flex',
     alignItems: 'center',
@@ -11,7 +11,7 @@ export const desktopClasses = makeStyles( theme => ({
   container: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent:'center',
+    justifyContent: 'center',
     alignItems: 'center',
     height: '84vh',
     width: '100%',
@@ -19,13 +19,13 @@ export const desktopClasses = makeStyles( theme => ({
   },
 
   title: {
-    position:'absolute',
-    top:'1vh',
-    left:'45%',
+    position: 'absolute',
+    top: '1vh',
+    left: '45%',
     fontSize: '5vh',
     color: theme.palette.primary.main,
   },
-  
+
   description: {
     display: 'inline-block',
     width: '65vh',
@@ -36,7 +36,13 @@ export const desktopClasses = makeStyles( theme => ({
   button: {
     fontWeight: 600,
     width: '16.5vh',
-    margin: '3vh 1.5vh',
+    margin: '1.5vw 1.5vh 1.5vh 1.5vh',
     color: theme.palette.primary.main,
   },
+
+  sesionExpiredText: {
+    textAlign:'center',
+    fontSize: '2vh',
+    color: theme.palette.secondary.main,
+  }
 }));
