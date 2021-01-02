@@ -4,7 +4,7 @@ export const classes = makeStyles(theme => ({
   root: {
     '& .MuiTextField-root': {
       margin: '1vh 0',
-      width: '16vw',
+      width: '27ch',
     },
 
     '& .MuiInputBase-root': {

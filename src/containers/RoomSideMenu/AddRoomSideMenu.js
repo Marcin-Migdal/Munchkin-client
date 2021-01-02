@@ -3,15 +3,16 @@ import useInput from '../../hooks/UseInput/useInput';
 import ButtonComponent from '../../components/ButtonComponent/ButtonComponent';
 import val from '../../utils/ValidationUtil';
 import { classes } from './RoomSideMenu.styles';
+import { mobileClasses } from './RoomSideMenuMobile.styles';
 import roomsService from '../../api/rooms.api';
 
-export default function AddRoomSideMenu() {
+export default function AddRoomSideMenu({ mobile }) {
   const [roomNameInput, roomName, setRoomName] = useInput({ inputType: "text", inputLabel: "Nazwa pokoju", size: 'small' });
   const [slotsInput, slots, setSlots] = useInput({ inputType: "number", inputLabel: "Sloty", size: 'small' });
   const [roomPasswordInput, roomPassword, setRoomPassword] = useInput({ inputType: "password", inputLabel: "Hasło pokoju", size: 'small' });
   const [notification, setNotification] = useState('');
-  const styles = classes();
-
+  const styles = mobile ? mobileClasses() : classes()
+  
   const addRoom = () => {
     const addRoomRequest = {
       roomName: roomName.value,

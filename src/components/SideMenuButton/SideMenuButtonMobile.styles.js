@@ -1,13 +1,13 @@
 import { makeStyles } from "@material-ui/core";
 
-export const classes = makeStyles(theme => ({
+export const mobileClasses = makeStyles(theme => ({
   sideMenuItem: {
     display: 'flex',
     alignItems: 'center',
     height: '7vh',
-    width: '17vw',
-    margin: '1vh 0.5vw',
-    padding: '1vh',
+    width: '86vw',
+    margin: '2vw',
+    padding: '2vw',
     fontSize: '3.5vh',
     borderRadius: '8px',
     color: '#ffffff',
@@ -25,6 +25,6 @@ export const classes = makeStyles(theme => ({
 
   sideMenuItemText: {
     marginLeft: '1.3vh',
-    fontSize: '1.5vw',
+    fontSize: '3vh',
   },
 }));

@@ -1,8 +1,7 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom';
-import { classes } from './SideMenuButton.styles';
 
-export default function SideMenuButton({ path, icon, page }) {
+export default function SideMenuButton({ path, icon, page, classes }) {
   const history = useHistory();
   const styles = classes();
 

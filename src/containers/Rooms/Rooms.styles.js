@@ -26,26 +26,6 @@ export const roomClasses = makeStyles(theme => ({
     marginTop: '1.25vh',
   },
 
-  roomSideMenuEnabled: {
-    width: '18vw',
-    height: '98vh',
-    position: 'fixed',
-    transition: '300ms',
-    top: '6vh',
-    right: 0,
-    backgroundColor: theme.palette.background.default,
-  },
-
-  roomSideMenuDisabled: {
-    width: '18vw',
-    height: '98vh',
-    position: 'fixed',
-    transition: '600ms',
-    top: '6vh',
-    right: '-100%',
-    backgroundColor: theme.palette.background.default,
-  },
-
   errorContainer: {
     display: 'flex',
     justifyContent: 'center',
@@ -65,9 +45,28 @@ export const roomClasses = makeStyles(theme => ({
     color: theme.palette.secondary.main,
   },
 
+  roomSideMenuEnabled: {
+    width: '32ch',
+    height: '98vh',
+    position: 'fixed',
+    transition: '300ms',
+    top: '6vh',
+    right: 0,
+    backgroundColor: theme.palette.background.default,
+  },
+
+  roomSideMenuDisabled: {
+    width: '32ch',
+    height: '98vh',
+    position: 'fixed',
+    transition: '600ms',
+    top: '6vh',
+    right: '-100%',
+    backgroundColor: theme.palette.background.default,
+  },
+
   iconContainer: {
     padding: '1vh',
-    borderRadius: '6px',
     fontSize: '3vh',
     position: 'absolute',
     top: 0,

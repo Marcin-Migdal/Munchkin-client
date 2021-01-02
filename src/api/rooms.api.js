@@ -1,7 +1,7 @@
 import api from './api.js';
 
 class RoomsService {
-  getPageableRoom(url) {
+  getPageableRooms(url) {
     return api.httpGET('/api/rooms' + url);
   }
 

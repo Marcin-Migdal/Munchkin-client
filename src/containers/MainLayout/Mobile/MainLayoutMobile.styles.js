@@ -13,6 +13,8 @@ export const classes = makeStyles( theme => ({
     width:'100vw',
     position:'fixed',
     top:0,
+    
+    zIndex: 2,
     backgroundColor: theme.palette.background.default,
   },
 

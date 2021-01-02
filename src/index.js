@@ -8,6 +8,8 @@ const theme = createMuiTheme({
   palette: {
     primary: {
       main: '#ffcc00',
+      hover: '#ffd11a',
+      active: '#ffcc00'
     },
     secondary: {
       main: '#ffffff',

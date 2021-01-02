@@ -1,8 +1,14 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import ButtonComponent from '../ButtonComponent/ButtonComponent';
 
-export default function DefaultPage({classes}) {
+export default function DefaultPage({ classes }) {
   const styles = classes();
+
+  useEffect(() => {
+    return function cleanUp() {
+      localStorage.removeItem('tokenExpired')
+    }
+  }, []);
 
   return (
     <div className={styles.backgroundLayer}>
@@ -23,6 +29,11 @@ export default function DefaultPage({classes}) {
             variantStyle='contained'
             paletteColor='secondary' />
         </div>
+        {localStorage.getItem('tokenExpired') &&
+          <div>
+            <p className={styles.sesionExpiredText}>Czas sesji się skończył</p>
+            <p className={styles.sesionExpiredText}>proszę zalogować się ponownie</p>
+          </div>}
       </div>
     </div>
   )

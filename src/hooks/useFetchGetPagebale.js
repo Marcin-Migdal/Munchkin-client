@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import roomsService from '../api/rooms.api';
 
-export default function useFetchPagebale({ query, errorFlag, incrementPage }) {
+export default function useFetchGetPagebale({ query, errorFlag, incrementPage }) {
   const [status, setStatus] = useState('idle');
   const [data, setData] = useState();
   const [lastPage, setLastPage] = useState(false);
@@ -11,7 +11,7 @@ export default function useFetchPagebale({ query, errorFlag, incrementPage }) {
     if (!query) return;
     const fetchData = async () => {
       if (mounted) setStatus('fetching');
-      await roomsService.getPageableRoom(query)
+      await roomsService.getPageableRooms(query)
         .then((response) => {
           if (mounted) {
             if (!data) {
@@ -24,7 +24,12 @@ export default function useFetchPagebale({ query, errorFlag, incrementPage }) {
             setStatus('fetched')
           }
         })
-        .catch((e) => { if (mounted) setStatus('error') })
+        .catch((e) => {
+          if (mounted) {
+            setStatus('error')
+            console.log(e)
+          } 
+        })
     };
     fetchData();
 
@@ -33,5 +38,5 @@ export default function useFetchPagebale({ query, errorFlag, incrementPage }) {
     }
   }, [query, errorFlag]);
 
-  return { status, data, lastPage };
+  return [status, data, lastPage];
 };

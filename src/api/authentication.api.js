@@ -2,12 +2,12 @@ import api from './api';
 
 class Authentication {
   signIn(request) {
-    return api.httpPOST('/api/auth/signin', request)
+    return api.httpAuthPOST('/api/auth/signin', request)
       .then(this.saveToken);
   }
 
   signUp(request) {
-    return api.httpPOST('/api/auth/signup', request);
+    return api.httpAuthPOST('/api/auth/signup', request);
   }
 
   signOut() {

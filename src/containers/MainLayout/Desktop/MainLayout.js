@@ -6,7 +6,7 @@ import SideMenu from '../../SideMenu/SideMenu';
 import Home from '../../../prepPages/Home';
 import Rooms from '../../Rooms/Rooms';
 import History from '../../../prepPages/History';
-import Settings from '../../../prepPages/Settings';
+import Settings from '../../Settings/Settings';
 import { classes } from './MainLayout.styles'
 import { roomClasses } from '../../Rooms/Rooms.styles';
 
@@ -15,6 +15,7 @@ export default function MainLayout() {
   const toggleSideMenu = () => setSideMenuActive(!sideMenuActive);
   const history = useHistory();
   const styles = classes();
+  const mobile = false;
 
   useEffect(() => {
     history.replace('/rooms');
@@ -28,14 +29,14 @@ export default function MainLayout() {
         </div>
         <div className={styles.bottomConteinerSideMenu}>
           <div className={sideMenuActive ? styles.sideMenuConteinerEnabled : styles.sideMenuConteinerDisabled}>
-            <SideMenu />
+            <SideMenu mobile={mobile} />
           </div>
-          <div  className={styles.contentConteiner}>
+          <div className={styles.contentConteiner}>
             <Route path="/home">
               <Home />
             </Route>
             <Route path="/rooms">
-              <Rooms roomClasses={roomClasses} mobile={false} />
+              <Rooms roomClasses={roomClasses} mobile={mobile} />
             </Route>
             <Route path="/history">
               <History />

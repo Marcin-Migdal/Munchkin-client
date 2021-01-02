@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core";
 
-export const classes = makeStyles(theme => ({
+export const mobileClasses = makeStyles(theme => ({
   roomSideMenuContainer: {
     display: 'flex',
     flexDirection: 'column',
@@ -22,13 +22,13 @@ export const classes = makeStyles(theme => ({
     justifyContent: 'space-evenly',
     width: '90%',
     '& .MuiButton-root': {
-      width: '11vh'
+      width: '12vh'
     }
   },
 
   button: {
     margin: '0.75vh 0 1.75vh 0',
-    borderRadius: '6px',
+    borderRadius: '8px',
     fontSize: '1.75vh',
     fontWeight: 600,
     backgroundColor: theme.palette.secondary.main,
@@ -39,8 +39,8 @@ export const classes = makeStyles(theme => ({
 
   text: {
     textAlign: 'center',
-    margin: '0.75vh 0',
-    fontSize: '2.65vh',
+    marginTop: '1vh',
+    fontSize: '3.25vh',
     color: theme.palette.secondary.main,
   },
 
@@ -48,7 +48,7 @@ export const classes = makeStyles(theme => ({
     textAlign: 'center',
     width: '90%',
     marginTop: '1vh',
-    fontSize: '3vh',
+    fontSize: '3.25vh',
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
@@ -59,31 +59,16 @@ export const classes = makeStyles(theme => ({
     width: '90%',
     textAlign: 'center',
     marginBottom: '1.75vh',
-    fontSize: '2.5vh',
+    fontSize: '2.25vh',
     color: theme.palette.secondary.main,
   },
 
   playersContainer: {
-    display:'flex',
-    flexDirection:'column',
-    width:'100%',
     marginTop: '1.75vh',
   },
 
   playerText: {
     fontSize: '2.5vh',
     color: theme.palette.secondary.main,
-  },
-
-  iconContainer: {
-    padding: '1vh',
-    fontSize: '3vh',
-    position: 'absolute',
-    top: 0,
-    left: '3vh',
-    '& :hover': {
-      borderRadius: '6px',
-      backgroundColor: theme.palette.primary.main,
-    }
-  },
+  }
 }));

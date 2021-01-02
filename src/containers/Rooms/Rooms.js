@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar'
-import useFetchPagebale from '../../hooks/useFetchPagebale';
+import useFetchGetPagebale from '../../hooks/useFetchGetPagebale';
 import ButtonComponent from '../../components/ButtonComponent/ButtonComponent';
 import LoadingComponent from '../../components/LoadingComponent/LoadingComponent';
-import InfoModal from '../../components/InfoModal/InfoModal';
 import ListComponent from '../../components/ListComponent/ListComponent';
-import RoomListComponent from '../../components/RoomListComponent/RoomListComponent';
+import RoomListItem from '../../components/RoomListItem/RoomListItem';
+import InfoModal from '../../components/InfoModal/InfoModal';
+import MyHr from '../../components/MyHr/MyHr';
 import AddRoomSideMenu from '../RoomSideMenu/AddRoomSideMenu';
 import EditRoomSideMenu from '../RoomSideMenu/EditRoomSideMenu';
-import MyHr from '../../components/MyHr/MyHr';
-import * as AiIcons from "react-icons/ai"
 import PickRoomSideMenu from '../RoomSideMenu/PickRoomSideMenu';
+import * as AiIcons from "react-icons/ai"
 import 'react-perfect-scrollbar/dist/css/styles.css';
 
 export default function Rooms({ roomClasses, mobile }) {
@@ -19,7 +19,7 @@ export default function Rooms({ roomClasses, mobile }) {
   const [query, setQuery] = useState('/getAll/' + page + '/' + pageSize);
   const [errorFlag, setErrorFlag] = useState(0);
   const [roomSideMenu, setRoomSideMenu] = useState();
-  const { status, data, lastPage } = useFetchPagebale({
+  const [status, data, lastPage] = useFetchGetPagebale({
     query: query,
     errorFlag,
     incrementPage: () => { setPage(page + 1) }
@@ -37,19 +37,19 @@ export default function Rooms({ roomClasses, mobile }) {
 
   const addRoom = () => {
     setRoomSideMenu(
-      <AddRoomSideMenu />
+      <AddRoomSideMenu mobile={mobile} />
     )
   }
 
-  const pickRoom = (item) => {
+  const pickRoom = (room) => {
     setRoomSideMenu(
-      <PickRoomSideMenu room={item} changeToEditRoom={(roomId) => { editRoom(roomId) }} />
+      <PickRoomSideMenu room={room} changeToEditRoom={() => { editRoom(room) }} mobile={mobile} />
     )
   }
 
-  const editRoom = (roomId) => {
+  const editRoom = (room) => {
     setRoomSideMenu(
-      <EditRoomSideMenu roomId={roomId} />
+      <EditRoomSideMenu room={room} changeToPickRoom ={() => { pickRoom(room) }} mobile={mobile} />
     )
   }
 
@@ -69,7 +69,7 @@ export default function Rooms({ roomClasses, mobile }) {
           {(data) &&
             <ListComponent data={data} mapFunction={(item, index) => {
               return (
-                <RoomListComponent
+                <RoomListItem
                   key={index}
                   roomName={item.roomName}
                   slots={item.slots}
@@ -98,8 +98,8 @@ export default function Rooms({ roomClasses, mobile }) {
 
       <div className={roomSideMenu ? styles.roomSideMenuEnabled : styles.roomSideMenuDisabled}>
         <MyHr />
-        <div className={styles.iconContainer} onClick={() => setRoomSideMenu(false)}>
-          <AiIcons.AiOutlineClose className={styles.closeIcon} />
+        <div className={styles.iconContainer} onClick={() => setRoomSideMenu()}>
+          <AiIcons.AiOutlineClose />
         </div>
         {roomSideMenu && roomSideMenu}
       </div>

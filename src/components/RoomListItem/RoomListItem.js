@@ -1,7 +1,7 @@
 import React from 'react'
-import { classes } from './RoomListComponent.styles'
+import { classes } from './RoomListItem.styles'
 
-export default function RoomListComponent({ roomName, slots, usersInRoom, action, mobile }) {
+export default function RoomListItem({ roomName, slots, usersInRoom, action, mobile }) {
   const styles = classes();
 
   return (
