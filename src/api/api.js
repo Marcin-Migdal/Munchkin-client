@@ -2,6 +2,7 @@ import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 
 export const backendUrl = 'http://localhost:5000';
+
 class ApiService {
   httpGET(url) {
     if (this.validateToken()) {
