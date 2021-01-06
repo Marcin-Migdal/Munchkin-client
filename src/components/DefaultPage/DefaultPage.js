@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
-import ButtonComponent from '../ButtonComponent/ButtonComponent';
+import { Link } from 'react-router-dom';
+import { Button } from '@material-ui/core';
 
 export default function DefaultPage({ classes }) {
   const styles = classes();
@@ -16,18 +17,22 @@ export default function DefaultPage({ classes }) {
       <div className={styles.container}>
         <span className={styles.description}>Uprość swoją rozgrywkę w grze karcianej Munchkin dzieki zapisywaniu postępu swojej postaci oraz możliwości natychmiastowego sprawdzania postępu swoich przeciwników</span>
         <div className={styles.buttonContainer}>
-          <ButtonComponent
-            url="/login"
-            text="Logowanie"
-            btnStyle={styles.button}
-            variantStyle='contained'
-            paletteColor='secondary' />
-          <ButtonComponent
-            url="/register"
-            text="Rejestracja"
-            btnStyle={styles.button}
-            variantStyle='contained'
-            paletteColor='secondary' />
+          <Button
+            component={Link}
+            to={'/login'}
+            variant="contained"
+            color="secondary"
+            className={styles.button}>
+            Logowanie
+          </Button>
+          <Button
+            component={Link}
+            to={'/register'}
+            variant="contained"
+            color="secondary"
+            className={styles.button}>
+            Rejestracja
+          </Button>
         </div>
         {localStorage.getItem('tokenExpired') &&
           <div>

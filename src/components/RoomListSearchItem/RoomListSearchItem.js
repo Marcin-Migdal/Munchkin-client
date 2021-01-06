@@ -1,7 +1,7 @@
 import React from 'react'
-import { classes } from './RoomListItem.styles'
+import { classes } from './RoomListSearchItem.styles'
 
-export default function RoomListItem({ room, action, mobile }) {
+export default function RoomListSearchItem({ room, action, mobile }) {
   const {roomName, slots, usersInRoom} = room;
   const styles = classes();
 

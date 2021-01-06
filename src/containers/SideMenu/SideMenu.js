@@ -10,7 +10,7 @@ import { mobileClasses } from '../../components/SideMenuButton/SideMenuButtonMob
 
 export default function SideMenu({ closeSideMenu, mobile }) {
   const styles = mobile ? mobileClasses : classes;
-  
+
   return (
     <div>
       <MyHr />
@@ -23,7 +23,7 @@ export default function SideMenu({ closeSideMenu, mobile }) {
           )
         }} />
         <div onClick={authenticationService.signOut}>
-          <SideMenuButton path='/' icon={<AiOutlineLogout />} page='Wyloguj' classes={styles} />
+          <SideMenuButton path='' icon={<AiOutlineLogout />} page='Wyloguj' classes={styles} />
         </div>
       </ul>
     </div>

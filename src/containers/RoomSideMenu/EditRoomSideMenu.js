@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import useInput from '../../hooks/UseInput/useInput';
-import ButtonComponent from '../../components/ButtonComponent/ButtonComponent';
 import val from '../../utils/ValidationUtil';
 import { classes } from './RoomSideMenu.styles';
 import { mobileClasses } from './RoomSideMenuMobile.styles';
 import roomsService from '../../api/rooms.api';
 import * as IoIcons from "react-icons/io"
+import { Button } from '@material-ui/core';
 
 export default function EditRoomSideMenu({ room, changeToPickRoom, mobile }) {
   const [roomNameInput, roomName, setRoomName] = useInput({ inputType: "text", inputLabel: "Nazwa pokoju", size: 'small' });
@@ -36,24 +36,30 @@ export default function EditRoomSideMenu({ room, changeToPickRoom, mobile }) {
     }
   }
 
+
+
+
   const showDeleteButtons = () => {
     setDeleteButtons(
       <div className={styles.buttonContainer}>
-        <ButtonComponent
-          text='Tak'
-          btnStyle={styles.button}
-          variantStyle='outlined'
-          paletteColor='primary'
-          action={deleteRoom} />
-        <ButtonComponent
-          text='Nie'
-          btnStyle={styles.button}
-          variantStyle='outlined'
-          paletteColor='primary'
-          action={() => {
+        <Button
+          variant="outlined"
+          color="primary"
+          onClick={deleteRoom}
+          className={styles.button}>
+          Tak
+        </Button>
+        <Button
+          variant="outlined"
+          color="primary"
+          className={styles.button}
+          onClick={() => {
             setNotification()
             setDeleteButtons()
-          }} />
+          }}>
+          Nie
+        </Button>
+
       </div>
     )
     setNotyficationText('Czy na pewno chcesz usnąć ten pokój ?')
@@ -92,18 +98,20 @@ export default function EditRoomSideMenu({ room, changeToPickRoom, mobile }) {
       {roomPasswordInput}
       {!deleteButtons &&
         <div className={styles.buttonContainer}>
-          <ButtonComponent
-            text='Usuń'
-            btnStyle={styles.button}
-            variantStyle='outlined'
-            paletteColor='primary'
-            action={showDeleteButtons} />
-          <ButtonComponent
-            text='Edytuj'
-            btnStyle={styles.button}
-            variantStyle='outlined'
-            paletteColor='primary'
-            action={editRoom} />
+          <Button
+            variant="outlined"
+            color="primary"
+            onClick={showDeleteButtons}
+            className={styles.button}>
+            Usuń
+          </Button>
+          <Button
+            variant="outlined"
+            color="primary"
+            onClick={editRoom}
+            className={styles.button}>
+            Edytuj
+          </Button>
         </div>
       }
       {deleteButtons && deleteButtons}

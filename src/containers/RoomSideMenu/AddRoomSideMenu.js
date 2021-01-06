@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import useInput from '../../hooks/UseInput/useInput';
-import ButtonComponent from '../../components/ButtonComponent/ButtonComponent';
 import val from '../../utils/ValidationUtil';
 import { classes } from './RoomSideMenu.styles';
 import { mobileClasses } from './RoomSideMenuMobile.styles';
 import roomsService from '../../api/rooms.api';
+import { Button } from '@material-ui/core';
 
 export default function AddRoomSideMenu({ mobile }) {
   const [roomNameInput, roomName, setRoomName] = useInput({ inputType: "text", inputLabel: "Nazwa pokoju", size: 'small' });
@@ -12,7 +12,7 @@ export default function AddRoomSideMenu({ mobile }) {
   const [roomPasswordInput, roomPassword, setRoomPassword] = useInput({ inputType: "password", inputLabel: "Hasło pokoju", size: 'small' });
   const [notification, setNotification] = useState('');
   const styles = mobile ? mobileClasses() : classes()
-  
+
   const addRoom = () => {
     const addRoomRequest = {
       roomName: roomName.value,
@@ -50,12 +50,13 @@ export default function AddRoomSideMenu({ mobile }) {
       {slotsInput}
       {roomPasswordInput}
       <div>
-        <ButtonComponent
-          text='Stwórz pokój'
-          btnStyle={styles.button}
-          variantStyle='outlined'
-          paletteColor='primary'
-          action={addRoom} />
+        <Button
+          variant="outlined"
+          color="primary"
+          onClick={addRoom}
+          className={styles.button}>
+          Stwórz pokój
+        </Button>
       </div>
       {notification && notification}
     </div>

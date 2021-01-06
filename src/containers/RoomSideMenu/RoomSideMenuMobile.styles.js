@@ -70,5 +70,18 @@ export const mobileClasses = makeStyles(theme => ({
   playerText: {
     fontSize: '2.5vh',
     color: theme.palette.secondary.main,
-  }
+  },
+
+  iconContainer: {
+    padding: '1vh',
+    borderRadius: '6px',
+    fontSize: '4vh',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    '& :hover': {
+      borderRadius: '6px',
+      backgroundColor: theme.palette.primary.main,
+    }
+  },
 }));

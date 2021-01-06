@@ -6,7 +6,7 @@ export default function SideMenuButton({ path, icon, page, classes }) {
   const styles = classes();
 
   const goToPage = () => {
-    history.replace(path)
+    history.push(path);
   }
 
   return (

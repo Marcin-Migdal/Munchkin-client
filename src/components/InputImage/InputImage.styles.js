@@ -24,7 +24,7 @@ export const classes = makeStyles(theme => ({
 
   fileNameText: {
     width: 'fit-content',
-    maxWidth: '20vh',
+    maxWidth: '15vh',
     marginRight: '0.3vh',
     whiteSpace: 'nowrap',
     overflow: 'hidden',

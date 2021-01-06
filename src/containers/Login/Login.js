@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import authService from '../../api/authentication.api';
 import useInput from '../../hooks/UseInput/useInput';
-import ButtonComponent from '../../components/ButtonComponent/ButtonComponent';
-import { useMediaQuery } from '@material-ui/core';
+import { Button, useMediaQuery } from '@material-ui/core';
 import val from '../../utils/ValidationUtil';
 import { classes } from './Login.styles'
 
@@ -36,12 +35,13 @@ export default function Login() {
       <span className={styles.title}>Logowanie</span>
       {loginInput}
       {passwordInput}
-      <ButtonComponent
-        text='Zaloguj się'
-        btnStyle={styles.button}
-        variantStyle='contained'
-        paletteColor='secondary'
-        action={signIn} />
+      <Button
+        variant="contained"
+        color="secondary"
+        className={styles.button}
+        onClick={signIn}>
+        Zaloguj się
+      </Button>
       {error && error}
     </div>
   );

@@ -11,19 +11,19 @@ export const classes = makeStyles(theme => ({
     border: '1px solid',
     borderColor: theme.palette.background.paper,
     borderRadius: '8px',
-    fontSize: '4vh',
+    fontSize: '3vh',
     color: theme.palette.primary.main,
     
     '& p:nth-of-type(1)': {
       width:'67%',
-      fontSize: '4vh',
+      fontSize: '3vh',
       whiteSpace:'nowrap',
       overflow:'hidden',
       textOverflow:'ellipsis',
     },
 
     '& p:nth-of-type(2)': {
-      fontSize: '3vh',
+      fontSize: '2.25vh',
     },
 
     '&:hover': {

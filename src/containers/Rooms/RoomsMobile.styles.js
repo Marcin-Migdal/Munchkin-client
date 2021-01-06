@@ -2,6 +2,9 @@ import { makeStyles } from "@material-ui/core";
 
 export const roomClasses = makeStyles(theme => ({
   scrollContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
     width: '100%',
     height: '92vh',
     zIndex: 1,
@@ -10,12 +13,6 @@ export const roomClasses = makeStyles(theme => ({
   topScrollContainer: {
     marginTop: '13vh',
     width: '90vw'
-  },
-
-  scrollContentContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
   },
 
   bottomScrollContainer: {
@@ -69,7 +66,6 @@ export const roomClasses = makeStyles(theme => ({
 
   iconContainer: {
     padding: '1vh',
-    borderRadius: '6px',
     fontSize: '4vh',
     position: 'absolute',
     top: 0,

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import ButtonComponent from '../../components/ButtonComponent/ButtonComponent';
 import { classes } from './RoomSideMenu.styles';
 import { mobileClasses } from './RoomSideMenuMobile.styles';
 import roomsService from '../../api/rooms.api';
@@ -8,22 +7,23 @@ import useInput from '../../hooks/UseInput/useInput';
 import MyHr from '../../components/MyHr/MyHr';
 import ListComponent from '../../components/ListComponent/ListComponent';
 import PlayerListItem from '../../components/PlayerListItem/PlayerListItem';
+import { Button } from '@material-ui/core';
 
 export default function PickRoomSideMenu({ room, changeToEditRoom, mobile }) {
   const [roomPasswordInput, roomPassword, setRoomPassword] = useInput({ inputType: "password", inputLabel: "Hasło pokoju", size: 'small' });
   const [notification, setNotification] = useState();
-  const [userData, setUserData] = useFetchGet({ url: '/api/auth/user' });
+  const [userData] = useFetchGet({ url: '/api/auth/user' });
   const [playersInRoom, setPlayersInRoomData] = useFetchGet({ url: '/api/playerStatus/allPlayersStatuses/' + room.id });
   const styles = mobile ? mobileClasses() : classes()
 
   useEffect(() => {
+    const cleanUp = () => {
+      setPlayersInRoomData()
+      setNotification()
+    }
+    
     cleanUp()
-  }, [room]);
-
-  const cleanUp = () => {
-    setPlayersInRoomData()
-    setNotification()
-  }
+  }, [room, setPlayersInRoomData]);
 
   const joinRoom = () => {
     const joinRoomRequest = {
@@ -55,30 +55,31 @@ export default function PickRoomSideMenu({ room, changeToEditRoom, mobile }) {
     if (userData.id === room.creatorId) {
       return (
         <div className={styles.buttonContainer}>
-          <ButtonComponent
-            id='addButton'
-            text='Edytuj'
-            btnStyle={styles.button}
-            variantStyle='outlined'
-            paletteColor='primary'
-            action={() => { changeToEditRoom(room) }} />
-
-          <ButtonComponent
-            text='Dołącz'
-            btnStyle={styles.button}
-            variantStyle='outlined'
-            paletteColor='primary'
-            action={joinRoom} />
+          <Button
+            variant="outlined"
+            color="primary"
+            onClick={() => { changeToEditRoom(room) }}
+            className={styles.button}>
+            Edytuj
+          </Button>
+          <Button
+            variant="outlined"
+            color="primary"
+            onClick={joinRoom}
+            className={styles.button}>
+            Dołącz
+          </Button>
         </div>
       )
     } else {
       return (
-        <ButtonComponent
-          text='Dołącz'
-          btnStyle={styles.button}
-          variantStyle='outlined'
-          paletteColor='primary'
-          action={joinRoom} />
+        <Button
+          variant="outlined"
+          color="primary"
+          onClick={joinRoom}
+          className={styles.button}>
+          Dołącz
+        </Button>
       )
     }
   }
@@ -87,7 +88,7 @@ export default function PickRoomSideMenu({ room, changeToEditRoom, mobile }) {
     <div className={styles.roomSideMenuContainer}>
       <div className={styles.textContainer}>
         <p className={styles.roomNameText}>{room.roomName}</p>
-        <p className={styles.text}>Zajęte miejsca: {room.usersInRoom}/{room.slots}</p>
+        <p className={styles.text}>Sloty: {room.usersInRoom}/{room.slots}</p>
         {roomPasswordInput}
       </div>
       {userData && <Buttons />}

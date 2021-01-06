@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { FormControlLabel, Radio, RadioGroup, useMediaQuery } from '@material-ui/core';
+import { Button, FormControlLabel, Radio, RadioGroup, useMediaQuery } from '@material-ui/core';
 import authService from '../../api/authentication.api';
 import useInput from '../../hooks/UseInput/useInput';
-import ButtonComponent from '../../components/ButtonComponent/ButtonComponent';
 import val from '../../utils/ValidationUtil';
 import { classes } from './Register.styles'
 
@@ -27,7 +26,7 @@ export default function Register() {
   const signUp = () => {
     if (val.signUp(inGameName, setInGameName, userName, setUserName, email, setEmail,
       password, setPassword, rePassword, setRePassword)) {
-           
+
       const signUpRequest = {
         inGameName: `${inGameName.value}`,
         username: `${userName.value}`,
@@ -60,12 +59,13 @@ export default function Register() {
           <FormControlLabel value="female" control={<Radio />} label="Female" />
           <FormControlLabel value="male" control={<Radio />} label="Male" />
         </RadioGroup>
-        <ButtonComponent
-          text='Stwórz konto'
-          btnStyle={styles.button}
-          variantStyle='contained'
-          paletteColor='secondary'
-          action={signUp} />
+        <Button
+          variant="contained"
+          color="secondary"
+          className={styles.button}
+          onClick={signUp}>
+          Stwórz konto
+        </Button>
         {error && error}
       </div>
     </div>

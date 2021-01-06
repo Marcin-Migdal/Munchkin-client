@@ -17,10 +17,10 @@ class Valiate {
       setSlots({ inputError: true, errorMessage: 'Sloty nie mogą być puste' });
       return false
     } else if (roomRequest.slots < 3) {
-      setSlots({ inputError: true, errorMessage: 'Slotów musi być wiecej jak 3' });
+      setSlots({ inputError: true, errorMessage: 'Slotów musi być minialnie 3' });
       return false
     } else if (roomRequest.slots > 8) {
-      setSlots({ inputError: true, errorMessage: 'Slotów musi być mniej jak 8' });
+      setSlots({ inputError: true, errorMessage: 'Slotów musi być maksymalnie 8' });
       return false
     }
 

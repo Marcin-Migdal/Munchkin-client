@@ -9,14 +9,14 @@ export default function PlayerListItem({ mobile, userId, playerName, gender, pla
   const styles = classes();
 
   useEffect(() => {
-    getAvatar();
-  }, []);
+    const getAvatar = () => {
+      userService.getAvatar(userId)
+        .then(res => setAvatar(URL.createObjectURL(res)))
+        .catch(e => console.log(e))
+    }
 
-  const getAvatar = () => {
-    userService.getAvatar(userId)
-      .then(res => setAvatar(URL.createObjectURL(res)))
-      .catch(e => console.log(e))
-  }
+    getAvatar();
+  }, [userId]);
 
   return (
     <div className={mobile ? styles.roomContainerMobile : styles.roomContainerDesktop} onClick={action} >

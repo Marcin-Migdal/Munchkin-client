@@ -99,7 +99,6 @@ class ApiService {
       localStorage.setItem('tokenExpired', true);
       return false;
     } else {
-      console.log("Valid token");
       return true;
     }
   }

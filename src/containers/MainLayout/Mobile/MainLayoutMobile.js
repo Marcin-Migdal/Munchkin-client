@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Route, useHistory } from 'react-router-dom';
 import { IconContext } from 'react-icons';
-import Navbar from '../../Navbar/Navbar';
+import NavbarMobile from '../../Navbar/Mobile/NavbarMobile';
 import SideMenu from '../../SideMenu/SideMenu';
 import Home from '../../../prepPages/Home';
 import Rooms from '../../Rooms/Rooms';
@@ -9,6 +9,8 @@ import History from '../../../prepPages/History';
 import Settings from '../../Settings/Settings';
 import { classes } from './MainLayoutMobile.styles'
 import { roomClasses } from '../../Rooms/RoomsMobile.styles';
+import { settingsClasses } from '../../Settings/SettingsMobile.styles';
+import SelectRoom from '../../SelectRoom/SelectRoom';
 
 export default function MainLayoutMobile() {
   const [sideMenuActive, setSideMenuActive] = useState(false);
@@ -26,7 +28,7 @@ export default function MainLayoutMobile() {
     <IconContext.Provider value={{ color: '#fff' }}>
       <div className={styles.container}>
         <div className={styles.topContainer}>
-          <Navbar toggleSideMenu={toggleSideMenu} />
+          <NavbarMobile toggleSideMenu={toggleSideMenu} mobile={mobile} sideMenuActive={sideMenuActive} />
         </div>
         <div className={styles.bottomContainer}>
           <div className={sideMenuActive ? styles.sideMenuEnabled : styles.sideMenuDisabled}>
@@ -43,7 +45,10 @@ export default function MainLayoutMobile() {
               <History />
             </Route>
             <Route path="/settings">
-              <Settings />
+              <Settings settingsClasses={settingsClasses}/>
+            </Route>
+            <Route path="/room">
+              <SelectRoom/>
             </Route>
           </div>
         </div>
