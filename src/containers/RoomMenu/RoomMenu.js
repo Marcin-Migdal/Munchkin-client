@@ -82,14 +82,14 @@ export default function RoomMenu({ mobile, classes }) {
   }
 
   return (
-    <div className={styles.roomMenuConteiner}>
-      <div className={styles.topConteiner}>
+    <div className={styles.roomMenuContainer}>
+      <div className={styles.topContainer}>
         <p className={styles.roomNameText}>Pokój: {room.roomName}</p>
         <p className={styles.text}>Gracze w pokoju: {room.usersInRoom}/{room.slots}</p>
       </div>
 
-      <div className={styles.bottomConteiner}>
-        <div className={styles.passwordConteiner}>
+      <div className={styles.bottomContainer}>
+        <div className={styles.passwordContainer}>
           {roomPasswordInput}
           <Button
             variant="outlined"
@@ -104,7 +104,7 @@ export default function RoomMenu({ mobile, classes }) {
         {notification && notification}
 
         {playersInRoom &&
-          <div className={styles.playersConteiner}>
+          <div className={styles.playersContainer}>
             <IconContext.Provider value={{ color: '#ffcc00' }}>
               <ListComponent data={playersInRoom} mapFunction={(item, index) => {
                 return (

@@ -1,13 +1,13 @@
 import { makeStyles } from "@material-ui/core";
 
 export const roomMenuClasses = makeStyles(theme => ({
-  roomMenuConteiner: {
+  roomMenuContainer: {
     display: 'flex',
     flexDirection: 'column',
     width: '52vw',
   },
 
-  topConteiner: {
+  topContainer: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -32,14 +32,14 @@ export const roomMenuClasses = makeStyles(theme => ({
     color: theme.palette.primary.main,
   },
 
-  bottomConteiner: {
+  bottomContainer: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     width: '100%',
   },
 
-  passwordConteiner: {
+  passwordContainer: {
     display: 'flex',
     flexDirection: 'row',
     marginBottom: '0.85vh',
@@ -74,7 +74,7 @@ export const roomMenuClasses = makeStyles(theme => ({
     color: theme.palette.primary.main,
   },
 
-  playersConteiner: {
+  playersContainer: {
     marginTop: '0.85vh',
     display: 'flex',
     flexDirection: 'column',

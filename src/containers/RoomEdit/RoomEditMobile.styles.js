@@ -1,7 +1,7 @@
 import { makeStyles } from "@material-ui/core";
 
 export const roomEditClasses = makeStyles(theme => ({
-  roomEditConteiner: {
+  roomEditContainer: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -27,7 +27,7 @@ export const roomEditClasses = makeStyles(theme => ({
     },
   },
 
-  buttonsConteiner: {
+  buttonsContainer: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -35,7 +35,7 @@ export const roomEditClasses = makeStyles(theme => ({
     marginTop: '0.5vh',
   },
 
-  deleteButtonsConteiner: {
+  deleteButtonsContainer: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',

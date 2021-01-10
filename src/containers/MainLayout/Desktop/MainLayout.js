@@ -26,11 +26,11 @@ export default function MainLayout() {
         <div className={styles.topContainer} >
           <Navbar toggleSideMenu={toggleSideMenu} mobile={mobile} />
         </div>
-        <div className={styles.bottomConteinerSideMenu}>
-          <div className={sideMenuActive ? styles.sideMenuConteinerEnabled : styles.sideMenuConteinerDisabled}>
+        <div className={styles.bottomContainerSideMenu}>
+          <div className={sideMenuActive ? styles.sideMenuContainerEnabled : styles.sideMenuContainerDisabled}>
             <SideMenu mobile={mobile} />
           </div>
-          <div className={styles.contentConteiner}>
+          <div className={styles.contentContainer}>
             <Route path="/home">
               <Home />
             </Route>

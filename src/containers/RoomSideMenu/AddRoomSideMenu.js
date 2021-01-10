@@ -42,8 +42,8 @@ export default function AddRoomSideMenu({ mobile }) {
   }
 
   return (
-    <div className={styles.roomSideMenuConteiner}>
-      <div className={styles.textConteiner}>
+    <div className={styles.roomSideMenuContainer}>
+      <div className={styles.textContainer}>
         <p className={styles.text}>Dodawanie pokoju</p>
       </div>
       {roomNameInput}

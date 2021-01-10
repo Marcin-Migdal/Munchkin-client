@@ -13,14 +13,14 @@ export const classes = makeStyles(theme => ({
     backgroundColor: theme.palette.background.default,
   },
 
-  bottomConteinerSideMenu: {
+  bottomContainerSideMenu: {
     display: 'flex',
     flexDirection: 'row',
     height: '94vh',
     width: '100vw',
   },
 
-  sideMenuConteinerEnabled: {
+  sideMenuContainerEnabled: {
     height: '100%',
     width: '18vw',
     position: 'fixed',
@@ -30,7 +30,7 @@ export const classes = makeStyles(theme => ({
     backgroundColor: theme.palette.background.default,
   },
 
-  sideMenuConteinerDisabled: {
+  sideMenuContainerDisabled: {
     height: '100%',
     width: '18vw',
     position: 'fixed',
@@ -40,7 +40,7 @@ export const classes = makeStyles(theme => ({
     backgroundColor: theme.palette.background.default,
   },
 
-  contentConteiner: {
+  contentContainer: {
     display: 'flex',
     justifyContent: 'center',
     height: '100%',

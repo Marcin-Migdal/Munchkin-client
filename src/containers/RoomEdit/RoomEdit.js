@@ -41,7 +41,7 @@ export default function RoomEdit({ classes }) {
 
   const showDeleteButtons = () => {
     setDeleteButtons(
-      <div className={styles.deleteButtonsConteiner}>
+      <div className={styles.deleteButtonsContainer}>
         <Button
           variant="outlined"
           color="primary"
@@ -96,13 +96,13 @@ export default function RoomEdit({ classes }) {
   }
 
   return (
-    <div className={styles.roomEditConteiner}>
+    <div className={styles.roomEditContainer}>
       <p className={styles.text}>Edytowanie pokoju</p>
       {roomNameInput}
       {slotsInput}
       {roomPasswordInput}
       {!deleteButtons &&
-        <div className={styles.buttonsConteiner}>
+        <div className={styles.buttonsContainer}>
           <Button
             variant="outlined"
             color="primary"

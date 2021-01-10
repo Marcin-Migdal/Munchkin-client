@@ -68,13 +68,13 @@ export default function PickRoomSideMenu({ room, changeToEditRoom, mobile }) {
   }
 
   return (
-    <div className={styles.roomSideMenuConteiner}>
-      <div className={styles.textConteiner}>
+    <div className={styles.roomSideMenuContainer}>
+      <div className={styles.textContainer}>
         <p className={styles.roomNameText}>{room.roomName}</p>
         <p className={styles.text}>Sloty: {room.usersInRoom}/{room.slots}</p>
         {roomPasswordInput}
       </div>
-      <div className={styles.buttonConteiner}>
+      <div className={styles.buttonContainer}>
         <Button
           variant="outlined"
           color="primary"
@@ -87,7 +87,7 @@ export default function PickRoomSideMenu({ room, changeToEditRoom, mobile }) {
       {notification && notification}
       <MyHr />
       {playersInRoom &&
-        <div className={styles.playersConteiner}>
+        <div className={styles.playersContainer}>
           <ListComponent data={playersInRoom} mapFunction={(item, index) => {
             return (
               <PlayerListItem

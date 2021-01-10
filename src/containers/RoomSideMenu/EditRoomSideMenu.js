@@ -38,7 +38,7 @@ export default function EditRoomSideMenu({ room, changeToPickRoom, mobile }) {
 
   const showDeleteButtons = () => {
     setDeleteButtons(
-      <div className={styles.buttonConteiner}>
+      <div className={styles.buttonContainer}>
         <Button
           variant="outlined"
           color="primary"
@@ -83,18 +83,18 @@ export default function EditRoomSideMenu({ room, changeToPickRoom, mobile }) {
   }
 
   return (
-    <div className={styles.roomSideMenuConteiner}>
-      <div className={styles.iconConteiner} onClick={() => changeToPickRoom()}>
+    <div className={styles.roomSideMenuContainer}>
+      <div className={styles.iconContainer} onClick={() => changeToPickRoom()}>
         <IoIcons.IoIosArrowBack />
       </div>
-      <div className={styles.textConteiner}>
+      <div className={styles.textContainer}>
         <p className={styles.text}>Edytowanie pokoju</p>
       </div>
       {roomNameInput}
       {slotsInput}
       {roomPasswordInput}
       {!deleteButtons &&
-        <div className={styles.buttonConteiner}>
+        <div className={styles.buttonContainer}>
           <Button
             variant="outlined"
             color="primary"
