@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Route, useHistory } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Route } from 'react-router-dom';
 import { IconContext } from 'react-icons';
 import NavbarMobile from '../../Navbar/Mobile/NavbarMobile';
 import SideMenu from '../../SideMenu/SideMenu';
@@ -7,22 +7,20 @@ import Home from '../../../prepPages/Home';
 import Rooms from '../../Rooms/Rooms';
 import History from '../../../prepPages/History';
 import Settings from '../../Settings/Settings';
+import RoomMenu from '../../RoomMenu/RoomMenu';
+import RoomEdit from '../../RoomEdit/RoomEdit';
 import { classes } from './MainLayoutMobile.styles'
 import { roomClasses } from '../../Rooms/RoomsMobile.styles';
 import { settingsClasses } from '../../Settings/SettingsMobile.styles';
-import SelectRoom from '../../SelectRoom/SelectRoom';
+import { roomMenuClasses } from '../../RoomMenu/RoomMenuMobile.styles';
+import { roomEditClasses } from '../../RoomEdit/RoomEditMobile.styles';
 
 export default function MainLayoutMobile() {
   const [sideMenuActive, setSideMenuActive] = useState(false);
   const toggleSideMenu = () => setSideMenuActive(!sideMenuActive);
   const closeSideMenu = () => setSideMenuActive(false);
-  const history = useHistory();
   const styles = classes();
   const mobile = true;
-
-  useEffect(() => {
-    history.replace('/rooms');
-  }, []);
 
   return (
     <IconContext.Provider value={{ color: '#fff' }}>
@@ -48,7 +46,10 @@ export default function MainLayoutMobile() {
               <Settings settingsClasses={settingsClasses}/>
             </Route>
             <Route path="/room">
-              <SelectRoom/>
+              <RoomMenu mobile={mobile} classes={roomMenuClasses}/>
+            </Route>
+            <Route path="/editRoom">
+              <RoomEdit mobile={mobile} classes={roomEditClasses} />
             </Route>
           </div>
         </div>

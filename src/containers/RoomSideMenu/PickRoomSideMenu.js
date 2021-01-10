@@ -10,7 +10,7 @@ import PlayerListItem from '../../components/PlayerListItem/PlayerListItem';
 import { Button } from '@material-ui/core';
 
 export default function PickRoomSideMenu({ room, changeToEditRoom, mobile }) {
-  const [roomPasswordInput, roomPassword, setRoomPassword] = useInput({ inputType: "password", inputLabel: "Hasło pokoju", size: 'small' });
+  const [roomPasswordInput, roomPassword, setRoomPassword] = useInput({ inputType: "password", inputLabel: "Hasło pokoju", size: 'small', color: 'secondary' });
   const [notification, setNotification] = useState();
   const [userData] = useFetchGet({ url: '/api/auth/user' });
   const [playersInRoom, setPlayersInRoomData] = useFetchGet({ url: '/api/playerStatus/allPlayersStatuses/' + room.id });
@@ -21,7 +21,7 @@ export default function PickRoomSideMenu({ room, changeToEditRoom, mobile }) {
       setPlayersInRoomData()
       setNotification()
     }
-    
+
     cleanUp()
   }, [room, setPlayersInRoomData]);
 
@@ -51,28 +51,30 @@ export default function PickRoomSideMenu({ room, changeToEditRoom, mobile }) {
     )
   }
 
-  const Buttons = () => {
+  const EditButton = () => {
     if (userData.id === room.creatorId) {
       return (
-        <div className={styles.buttonContainer}>
-          <Button
-            variant="outlined"
-            color="primary"
-            onClick={() => { changeToEditRoom(room) }}
-            className={styles.button}>
-            Edytuj
-          </Button>
-          <Button
-            variant="outlined"
-            color="primary"
-            onClick={joinRoom}
-            className={styles.button}>
-            Dołącz
-          </Button>
-        </div>
+        <Button
+          variant="outlined"
+          color="primary"
+          onClick={() => { changeToEditRoom(room) }}
+          className={styles.button}>
+          Edytuj
+        </Button>
       )
     } else {
-      return (
+      return <></>
+    }
+  }
+
+  return (
+    <div className={styles.roomSideMenuConteiner}>
+      <div className={styles.textConteiner}>
+        <p className={styles.roomNameText}>{room.roomName}</p>
+        <p className={styles.text}>Sloty: {room.usersInRoom}/{room.slots}</p>
+        {roomPasswordInput}
+      </div>
+      <div className={styles.buttonConteiner}>
         <Button
           variant="outlined"
           color="primary"
@@ -80,22 +82,12 @@ export default function PickRoomSideMenu({ room, changeToEditRoom, mobile }) {
           className={styles.button}>
           Dołącz
         </Button>
-      )
-    }
-  }
-
-  return (
-    <div className={styles.roomSideMenuContainer}>
-      <div className={styles.textContainer}>
-        <p className={styles.roomNameText}>{room.roomName}</p>
-        <p className={styles.text}>Sloty: {room.usersInRoom}/{room.slots}</p>
-        {roomPasswordInput}
+        {userData && <EditButton />}
       </div>
-      {userData && <Buttons />}
       {notification && notification}
       <MyHr />
       {playersInRoom &&
-        <div className={styles.playersContainer}>
+        <div className={styles.playersConteiner}>
           <ListComponent data={playersInRoom} mapFunction={(item, index) => {
             return (
               <PlayerListItem
@@ -105,7 +97,7 @@ export default function PickRoomSideMenu({ room, changeToEditRoom, mobile }) {
                 playerName={item.user.inGameName}
                 gender={item.gender}
                 playerLevel={item.playerLevel}
-                action={() => {}} />
+                action={() => { }} />
             )
           }} />
         </div>

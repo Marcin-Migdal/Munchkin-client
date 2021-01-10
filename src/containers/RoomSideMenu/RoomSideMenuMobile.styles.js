@@ -1,14 +1,14 @@
 import { makeStyles } from "@material-ui/core";
 
 export const mobileClasses = makeStyles(theme => ({
-  roomSideMenuContainer: {
+  roomSideMenuConteiner: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     width: '100%',
   },
 
-  textContainer: {
+  textConteiner: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -16,7 +16,7 @@ export const mobileClasses = makeStyles(theme => ({
     margin: '7vh 0 0 0',
   },
 
-  buttonContainer: {
+  buttonConteiner: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-evenly',
@@ -63,7 +63,7 @@ export const mobileClasses = makeStyles(theme => ({
     color: theme.palette.secondary.main,
   },
 
-  playersContainer: {
+  playersConteiner: {
     marginTop: '1.75vh',
   },
 
@@ -72,13 +72,13 @@ export const mobileClasses = makeStyles(theme => ({
     color: theme.palette.secondary.main,
   },
 
-  iconContainer: {
+  iconConteiner: {
     padding: '1vh',
     borderRadius: '6px',
     fontSize: '4vh',
     position: 'absolute',
     top: 0,
-    left: 0,
+    left: '4vh',
     '& :hover': {
       borderRadius: '6px',
       backgroundColor: theme.palette.primary.main,

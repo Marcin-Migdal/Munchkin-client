@@ -10,8 +10,8 @@ import AddRoomSideMenu from '../RoomSideMenu/AddRoomSideMenu';
 import EditRoomSideMenu from '../RoomSideMenu/EditRoomSideMenu';
 import PickRoomSideMenu from '../RoomSideMenu/PickRoomSideMenu';
 import * as AiIcons from "react-icons/ai"
-import 'react-perfect-scrollbar/dist/css/styles.css';
 import { Button } from '@material-ui/core';
+import 'react-perfect-scrollbar/dist/css/styles.css';
 
 export default function Rooms({ roomClasses, mobile }) {
   const pageSize = 15;

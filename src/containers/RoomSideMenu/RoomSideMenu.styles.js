@@ -1,14 +1,14 @@
 import { makeStyles } from "@material-ui/core";
 
 export const classes = makeStyles(theme => ({
-  roomSideMenuContainer: {
+  roomSideMenuConteiner: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     width: '100%',
   },
 
-  textContainer: {
+  textConteiner: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -16,7 +16,7 @@ export const classes = makeStyles(theme => ({
     margin: '7vh 0 0 0',
   },
 
-  buttonContainer: {
+  buttonConteiner: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-evenly',
@@ -63,7 +63,7 @@ export const classes = makeStyles(theme => ({
     color: theme.palette.secondary.main,
   },
 
-  playersContainer: {
+  playersConteiner: {
     display:'flex',
     flexDirection:'column',
     width:'100%',
@@ -75,7 +75,7 @@ export const classes = makeStyles(theme => ({
     color: theme.palette.secondary.main,
   },
 
-  iconContainer: {
+  iconConteiner: {
     padding: '1vh',
     fontSize: '3vh',
     position: 'absolute',

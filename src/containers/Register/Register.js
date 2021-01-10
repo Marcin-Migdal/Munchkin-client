@@ -7,11 +7,11 @@ import val from '../../utils/ValidationUtil';
 import { classes } from './Register.styles'
 
 export default function Register() {
-  const [inGameNameInput, inGameName, setInGameName] = useInput({ inputType: "text", inputLabel: "Ksywka" });
-  const [userNameInput, userName, setUserName] = useInput({ inputType: "text", inputLabel: "Login" });
-  const [emailInput, email, setEmail] = useInput({ inputType: "text", inputLabel: "Email" });
-  const [passwordInput, password, setPassword] = useInput({ inputType: "password", inputLabel: "Hasło" });
-  const [rePasswordInput, rePassword, setRePassword] = useInput({ inputType: "password", inputLabel: "Powtórz hasło" });
+  const [inGameNameInput, inGameName, setInGameName] = useInput({ inputType: "text", inputLabel: "Ksywka", size: 'medium', color: 'secondary' });
+  const [userNameInput, userName, setUserName] = useInput({ inputType: "text", inputLabel: "Login", size: 'medium', color: 'secondary' });
+  const [emailInput, email, setEmail] = useInput({ inputType: "text", inputLabel: "Email", size: 'medium', color: 'secondary' });
+  const [passwordInput, password, setPassword] = useInput({ inputType: "password", inputLabel: "Hasło", size: 'medium', color: 'secondary' });
+  const [rePasswordInput, rePassword, setRePassword] = useInput({ inputType: "password", inputLabel: "Powtórz hasło", size: 'medium', color: 'secondary' });
   const [gender, setGender] = useState('male');
   const [error, setError] = useState('');
   const history = useHistory();

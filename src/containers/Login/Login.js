@@ -7,8 +7,8 @@ import val from '../../utils/ValidationUtil';
 import { classes } from './Login.styles'
 
 export default function Login() {
-  const [loginInput, login, setLogin] = useInput({ inputType: 'text', inputLabel: "Login lub Email" });
-  const [passwordInput, password, setPassword] = useInput({ inputType: 'password', inputLabel: "Hasło" });
+  const [loginInput, login, setLogin] = useInput({ inputType: 'text', inputLabel: "Login lub Email", size: 'medium', color: 'secondary' });
+  const [passwordInput, password, setPassword] = useInput({ inputType: 'password', inputLabel: "Hasło", size: 'medium', color: 'secondary' });
   const [error, setError] = useState('');
   const history = useHistory();
   const styles = classes();

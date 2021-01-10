@@ -7,9 +7,9 @@ import roomsService from '../../api/rooms.api';
 import { Button } from '@material-ui/core';
 
 export default function AddRoomSideMenu({ mobile }) {
-  const [roomNameInput, roomName, setRoomName] = useInput({ inputType: "text", inputLabel: "Nazwa pokoju", size: 'small' });
-  const [slotsInput, slots, setSlots] = useInput({ inputType: "number", inputLabel: "Sloty", size: 'small' });
-  const [roomPasswordInput, roomPassword, setRoomPassword] = useInput({ inputType: "password", inputLabel: "Hasło pokoju", size: 'small' });
+  const [roomNameInput, roomName, setRoomName] = useInput({ inputType: "text", inputLabel: "Nazwa pokoju", size: 'small', color:'secondary' });
+  const [slotsInput, slots, setSlots] = useInput({ inputType: "number", inputLabel: "Sloty", size: 'small', color:'secondary' });
+  const [roomPasswordInput, roomPassword, setRoomPassword] = useInput({ inputType: "password", inputLabel: "Hasło pokoju", size: 'small', color:'secondary' });
   const [notification, setNotification] = useState('');
   const styles = mobile ? mobileClasses() : classes()
 
@@ -42,8 +42,8 @@ export default function AddRoomSideMenu({ mobile }) {
   }
 
   return (
-    <div className={styles.roomSideMenuContainer}>
-      <div className={styles.textContainer}>
+    <div className={styles.roomSideMenuConteiner}>
+      <div className={styles.textConteiner}>
         <p className={styles.text}>Dodawanie pokoju</p>
       </div>
       {roomNameInput}

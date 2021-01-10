@@ -1,19 +1,22 @@
+import { Button } from '@material-ui/core';
 import React, { useState } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 import useInput from '../../hooks/UseInput/useInput';
 import val from '../../utils/ValidationUtil';
-import { classes } from './RoomSideMenu.styles';
-import { mobileClasses } from './RoomSideMenuMobile.styles';
 import roomsService from '../../api/rooms.api';
-import * as IoIcons from "react-icons/io"
-import { Button } from '@material-ui/core';
 
-export default function EditRoomSideMenu({ room, changeToPickRoom, mobile }) {
-  const [roomNameInput, roomName, setRoomName] = useInput({ inputType: "text", inputLabel: "Nazwa pokoju", size: 'small', color: 'secondary' });
-  const [slotsInput, slots, setSlots] = useInput({ inputType: "number", inputLabel: "Sloty", size: 'small', color: 'secondary' });
-  const [roomPasswordInput, roomPassword, setRoomPassword] = useInput({ inputType: "password", inputLabel: "Hasło pokoju", size: 'small', color: 'secondary' });
-  const [notification, setNotification] = useState('');
+export default function RoomEdit({ classes }) {
+  const location = useLocation();
+  const styles = classes()
+  const history = useHistory();
+  const [room, setRoom] = useState(location.state.room);
+
+  const [roomNameInput, roomName, setRoomName] = useInput({ inputType: "text", inputLabel: "Nazwa pokoju", size: 'small', color: 'primary', customClasses: styles.input });
+  const [slotsInput, slots, setSlots] = useInput({ inputType: "number", inputLabel: "Sloty", size: 'small', color: 'primary', customClasses: styles.input });
+  const [roomPasswordInput, roomPassword, setRoomPassword] = useInput({ inputType: "password", inputLabel: "Hasło pokoju", size: 'small', color: 'primary', customClasses: styles.input });
+
+  const [notification, setNotification] = useState();
   const [deleteButtons, setDeleteButtons] = useState();
-  const styles = mobile ? mobileClasses() : classes()
 
   const editRoom = () => {
     const editRoomRequest = {
@@ -27,7 +30,7 @@ export default function EditRoomSideMenu({ room, changeToPickRoom, mobile }) {
       roomsService.editRoom(editRoomRequest)
         .then(resp => {
           setNotyficationText('Pokój został zedytowany')
-          window.location.reload(false);
+          changeToPickRoom()
         })
         .catch(e => {
           setNotyficationText(e.response.data.message)
@@ -38,7 +41,7 @@ export default function EditRoomSideMenu({ room, changeToPickRoom, mobile }) {
 
   const showDeleteButtons = () => {
     setDeleteButtons(
-      <div className={styles.buttonConteiner}>
+      <div className={styles.deleteButtonsConteiner}>
         <Button
           variant="outlined"
           color="primary"
@@ -56,7 +59,6 @@ export default function EditRoomSideMenu({ room, changeToPickRoom, mobile }) {
           }}>
           Nie
         </Button>
-
       </div>
     )
     setNotyficationText('Czy na pewno chcesz usnąć ten pokój ?')
@@ -66,7 +68,9 @@ export default function EditRoomSideMenu({ room, changeToPickRoom, mobile }) {
     roomsService.deleteRoom(room.id)
       .then(resp => {
         setNotyficationText('Pokój został usunięty')
-        window.location.reload(false);
+        history.push({
+          pathname: '/rooms'
+        });
       })
       .catch(e => {
         setNotyficationText(e.response.data.message)
@@ -82,25 +86,36 @@ export default function EditRoomSideMenu({ room, changeToPickRoom, mobile }) {
     )
   }
 
+  const changeToPickRoom = () => {
+    history.push({
+      pathname: '/room',
+      state: {
+        room: room,
+      },
+    });
+  }
+
   return (
-    <div className={styles.roomSideMenuConteiner}>
-      <div className={styles.iconConteiner} onClick={() => changeToPickRoom()}>
-        <IoIcons.IoIosArrowBack />
-      </div>
-      <div className={styles.textConteiner}>
-        <p className={styles.text}>Edytowanie pokoju</p>
-      </div>
+    <div className={styles.roomEditConteiner}>
+      <p className={styles.text}>Edytowanie pokoju</p>
       {roomNameInput}
       {slotsInput}
       {roomPasswordInput}
       {!deleteButtons &&
-        <div className={styles.buttonConteiner}>
+        <div className={styles.buttonsConteiner}>
           <Button
             variant="outlined"
             color="primary"
             onClick={showDeleteButtons}
             className={styles.button}>
             Usuń
+          </Button>
+          <Button
+            variant="outlined"
+            color="primary"
+            onClick={changeToPickRoom}
+            className={styles.button}>
+            Wróć
           </Button>
           <Button
             variant="outlined"

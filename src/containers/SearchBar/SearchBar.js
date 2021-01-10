@@ -48,7 +48,7 @@ export default function SearchBar({ mobile, disableSearchBar }) {
     }
   }
 
-  const pickRoom = (roomId) => {
+  const pickRoom = (room) => {
     if (mobile) {
       disableSearchBar()
     }
@@ -56,7 +56,7 @@ export default function SearchBar({ mobile, disableSearchBar }) {
     history.push({
       pathname: '/room',
       state: {
-        roomId: roomId,
+        room: room,
       },
     });
   }
@@ -78,7 +78,7 @@ export default function SearchBar({ mobile, disableSearchBar }) {
                 key={index}
                 room={item}
                 mobile={false}
-                action={() => { pickRoom(item.id) }} />
+                action={() => { pickRoom(item) }} />
             )
           }} />
         </div>
