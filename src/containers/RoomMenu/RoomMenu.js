@@ -8,7 +8,7 @@ import FullPlayerListItem from '../../components/FullPlayerListItem/FullPlayerLi
 import { Button } from '@material-ui/core';
 import { IconContext } from 'react-icons/lib';
 
-export default function RoomMenu({ mobile, classes }) {
+export default function RoomMenu({ classes, mobile }) {
   const location = useLocation();
   const styles = classes()
   const history = useHistory();

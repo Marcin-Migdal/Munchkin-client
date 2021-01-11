@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import roomsService from '../api/rooms.api';
 
-export default function useFetchGetPagebale({ query, errorFlag, incrementPage }) {
+export default function useFetchGetPagebale({ query, errorFlag }) {
   const [status, setStatus] = useState('idle');
   const [data, setData] = useState();
+  const [page, setPage] = useState(0);
   const [lastPage, setLastPage] = useState(false);
 
   useEffect(() => {
@@ -19,16 +20,17 @@ export default function useFetchGetPagebale({ query, errorFlag, incrementPage })
             } else {
               setData([...data, ...response.body.content])
             }
-            incrementPage()
+            setPage(page + 1)
             setLastPage(response.body.last)
             setStatus('fetched')
           }
         })
         .catch((e) => {
           if (mounted) {
-            setStatus('error')
             console.log(e)
-          } 
+            setStatus('error')
+            if(e.response) setStatus('notFound')     
+          }
         })
     };
     fetchData();
@@ -38,5 +40,13 @@ export default function useFetchGetPagebale({ query, errorFlag, incrementPage })
     }
   }, [query, errorFlag]);
 
-  return [status, data, lastPage];
+  
+  const restart = () => {
+    setStatus('idle')
+    setData()
+    setPage(0)
+    setLastPage(false)
+  }
+
+  return [status, data, page, lastPage, restart];
 };

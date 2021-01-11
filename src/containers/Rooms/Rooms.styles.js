@@ -2,12 +2,15 @@ import { makeStyles } from "@material-ui/core";
 
 export const roomClasses = makeStyles(theme => ({
   scrollContainer: {
+    height: '92vh',
+    zIndex: 1,
+  },
+
+  scrollContentContainer:{
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    width: '100%',
-    height: '92vh',
-    zIndex: 1,
+    width: '100vw',
   },
 
   topScrollContainer: {
@@ -47,7 +50,7 @@ export const roomClasses = makeStyles(theme => ({
   },
 
   roomSideMenuEnabled: {
-    width: '32ch',
+    width: '18vw',
     height: '98vh',
     position: 'fixed',
     transition: '300ms',

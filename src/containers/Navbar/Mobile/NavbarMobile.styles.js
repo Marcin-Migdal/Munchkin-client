@@ -19,6 +19,13 @@ export const classes = makeStyles(theme => ({
     fontSize:'4vh',
   },
 
+  closeSearchIcon:{
+    marginLeft: '1.5vh',
+    position:'fixed',
+    left:'0',
+    fontSize:'4vh',
+  },
+
   text: {
     fontSize: '4vh',
     marginLeft: '1vh',

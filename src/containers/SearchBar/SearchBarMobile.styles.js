@@ -6,22 +6,50 @@ export const mobileClasses = makeStyles(theme => ({
     flexDirection: 'column',
     alignItems: 'center',
     width: '100%',
+    position: 'relative',
+  },
+
+  searchBarContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 
   searchInput: {
     height: '4.5vh',
-    width: '70vw',
+    width: '60vw',
     padding: '0 0.75vh',
     border: '0px',
-    borderRadius: '8px',
+    borderTopLeftRadius: '8px',
+    borderBottomLeftRadius: '8px',
+    borderTopRightRadius: 0,
+    borderBottomRightRadius: 0,
     fontSize: '2vh',
     '&:focus': {
       outline: 'none'
     }
   },
+  
+  searchButton: {
+    height: '4.5vh',
+    width: '12vw',
+    borderTopLeftRadius: 0,
+    borderBottomLeftRadius: 0,
+    borderTopRightRadius: '8px',
+    borderBottomRightRadius: '8px',
+    '&.MuiButton-root': {
+      borderWidth: '0 0 0 0.2vh',
+      borderColor: theme.palette.primary.main,
+      backgroundColor: theme.palette.secondary.main,
+    }
+  },
+
+  icon: {
+    fontSize: '3vh'
+  },
 
   searchContent: {
-    width: '70vw',
+    width: '72vw',
     height: 'fit-content',
     padding: '0 1vh 1vh 1vh',
 
@@ -30,8 +58,9 @@ export const mobileClasses = makeStyles(theme => ({
     borderBottomLeftRadius: '8px',
     borderBottomRightRadius: '8px',
 
-    position: 'fixed',
-    top: '8vh',
+    position: 'absolute',
+    top: '6.25vh',
+    left: '14vw',
     zIndex: 3,
 
     borderColor: theme.palette.background.default,
@@ -39,7 +68,7 @@ export const mobileClasses = makeStyles(theme => ({
   },
 
   searchError: {
-    width: '70vw',
+    width: '72vw',
     height: 'fit-content',
     padding: '1vh',
     textAlign: 'center',
@@ -49,12 +78,14 @@ export const mobileClasses = makeStyles(theme => ({
     borderBottomLeftRadius: '8px',
     borderBottomRightRadius: '8px',
 
-    position: 'fixed',
-    top: '8vh',
+    position: 'absolute',
+    top: '6.25vh',
+    left: '14vw',
     zIndex: 3,
+
     fontSize: '2.25vh',
     color: theme.palette.primary.main,
-
+  
     borderColor: theme.palette.background.default,
     backgroundColor: theme.palette.secondary.main
   },

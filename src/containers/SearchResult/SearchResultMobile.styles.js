@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core";
 
-export const roomClasses = makeStyles(theme => ({
+export const SearchResultClasses = makeStyles(theme => ({
   scrollContainer: {
     display: 'flex',
     flexDirection: 'column',
@@ -18,7 +18,7 @@ export const roomClasses = makeStyles(theme => ({
   },
 
   topScrollContainer: {
-    marginTop: '10vh',
+    marginTop: '13vh',
     width: '90vw'
   },
 
@@ -33,13 +33,6 @@ export const roomClasses = makeStyles(theme => ({
   errorContainer: {
     display: 'flex',
     justifyContent: 'center',
-  },
-
-  addRoomButton: {
-    fontSize: '1.75vh',
-    borderRadius: '8px',
-    fontWeight: 600,
-    color: theme.palette.primary.main,
   },
 
   button: {

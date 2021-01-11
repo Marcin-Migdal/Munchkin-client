@@ -10,11 +10,11 @@ import PlayerListItem from '../../components/PlayerListItem/PlayerListItem';
 import { Button } from '@material-ui/core';
 
 export default function PickRoomSideMenu({ room, changeToEditRoom, mobile }) {
-  const [roomPasswordInput, roomPassword, setRoomPassword] = useInput({ inputType: "password", inputLabel: "Hasło pokoju", size: 'small', color: 'secondary' });
+  const styles = mobile ? mobileClasses() : classes()
+  const [roomPasswordInput, roomPassword, setRoomPassword] = useInput({ inputType: "password", inputLabel: "Hasło pokoju", size: 'small', color: 'secondary', customClasses: styles.input});
   const [notification, setNotification] = useState();
   const [userData] = useFetchGet({ url: '/api/auth/user' });
   const [playersInRoom, setPlayersInRoomData] = useFetchGet({ url: '/api/playerStatus/allPlayersStatuses/' + room.id });
-  const styles = mobile ? mobileClasses() : classes()
 
   useEffect(() => {
     const cleanUp = () => {

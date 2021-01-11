@@ -83,5 +83,17 @@ export const mobileClasses = makeStyles(theme => ({
       borderRadius: '6px',
       backgroundColor: theme.palette.primary.main,
     }
+  },  
+  
+  input: {
+    '& .MuiTextField-root': {
+      width: '60vw',
+      margin: '1vh 0',
+    },
+
+    '& .MuiInputBase-root': {
+      borderRadius: '8px',
+      color: theme.palette.secondary.main,
+    },
   },
 }));

@@ -6,7 +6,7 @@ import { classes } from './NavbarMobile.styles';
 
 export default function NavbarMobile({ toggleSideMenu, mobile, sideMenuActive }) {
   const history = useHistory();
-  const [isVisible, setIsVisible] = useState(false);
+  const [searchIsVisible, setSearchIsVisible] = useState(false);
   const styles = classes();
 
   const goToHomePage = () => {
@@ -14,19 +14,19 @@ export default function NavbarMobile({ toggleSideMenu, mobile, sideMenuActive })
   }
 
   const NavbarContent = () => {
-    if (!isVisible) {
+    if (searchIsVisible) {
       return (
         <div className={styles.navbarContainer}>
-          <FaIcons.FaBars onClick={toggleSideMenu} className={styles.menuIcon} />
-          <p className={styles.text} onClick={goToHomePage}>Munchkin</p>
-          {!sideMenuActive && <FaIcons.FaSearch onClick={() => { setIsVisible(true) }} className={styles.searchIcon} />}
+          <FaIcons.FaChevronLeft onClick={() => { setSearchIsVisible(false) }} className={styles.closeSearchIcon} />
+          <SearchBar mobile={mobile} disableSearchBar={() => { setSearchIsVisible(false) }} />
         </div>
       )
     } else {
       return (
         <div className={styles.navbarContainer}>
-          <SearchBar mobile={mobile} disableSearchBar={() => { setIsVisible(false) }} />
-          <FaIcons.FaChevronLeft onClick={() => { setIsVisible(false) }} className={styles.searchIcon} />
+          <FaIcons.FaBars onClick={toggleSideMenu} className={styles.menuIcon} />
+          <p className={styles.text} onClick={goToHomePage}>Munchkin</p>
+          {!sideMenuActive && <FaIcons.FaSearch onClick={() => { setSearchIsVisible(true) }} className={styles.searchIcon} />}
         </div>
       )
     }

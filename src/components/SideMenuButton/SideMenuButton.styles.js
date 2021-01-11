@@ -6,7 +6,7 @@ export const classes = makeStyles(theme => ({
     alignItems: 'center',
     height: '7vh',
     width: '17vw',
-    margin: '1vh 0.5vw',
+    margin: '1vh',
     padding: '1vh',
     fontSize: '3.5vh',
     borderRadius: '8px',

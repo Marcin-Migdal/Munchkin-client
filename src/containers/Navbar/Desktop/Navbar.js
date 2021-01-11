@@ -14,7 +14,7 @@ export default function Navbar({ toggleSideMenu, mobile }) {
 
   return (
     <div className={styles.navbarContainer}>
-        <FaIcons.FaBars onClick={toggleSideMenu} />
+        <FaIcons.FaBars className={styles.icon} onClick={toggleSideMenu} />
         <p className={styles.text} onClick={goToHomePage}>Munchkin</p>
         <SearchBar mobile={mobile} />
       </div>

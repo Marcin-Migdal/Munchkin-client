@@ -8,12 +8,12 @@ import * as IoIcons from "react-icons/io"
 import { Button } from '@material-ui/core';
 
 export default function EditRoomSideMenu({ room, changeToPickRoom, mobile }) {
-  const [roomNameInput, roomName, setRoomName] = useInput({ inputType: "text", inputLabel: "Nazwa pokoju", size: 'small', color: 'secondary' });
-  const [slotsInput, slots, setSlots] = useInput({ inputType: "number", inputLabel: "Sloty", size: 'small', color: 'secondary' });
-  const [roomPasswordInput, roomPassword, setRoomPassword] = useInput({ inputType: "password", inputLabel: "Hasło pokoju", size: 'small', color: 'secondary' });
+  const styles = mobile ? mobileClasses() : classes()
+  const [roomNameInput, roomName, setRoomName] = useInput({ inputType: "text", inputLabel: "Nazwa pokoju", size: 'small', color: 'secondary', customClasses: styles.input });
+  const [slotsInput, slots, setSlots] = useInput({ inputType: "number", inputLabel: "Sloty", size: 'small', color: 'secondary', customClasses: styles.input });
+  const [roomPasswordInput, roomPassword, setRoomPassword] = useInput({ inputType: "password", inputLabel: "Hasło pokoju", size: 'small', color: 'secondary', customClasses: styles.input });
   const [notification, setNotification] = useState('');
   const [deleteButtons, setDeleteButtons] = useState();
-  const styles = mobile ? mobileClasses() : classes()
 
   const editRoom = () => {
     const editRoomRequest = {

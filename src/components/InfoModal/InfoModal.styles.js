@@ -8,7 +8,7 @@ export const classes = makeStyles(theme => ({
     padding: '0.5vw',
     textAlign: 'center',
     position: 'fixed',
-    bottom: '40%',
+    bottom: '50%',
     zIndex: 4,
     color: theme.palette.secondary.main,
     backgroundColor: theme.palette.background.default

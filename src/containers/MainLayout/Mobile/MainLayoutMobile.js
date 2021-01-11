@@ -9,11 +9,13 @@ import History from '../../../prepPages/History';
 import Settings from '../../Settings/Settings';
 import RoomMenu from '../../RoomMenu/RoomMenu';
 import RoomEdit from '../../RoomEdit/RoomEdit';
+import SearchResult from '../../SearchResult/SearchResult';
 import { classes } from './MainLayoutMobile.styles'
 import { roomClasses } from '../../Rooms/RoomsMobile.styles';
 import { settingsClasses } from '../../Settings/SettingsMobile.styles';
 import { roomMenuClasses } from '../../RoomMenu/RoomMenuMobile.styles';
 import { roomEditClasses } from '../../RoomEdit/RoomEditMobile.styles';
+import { SearchResultClasses } from '../../SearchResult/SearchResultMobile.styles';
 
 export default function MainLayoutMobile() {
   const [sideMenuActive, setSideMenuActive] = useState(false);
@@ -37,19 +39,22 @@ export default function MainLayoutMobile() {
               <Home />
             </Route>
             <Route path="/rooms">
-              <Rooms roomClasses={roomClasses} mobile={mobile} />
+              <Rooms classes={roomClasses} mobile={mobile} />
             </Route>
             <Route path="/history">
               <History />
             </Route>
             <Route path="/settings">
-              <Settings settingsClasses={settingsClasses}/>
+              <Settings classes={settingsClasses} />
             </Route>
             <Route path="/room">
-              <RoomMenu mobile={mobile} classes={roomMenuClasses}/>
+              <RoomMenu classes={roomMenuClasses} mobile={mobile} />
             </Route>
             <Route path="/editRoom">
-              <RoomEdit mobile={mobile} classes={roomEditClasses} />
+              <RoomEdit classes={roomEditClasses} />
+            </Route>
+            <Route path="/searchResult">
+              <SearchResult classes={SearchResultClasses} mobile={mobile} />
             </Route>
           </div>
         </div>

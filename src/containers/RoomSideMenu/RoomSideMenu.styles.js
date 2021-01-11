@@ -20,7 +20,7 @@ export const classes = makeStyles(theme => ({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-evenly',
-    width: '90%',
+    width: '14vw',
     '& .MuiButton-root': {
       width: '11vh'
     }
@@ -29,7 +29,7 @@ export const classes = makeStyles(theme => ({
   button: {
     margin: '0.75vh 0 1.75vh 0',
     borderRadius: '6px',
-    fontSize: '1.75vh',
+    fontSize: '0.80vw',
     fontWeight: 600,
     backgroundColor: theme.palette.secondary.main,
     '&.MuiButton-root:hover': {
@@ -85,5 +85,17 @@ export const classes = makeStyles(theme => ({
       borderRadius: '6px',
       backgroundColor: theme.palette.primary.main,
     }
+  },
+
+  input: {
+    '& .MuiTextField-root': {
+      width: '16vw',
+      margin: '1vh 0',
+    },
+
+    '& .MuiInputBase-root': {
+      borderRadius: '8px',
+      color: theme.palette.secondary.main,
+    },
   },
 }));
