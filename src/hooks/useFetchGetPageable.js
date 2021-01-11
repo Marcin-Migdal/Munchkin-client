@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import roomsService from '../api/rooms.api';
 
-export default function useFetchGetPagebale({ query, errorFlag }) {
+export default function useFetchGetPageable({ query, errorFlag }) {
   const [status, setStatus] = useState('idle');
   const [data, setData] = useState();
   const [page, setPage] = useState(0);

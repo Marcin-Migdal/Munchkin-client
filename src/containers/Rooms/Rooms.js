@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar'
-import useFetchGetPagebale from '../../hooks/useFetchGetPagebale';
+import useFetchGetPagebale from '../../hooks/useFetchGetPageable';
 import LoadingComponent from '../../components/LoadingComponent/LoadingComponent';
 import ListComponent from '../../components/ListComponent/ListComponent';
 import RoomListItem from '../../components/RoomListItem/RoomListItem';
