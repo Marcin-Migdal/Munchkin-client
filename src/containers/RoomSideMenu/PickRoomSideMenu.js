@@ -8,13 +8,15 @@ import MyHr from '../../components/MyHr/MyHr';
 import ListComponent from '../../components/ListComponent/ListComponent';
 import PlayerListItem from '../../components/PlayerListItem/PlayerListItem';
 import { Button } from '@material-ui/core';
+import { useHistory } from 'react-router-dom';
 
 export default function PickRoomSideMenu({ room, changeToEditRoom, mobile }) {
   const styles = mobile ? mobileClasses() : classes()
-  const [roomPasswordInput, roomPassword, setRoomPassword] = useInput({ inputType: "password", inputLabel: "Hasło pokoju", size: 'small', color: 'secondary', customClasses: styles.input});
+  const [roomPasswordInput, roomPassword, setRoomPassword] = useInput({ inputType: "password", inputLabel: "Hasło pokoju", size: 'small', color: 'secondary', customClasses: styles.input });
   const [notification, setNotification] = useState();
   const [userData] = useFetchGet({ url: '/api/auth/user' });
-  const [playersInRoom, setPlayersInRoomData] = useFetchGet({ url: '/api/playerStatus/allPlayersStatuses/' + room.id });
+  const [playersInRoom, setPlayersInRoomData] = useFetchGet({ url: '/api/playerStatus/allPlayersStatusesInRoom/' + room.id });
+  const history = useHistory();
 
   useEffect(() => {
     const cleanUp = () => {
@@ -33,8 +35,13 @@ export default function PickRoomSideMenu({ room, changeToEditRoom, mobile }) {
 
     roomsService.joinRoom(joinRoomRequest)
       .then(resp => {
-        setNotyficationText('Dołączono do pokoju')
-        window.location.reload(false);
+        history.push({
+          pathname: '/game',
+          state: {
+            roomId: room.id,
+            roomName: room.roomName
+          }
+        });
       })
       .catch(e => {
         setRoomPassword('')
@@ -67,6 +74,15 @@ export default function PickRoomSideMenu({ room, changeToEditRoom, mobile }) {
     }
   }
 
+  const goToUserPage = (user) => {
+    history.push({
+      pathname: '/user',
+      state: {
+        user: user,
+      }
+    });
+  }
+  
   return (
     <div className={styles.roomSideMenuContainer}>
       <div className={styles.textContainer}>
@@ -97,7 +113,7 @@ export default function PickRoomSideMenu({ room, changeToEditRoom, mobile }) {
                 playerName={item.user.inGameName}
                 gender={item.gender}
                 playerLevel={item.playerLevel}
-                action={() => { }} />
+                action={() => { goToUserPage(item.user) }} />
             )
           }} />
         </div>

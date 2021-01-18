@@ -75,12 +75,7 @@ export const classes = makeStyles(theme => ({
     borderRadius: '100%',
   },
 
-  genderMale: {
-    height: '3.5vh',
-    width: '3.5vh',
-  },
-
-  genderFemale: {
+  gender: {
     height: '3.5vh',
     width: '3.5vh',
   },

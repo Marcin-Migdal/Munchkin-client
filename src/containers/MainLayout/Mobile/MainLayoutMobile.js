@@ -10,12 +10,16 @@ import Settings from '../../Settings/Settings';
 import RoomMenu from '../../RoomMenu/RoomMenu';
 import RoomEdit from '../../RoomEdit/RoomEdit';
 import SearchResult from '../../SearchResult/SearchResult';
+import UserPage from '../../UserPage/UserPage';
+import Game from '../../Game/Game';
 import { classes } from './MainLayoutMobile.styles'
 import { roomClasses } from '../../Rooms/RoomsMobile.styles';
 import { settingsClasses } from '../../Settings/SettingsMobile.styles';
 import { roomMenuClasses } from '../../RoomMenu/RoomMenuMobile.styles';
 import { roomEditClasses } from '../../RoomEdit/RoomEditMobile.styles';
 import { SearchResultClasses } from '../../SearchResult/SearchResultMobile.styles';
+import { userPageClasses } from '../../UserPage/UserPageMobile.styles';
+import { gameClasses } from '../../Game/GameMobile.styles';
 
 export default function MainLayoutMobile() {
   const [sideMenuActive, setSideMenuActive] = useState(false);
@@ -55,6 +59,12 @@ export default function MainLayoutMobile() {
             </Route>
             <Route path="/searchResult">
               <SearchResult classes={SearchResultClasses} mobile={mobile} />
+            </Route>
+            <Route path="/user">
+              <UserPage classes={userPageClasses} mobile={mobile}/>
+            </Route>
+            <Route path="/game">
+              <Game classes={gameClasses} mobile={mobile}/>
             </Route>
           </div>
         </div>

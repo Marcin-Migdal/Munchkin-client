@@ -30,8 +30,8 @@ export const roomEditClasses = makeStyles(theme => ({
   buttonsContainer: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '15vw',
+    justifyContent: 'space-evenly',
+    width: '18vw',
     marginTop: '1vh',
   },
 
@@ -46,7 +46,7 @@ export const roomEditClasses = makeStyles(theme => ({
   button: {
     width:'4.5vw',
     borderRadius: '8px',
-    fontSize: '1.75vh',
+    fontSize: '0.85vw',
     fontWeight: 600,
     '&.MuiButton-root:hover': {
       backgroundColor: theme.palette.secondary.main,

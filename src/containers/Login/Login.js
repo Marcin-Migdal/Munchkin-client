@@ -7,7 +7,7 @@ import val from '../../utils/ValidationUtil';
 import { classes } from './Login.styles'
 
 export default function Login() {
-  const [loginInput, login, setLogin] = useInput({ inputType: 'text', inputLabel: "Login lub Email", size: 'medium', color: 'secondary' });
+  const [userNameInput, userName, setNserName] = useInput({ inputType: 'text', inputLabel: "Nazwa użytkownika lub Email", size: 'medium', color: 'secondary' });
   const [passwordInput, password, setPassword] = useInput({ inputType: 'password', inputLabel: "Hasło", size: 'medium', color: 'secondary' });
   const [error, setError] = useState('');
   const history = useHistory();
@@ -16,8 +16,8 @@ export default function Login() {
   const mobile = useMediaQuery('(max-width:620px)');;
 
   const signIn = () => {
-    if (val.signIn(login.value, setLogin, password.value, setPassword)) {
-      const authorization = { usernameOrEmail: `${login.value}`, userPassword: `${password.value}` };
+    if (val.signIn(userName.value, setNserName, password.value, setPassword)) {
+      const authorization = { usernameOrEmail: `${userName.value}`, userPassword: `${password.value}` };
       authService.signIn(authorization)
         .then(resp => history.replace('/home'))
         .catch(e => setError(
@@ -33,7 +33,7 @@ export default function Login() {
   return (
     <div className={mobile ? styles.containerMobile : styles.containerDesktop}>
       <span className={styles.title}>Logowanie</span>
-      {loginInput}
+      {userNameInput}
       {passwordInput}
       <Button
         variant="contained"

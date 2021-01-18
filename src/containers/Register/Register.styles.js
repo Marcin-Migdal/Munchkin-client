@@ -34,7 +34,7 @@ export const classes = makeStyles(theme => ({
     color: theme.palette.secondary.main,
   },
 
-  genderRadioContener: {
+  genderRadioContainer: {
     width: '100%',
   },
 

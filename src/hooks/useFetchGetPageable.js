@@ -20,7 +20,7 @@ export default function useFetchGetPageable({ query, errorFlag }) {
             } else {
               setData([...data, ...response.body.content])
             }
-            setPage(page + 1)
+            setPage(prevState => prevState + 1)
             setLastPage(response.body.last)
             setStatus('fetched')
           }

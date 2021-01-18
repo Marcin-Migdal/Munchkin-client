@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { classes } from './InputImage.styles'
 import * as AiIcons from 'react-icons/ai'
-import { IconContext } from 'react-icons/lib';
 import { Avatar, Button } from '@material-ui/core';
 import userService from '../../api/user.api';
 
@@ -25,7 +24,6 @@ export default function InputImage() {
   }
 
   return (
-    <IconContext.Provider value={{ color: '#ffcc00' }}>
       <div className={styles.container}>
         <input
           id="contained-button-file"
@@ -42,7 +40,7 @@ export default function InputImage() {
             color="primary"
             component="span"
             className={styles.addAvatarButton}
-            startIcon={<AiIcons.AiOutlineUpload className={styles.buttonIcon} />}>
+            startIcon={<AiIcons.AiFillFileAdd className={styles.buttonIcon} />}>
             Wybierz
           </Button>
         </label>
@@ -54,6 +52,7 @@ export default function InputImage() {
               color="primary"
               component="span"
               className={styles.addAvatarButton}
+              startIcon={<AiIcons.AiOutlineUpload className={styles.buttonIcon} />}
               onClick={saveAvatar}>
               Zapisz
             </Button>
@@ -64,6 +63,5 @@ export default function InputImage() {
           </div>
         }
       </div>
-    </IconContext.Provider>
   )
 }

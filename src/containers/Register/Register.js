@@ -8,7 +8,7 @@ import { classes } from './Register.styles'
 
 export default function Register() {
   const [inGameNameInput, inGameName, setInGameName] = useInput({ inputType: "text", inputLabel: "Ksywka", size: 'medium', color: 'secondary' });
-  const [userNameInput, userName, setUserName] = useInput({ inputType: "text", inputLabel: "Login", size: 'medium', color: 'secondary' });
+  const [userNameInput, userName, setUserName] = useInput({ inputType: "text", inputLabel: "Nazwa użytkownika", size: 'medium', color: 'secondary' });
   const [emailInput, email, setEmail] = useInput({ inputType: "text", inputLabel: "Email", size: 'medium', color: 'secondary' });
   const [passwordInput, password, setPassword] = useInput({ inputType: "password", inputLabel: "Hasło", size: 'medium', color: 'secondary' });
   const [rePasswordInput, rePassword, setRePassword] = useInput({ inputType: "password", inputLabel: "Powtórz hasło", size: 'medium', color: 'secondary' });
@@ -28,7 +28,7 @@ export default function Register() {
       password, setPassword, rePassword, setRePassword)) {
 
       const signUpRequest = {
-        inGameName: `${inGameName.value}`,
+        inGameName: `${capitalize(inGameName.value)}`,
         username: `${userName.value}`,
         email: `${email.value}`,
         userPassword: `${password.value}`,
@@ -46,6 +46,11 @@ export default function Register() {
     }
   }
 
+  const capitalize = (inGameName) => {
+    if (typeof inGameName !== 'string') return ''
+    return inGameName.charAt(0).toUpperCase() + inGameName.slice(1)
+  }
+
   return (
     <div className={mobile ? styles.containerMobile : styles.containerDesktop}>
       <span className={styles.title}>Rejestracja</span>
@@ -55,7 +60,7 @@ export default function Register() {
         {emailInput}
         {passwordInput}
         {rePasswordInput}
-        <RadioGroup className={styles.genderRadioContener} aria-label="gender" name="gender1" value={gender} onChange={handleChange}>
+        <RadioGroup className={styles.genderRadioContainer} aria-label="gender" name="gender1" value={gender} onChange={handleChange}>
           <FormControlLabel value="female" control={<Radio />} label="Female" />
           <FormControlLabel value="male" control={<Radio />} label="Male" />
         </RadioGroup>

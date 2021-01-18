@@ -12,8 +12,7 @@ export const roomMenuClasses = makeStyles(theme => ({
     flexDirection: 'column',
     alignItems: 'center',
     width: '100%',
-    marginTop: '10vh',
-    marginBottom: '1.5vh',
+    margin: '10vh 0 1.5vh 0',
   },
 
   roomNameText: {

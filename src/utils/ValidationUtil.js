@@ -25,7 +25,7 @@ class Valiate {
     }
 
     if (!roomRequest.roomPassword) {
-      setRoomPassword({ inputError: true, errorMessage: 'Hasło nie może być puste' });
+      setRoomPassword({ inputError: true, errorMessage: 'Podaj hasło pokoju' });
       return false
     } else if (roomRequest.roomPassword.trim().length < 4) {
       setRoomPassword({ inputError: true, errorMessage: 'Hasło jest za krótkie' });
@@ -35,6 +35,62 @@ class Valiate {
       return false
     }
     return true
+  }
+
+  editUserRequest(editUserRequest, setUserName, setInGameName) {
+    if (!editUserRequest.username) {
+      setUserName({ inputError: true, errorMessage: 'Podaj nazwe użytkownika' });
+      return false
+    } else if (editUserRequest.username.trim().length < 6) {
+      setUserName({ inputError: true, errorMessage: 'Nazwa użytkownika jest za krótka' });
+      return false
+    } else if (editUserRequest.username.trim().length > 15) {
+      setUserName({ inputError: true, errorMessage: 'Nazwa użytkownika jest za długa' });
+      return false
+    }
+
+    if (!editUserRequest.inGameName) {
+      setInGameName({ inputError: true, errorMessage: 'Podaj Ksywke' });
+      return false
+    } else if (editUserRequest.inGameName < 3) {
+      setInGameName({ inputError: true, errorMessage: 'Ksywka jest za krótka' });
+      return false
+    } else if (editUserRequest.inGameName > 16) {
+      setInGameName({ inputError: true, errorMessage: 'Ksywka jest za długa' });
+      return false
+    }
+    return true
+  }
+
+  editUserPasswordRequest(editUserPasswordRequest, setOldPassword, setNewPassword, setNewRePassword) {
+    if (!editUserPasswordRequest.oldPassword) {
+      setOldPassword({ inputError: true, errorMessage: 'Podaj stare hasło' });
+      return false;
+    }
+
+    if (!editUserPasswordRequest.newPassword) {
+      setNewPassword({ inputError: true, errorMessage: 'Podaj nowe hasło' });
+      return false;
+    } else if (editUserPasswordRequest.newPassword.length < 8) {
+      setNewPassword({ inputError: true, errorMessage: 'Hasło jest za krótkie' });
+      return false;
+    } else if (editUserPasswordRequest.newPassword.length > 20) {
+      setNewPassword({ inputError: true, errorMessage: 'Hasło jest za długie' });
+      return false;
+    } else if (!editUserPasswordRequest.newRePassword) {
+      setNewRePassword({ inputError: true });
+      return false;
+    } else if (editUserPasswordRequest.newPassword !== editUserPasswordRequest.newRePassword) {
+      setNewPassword(state => ({ ...state, inputError: true, errorMessage: 'Hasła nie są takie same' }));
+      setNewRePassword(state => ({ ...state, inputError: true, errorMessage: 'Hasła nie są takie same' }));
+      return false;
+    } else if (editUserPasswordRequest.newPassword === editUserPasswordRequest.oldPassword) {
+      setNewPassword(state => ({ ...state, inputError: true, errorMessage: 'Nowe hasło jest takie same jak stare hasło' }));
+      setNewRePassword(state => ({ ...state, inputError: true, errorMessage: 'Nowe hasło jest takie same jak stare hasło' }));
+      return false;
+    };
+
+    return true;
   }
 
   signIn(loginInput, setLogin, passwordInput, setPassword) {
@@ -57,19 +113,19 @@ class Valiate {
     } else if (inGameName.value.trim().length < 3) {
       setInGameName({ inputError: true, errorMessage: 'Ksywka jest za krótka' });
       return false;
-    } else if (inGameName.value.trim().length > 24) {
+    } else if (inGameName.value.trim().length > 16) {
       setInGameName({ inputError: true, errorMessage: 'Ksywka jest za długa' });
       return false;
     };
 
     if (!userName.value) {
-      setUserName({ inputError: true, errorMessage: 'Podaj login' });
+      setUserName({ inputError: true, errorMessage: 'Podaj nazwe użytkownika' });
       return false;
     } else if (userName.value.trim().length < 6) {
-      setUserName({ inputError: true, errorMessage: 'Login jest za krótki' });
+      setUserName({ inputError: true, errorMessage: 'Nazwa użytkownika jest za krótka' });
       return false;
     } else if (userName.value.trim().length > 15) {
-      setUserName({ inputError: true, errorMessage: 'Login jest za długi' });
+      setUserName({ inputError: true, errorMessage: 'Nazwa użytkownika jest za długa' });
       return false;
     };
 
@@ -97,8 +153,8 @@ class Valiate {
       setRePassword({ inputError: true });
       return false;
     } else if (password.value !== rePassword.value) {
-      setPassword({ inputError: true, errorMessage: 'Hasła nie są takie same' });
-      setRePassword({ inputError: true, errorMessage: 'Hasła nie są takie same' });
+      setPassword(state => ({ ...state, inputError: true, errorMessage: 'Hasła nie są takie same' }));
+      setRePassword(state => ({ ...state, inputError: true, errorMessage: 'Hasła nie są takie same' }));
       return false;
     };
     return true;

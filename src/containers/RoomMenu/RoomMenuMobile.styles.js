@@ -57,7 +57,7 @@ export const roomMenuClasses = makeStyles(theme => ({
   bottomContainer: {
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'start',
+    alignItems: 'center',
     width: '90vw',
     marginTop: '1.25vh',
   },

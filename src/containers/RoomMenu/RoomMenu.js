@@ -18,7 +18,7 @@ export default function RoomMenu({ classes, mobile }) {
   const [notification, setNotification] = useState();
 
   const [userData] = useFetchGet({ url: '/api/auth/user' });
-  const [playersInRoom, setPlayersInRoomData] = useFetchGet({ url: '/api/playerStatus/allPlayersStatuses/' + room.id });
+  const [playersInRoom, setPlayersInRoomData] = useFetchGet({ url: '/api/playerStatus/allPlayersStatusesInRoom/' + room.id });
 
   useEffect(() => {
     const cleanUp = () => {
@@ -81,6 +81,15 @@ export default function RoomMenu({ classes, mobile }) {
     }
   }
 
+  const goToUserPage = (user) => {
+    history.push({
+      pathname: '/user',
+      state: {
+        user: user,
+      }
+    });
+  }
+
   return (
     <div className={styles.roomMenuContainer}>
       <div className={styles.topContainer}>
@@ -116,7 +125,7 @@ export default function RoomMenu({ classes, mobile }) {
                     gender={item.gender}
                     playerLevel={item.playerLevel}
                     isCreator={item.user.id === room.creatorId}
-                    action={() => { }} />
+                    action={() => { goToUserPage(item.user) }} />
                 )
               }} />
             </IconContext.Provider>
