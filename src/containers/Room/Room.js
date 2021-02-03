@@ -4,31 +4,54 @@ import roomsService from '../../api/rooms.api';
 import useFetchGet from '../../hooks/useFetchGet';
 import useInput from '../../hooks/UseInput/useInput';
 import ListComponent from '../../components/ListComponent/ListComponent';
-import FullPlayerListItem from '../../components/FullPlayerListItem/FullPlayerListItem';
-import { Button } from '@material-ui/core';
+import { Button, useTheme } from '@material-ui/core';
 import { IconContext } from 'react-icons/lib';
+import PlayerListItem from '../../components/PlayerListItem/PlayerListItem';
 
-export default function RoomMenu({ classes, mobile }) {
+export default function Room({ classes, mobile }) {
+  const theme = useTheme();
   const location = useLocation();
-  const styles = classes()
   const history = useHistory();
 
-  const [roomPasswordInput, roomPassword, setRoomPassword] = useInput({ inputType: "password", inputLabel: "Hasło pokoju", size: 'small', color: 'primary', customClasses: styles.input });
-  const [room, setRoom] = useState(location.state.room);
+  const styles = classes()
+
+  const [roomPasswordInput, roomPassword, setRoomPassword] = useInput({
+    inputType: "password",
+    inputLabel: "Hasło pokoju",
+    size: 'small',
+    color: 'primary',
+    customClasses: styles.input
+  });
+  
+  const [room, setRoom] = useState();
   const [notification, setNotification] = useState();
 
   const [userData] = useFetchGet({ url: '/api/auth/user' });
-  const [playersInRoom, setPlayersInRoomData] = useFetchGet({ url: '/api/playerStatus/allPlayersStatusesInRoom/' + room.id });
+  const [playersInRoom, setPlayersInRoomData] = useFetchGet({
+    url: '/api/playerStatus/allPlayersStatusesInRoom/' + (location.state ? location.state.roomId : history.replace('/home'))
+  });
 
   useEffect(() => {
     const cleanUp = () => {
       setPlayersInRoomData()
-      setRoom(location.state.room)
       setNotification()
     }
 
-    cleanUp()
-  }, [location.state.room, setPlayersInRoomData]);
+    const fetchRoom = () => {
+      roomsService.getRoom(location.state.roomId)
+        .then(res => {
+          setRoom(res.body)
+        })
+        .catch((e) => {
+          console.log(e)
+        })
+    }
+
+    if (location.state) {
+      fetchRoom()
+      cleanUp()
+    }
+  }, [location, setPlayersInRoomData]);
 
   const joinRoom = () => {
     const joinRoomRequest = {
@@ -39,7 +62,12 @@ export default function RoomMenu({ classes, mobile }) {
     roomsService.joinRoom(joinRoomRequest)
       .then(resp => {
         setNotyficationText('Dołączono do pokoju')
-        // send to game page
+        history.push({
+          pathname: '/game',
+          state: {
+            roomId: room.id,
+          }
+        });
       })
       .catch(e => {
         setRoomPassword('')
@@ -92,11 +120,12 @@ export default function RoomMenu({ classes, mobile }) {
 
   return (
     <div className={styles.roomMenuContainer}>
-      <div className={styles.topContainer}>
-        <p className={styles.roomNameText}>Pokój: {room.roomName}</p>
-        <p className={styles.text}>Gracze w pokoju: {room.usersInRoom}/{room.slots}</p>
-      </div>
-
+      {room &&
+        <div className={styles.topContainer}>
+          <p className={styles.roomNameText}>Pokój: {room.roomName}</p>
+          <p className={styles.text}>Gracze w pokoju: {room.usersInRoom}/{room.slots}</p>
+        </div>
+      }
       <div className={styles.bottomContainer}>
         <div className={styles.passwordContainer}>
           {roomPasswordInput}
@@ -107,25 +136,25 @@ export default function RoomMenu({ classes, mobile }) {
             className={styles.button}>
             Dołącz
           </Button>
-          {userData && <EditButton />}
+          {(userData && room) && <EditButton />}
         </div>
 
         {notification && notification}
 
         {playersInRoom &&
           <div className={styles.playersContainer}>
-            <IconContext.Provider value={{ color: '#ffcc00' }}>
+            <IconContext.Provider value={{ color: theme.palette.primary.main }}>
               <ListComponent data={playersInRoom} mapFunction={(item, index) => {
                 return (
-                  <FullPlayerListItem
-                    key={index}
-                    mobile={mobile}
-                    userId={item.user.id}
-                    playerName={item.user.inGameName}
-                    gender={item.gender}
-                    playerLevel={item.playerLevel}
-                    isCreator={item.user.id === room.creatorId}
-                    action={() => { goToUserPage(item.user) }} />
+                  <div>
+                    <PlayerListItem
+                      key={index}
+                      mobile={mobile}
+                      playerStatus={item}
+                      currentUser={userData}
+                      creatorId={room.creatorId}
+                      action={() => { goToUserPage(item.user) }} />
+                  </div>
                 )
               }} />
             </IconContext.Provider>

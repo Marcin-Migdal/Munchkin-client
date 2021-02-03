@@ -4,12 +4,13 @@ import { IconContext } from 'react-icons/lib';
 import roomsService from '../../api/rooms.api';
 import ListComponent from '../../components/ListComponent/ListComponent';
 import RoomListSearchItem from '../../components/RoomListSearchItem/RoomListSearchItem';
-import { Button } from '@material-ui/core';
+import { Button, useTheme } from '@material-ui/core';
 import { desktopClasses } from './SearchBar.styles'
 import { mobileClasses } from './SearchBarMobile.styles'
 import * as AiIcons from "react-icons/ai"
 
 export default function SearchBar({ mobile, disableSearchBar }) {
+  const theme = useTheme();
   const [data, setData] = useState();
   const [error, setError] = useState();
   const [isOpen, setIsOpen] = useState(false);
@@ -20,6 +21,16 @@ export default function SearchBar({ mobile, disableSearchBar }) {
   const node = useRef();
 
   useEffect(() => {
+    const handleClick = e => {
+      if (node.current.contains(e.target)) {
+        return
+      } else {
+        setData()
+        setError()
+        setIsOpen(false)
+      }
+    };
+
     if (isOpen) {
       document.addEventListener("mousedown", handleClick);
     } else {
@@ -30,10 +41,11 @@ export default function SearchBar({ mobile, disableSearchBar }) {
     };
   }, [isOpen]);
 
-  const handleClick = e => {
-    if (node.current.contains(e.target)) return
-    clearSearchResult();
-  };
+  const clearSearchResult = () => {
+    setData()
+    setError()
+    setIsOpen(false)
+  }
 
   const handleSearchInput = (e) => {
     if (e.target.value.length >= 2) {
@@ -61,15 +73,9 @@ export default function SearchBar({ mobile, disableSearchBar }) {
     history.push({
       pathname: '/room',
       state: {
-        room: room,
+        roomId: room.id,
       },
     });
-  }
-
-  const clearSearchResult = () => {
-    setData()
-    setError()
-    setIsOpen(false)
   }
 
   const goToExtendedSearch = () => {
@@ -91,7 +97,7 @@ export default function SearchBar({ mobile, disableSearchBar }) {
           color="secondary"
           className={styles.searchButton}
           onClick={goToExtendedSearch}>
-          <IconContext.Provider value={{ color: '#ffcc00' }}>
+          <IconContext.Provider value={{ color: theme.palette.primary.main }}>
             <AiIcons.AiOutlineSearch className={styles.icon} />
           </IconContext.Provider>
         </Button>

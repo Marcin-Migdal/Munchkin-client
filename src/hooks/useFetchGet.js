@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import api from '../api/api';
 
-export default function useFetchGet({ url }) {
+export default function useFetchGet({ url, reloadFlag }) {
   const [data, setData] = useState();
   
   useEffect(() => {
@@ -20,7 +20,7 @@ export default function useFetchGet({ url }) {
     return function cleanUp() {
       mounted = false;
     }
-  }, [url]);
+  }, [url, reloadFlag]);
 
   return [data, setData] ;
 };

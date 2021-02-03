@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core";
 
-export const roomClasses = makeStyles(theme => ({
+export const roomsClasses = makeStyles(theme => ({
   scrollContainer: {
     height: '92vh',
     zIndex: 1,

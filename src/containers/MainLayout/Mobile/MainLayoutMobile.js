@@ -5,23 +5,26 @@ import NavbarMobile from '../../Navbar/Mobile/NavbarMobile';
 import SideMenu from '../../SideMenu/SideMenu';
 import Home from '../../../prepPages/Home';
 import Rooms from '../../Rooms/Rooms';
-import History from '../../../prepPages/History';
 import Settings from '../../Settings/Settings';
-import RoomMenu from '../../RoomMenu/RoomMenu';
+import Room from '../../Room/Room';
 import RoomEdit from '../../RoomEdit/RoomEdit';
 import SearchResult from '../../SearchResult/SearchResult';
 import UserPage from '../../UserPage/UserPage';
 import Game from '../../Game/Game';
+import GameSummary from '../../GameSummary/GameSummary';
 import { classes } from './MainLayoutMobile.styles'
-import { roomClasses } from '../../Rooms/RoomsMobile.styles';
+import { roomsClasses } from '../../Rooms/RoomsMobile.styles';
 import { settingsClasses } from '../../Settings/SettingsMobile.styles';
-import { roomMenuClasses } from '../../RoomMenu/RoomMenuMobile.styles';
+import { roomClasses } from '../../Room/RoomMobile.styles';
 import { roomEditClasses } from '../../RoomEdit/RoomEditMobile.styles';
 import { SearchResultClasses } from '../../SearchResult/SearchResultMobile.styles';
 import { userPageClasses } from '../../UserPage/UserPageMobile.styles';
 import { gameClasses } from '../../Game/GameMobile.styles';
+import { gameSummaryClasses } from '../../GameSummary/GameSummaryMobile.styles';
+import { useTheme } from '@material-ui/core';
 
 export default function MainLayoutMobile() {
+  const theme = useTheme();
   const [sideMenuActive, setSideMenuActive] = useState(false);
   const toggleSideMenu = () => setSideMenuActive(!sideMenuActive);
   const closeSideMenu = () => setSideMenuActive(false);
@@ -29,30 +32,27 @@ export default function MainLayoutMobile() {
   const mobile = true;
 
   return (
-    <IconContext.Provider value={{ color: '#fff' }}>
+    <IconContext.Provider value={{ color: theme.palette.secondary.main }}>
       <div className={styles.container}>
         <div className={styles.topContainer}>
           <NavbarMobile toggleSideMenu={toggleSideMenu} mobile={mobile} sideMenuActive={sideMenuActive} />
         </div>
         <div className={styles.bottomContainer}>
           <div className={sideMenuActive ? styles.sideMenuEnabled : styles.sideMenuDisabled}>
-            <SideMenu closeSideMenu={closeSideMenu} mobile={mobile} />
+            <SideMenu closeSideMenu={closeSideMenu} mobile={mobile}/>
           </div>
           <div className={styles.contentContainer}>
             <Route path="/home">
               <Home />
             </Route>
             <Route path="/rooms">
-              <Rooms classes={roomClasses} mobile={mobile} />
-            </Route>
-            <Route path="/history">
-              <History />
+              <Rooms classes={roomsClasses} mobile={mobile} />
             </Route>
             <Route path="/settings">
               <Settings classes={settingsClasses} />
             </Route>
             <Route path="/room">
-              <RoomMenu classes={roomMenuClasses} mobile={mobile} />
+              <Room classes={roomClasses} mobile={mobile} />
             </Route>
             <Route path="/editRoom">
               <RoomEdit classes={roomEditClasses} />
@@ -61,10 +61,13 @@ export default function MainLayoutMobile() {
               <SearchResult classes={SearchResultClasses} mobile={mobile} />
             </Route>
             <Route path="/user">
-              <UserPage classes={userPageClasses} mobile={mobile}/>
+              <UserPage classes={userPageClasses} mobile={mobile} />
             </Route>
             <Route path="/game">
-              <Game classes={gameClasses} mobile={mobile}/>
+              <Game classes={gameClasses} mobile={mobile} />
+            </Route>
+            <Route path="/gameSummary">
+              <GameSummary classes={gameSummaryClasses} mobile={mobile} />
             </Route>
           </div>
         </div>

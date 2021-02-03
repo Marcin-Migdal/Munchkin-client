@@ -7,21 +7,42 @@ import roomsService from '../../api/rooms.api';
 
 export default function RoomEdit({ classes }) {
   const location = useLocation();
-  const styles = classes()
   const history = useHistory();
-  const [room, setRoom] = useState(location.state.room);
 
-  const [roomNameInput, roomName, setRoomName] = useInput({ inputType: "text", inputLabel: "Nazwa pokoju", size: 'small', color: 'primary', customClasses: styles.input });
-  const [slotsInput, slots, setSlots] = useInput({ inputType: "number", inputLabel: "Sloty", size: 'small', color: 'primary', customClasses: styles.input });
-  const [roomPasswordInput, roomPassword, setRoomPassword] = useInput({ inputType: "password", inputLabel: "Hasło pokoju", size: 'small', color: 'primary', customClasses: styles.input });
-
+  const [room] = useState((location.state ? location.state.room : history.replace('/home')));
   const [notification, setNotification] = useState();
   const [deleteButtons, setDeleteButtons] = useState();
+  
+  const styles = classes()
+
+  const [roomNameInput, roomName, setRoomName] = useInput({
+    inputType: "text",
+    inputLabel: "Nazwa pokoju",
+    size: 'small',
+    color: 'primary',
+    customClasses: styles.input
+  });
+
+  const [slotsInput, slots, setSlots] = useInput({
+    inputType: "number",
+    inputLabel: "Sloty",
+    size: 'small',
+    color: 'primary',
+    customClasses: styles.input
+  });
+
+  const [roomPasswordInput, roomPassword, setRoomPassword] = useInput({
+    inputType: "password",
+    inputLabel: "Hasło pokoju",
+    size: 'small',
+    color: 'primary',
+    customClasses: styles.input
+  });
 
   const editRoom = () => {
     const editRoomRequest = {
       id: room.id,
-      roomName: roomName.value,
+      roomName: capitalize(roomName.value),
       slots: slots.value,
       roomPassword: roomPassword.value,
     };
@@ -37,6 +58,11 @@ export default function RoomEdit({ classes }) {
           console.log(e)
         });
     }
+  }
+
+  const capitalize = (inGameName) => {
+    if (typeof inGameName !== 'string') return ''
+    return inGameName.charAt(0).toUpperCase() + inGameName.slice(1)
   }
 
   const showDeleteButtons = () => {

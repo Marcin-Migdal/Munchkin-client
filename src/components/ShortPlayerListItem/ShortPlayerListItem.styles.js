@@ -5,19 +5,19 @@ export const classes = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: '1vh',
-    padding: '0.35vh 1vh',
+    margin: '0 0.5vw 1vh 0.5vw',
+    padding: '0 0.75vh',
+    height: '5vh',
     border: '1px solid',
-    borderRadius: '1.2vh',
-    borderColor: theme.palette.primary.main,
-    fontSize: '3.5vh',
-    backgroundColor: theme.palette.secondary.main,
-    color: theme.palette.primary.main,
+    borderRadius: '1.8vh',
+    fontSize: '2.5vh',
+    color: theme.palette.secondary.main,
+
     '&:hover': {
-      backgroundColor: theme.palette.background.hover,
+      backgroundColor: theme.palette.primary.hover,
     },
     '&:active': {
-      backgroundColor: theme.palette.background.active,
+      backgroundColor: theme.palette.primary.active,
     },
 
     '& p': {
@@ -34,16 +34,17 @@ export const classes = makeStyles(theme => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: '1vh',
-    padding: '0.5vh 0.75vh',
+    margin: '0 1vh 1vh 1vh',
+    padding: '0 0.75vh',
+    height: '5vh',
+    width: '67vw',
     border: '1px solid',
-    borderRadius: '1.2vh',
-    fontSize: '3vh',
-    borderColor: theme.palette.primary.main,
-    color: theme.palette.primary.main,
+    borderRadius: '1.8vh',
+    fontSize: '2.5vh',
+    color: theme.palette.secondary.main,
 
     '&:active': {
-      backgroundColor: theme.palette.background.active,
+      backgroundColor: theme.palette.primary.active,
     },
 
     '& p': {
@@ -56,12 +57,6 @@ export const classes = makeStyles(theme => ({
     },
   },
 
-  avatarIcon: {
-    height: '3.5vh',
-    width: '3.5vh',
-    marginRight: '0.75vh',
-  },
-
   levelText: {
     display: 'flex',
     justifyContent: 'center',
@@ -70,8 +65,9 @@ export const classes = makeStyles(theme => ({
     width: '3.5vh',
     marginRight: '0.5vh',
     border: '1px solid',
-    borderColor: theme.palette.primary.main,
+    borderColor: theme.palette.secondary.main,
     borderRadius: '100%',
+    position: 'relative',
   },
 
   gender: {
@@ -95,5 +91,12 @@ export const classes = makeStyles(theme => ({
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
+    marginLeft: '0.5vh',
+  },
+
+  creatorIcon: {
+    height:'4vh',
+    width:'4vh',
+    marginLeft: '0.25vh',
   },
 }));

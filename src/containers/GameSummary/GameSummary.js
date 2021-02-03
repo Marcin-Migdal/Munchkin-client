@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function History() {
+export default function GameSummary() {
   return (
     <div>
-      History
+      Game Summary
     </div>
   )
 }

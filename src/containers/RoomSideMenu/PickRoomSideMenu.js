@@ -6,9 +6,9 @@ import useFetchGet from '../../hooks/useFetchGet';
 import useInput from '../../hooks/UseInput/useInput';
 import MyHr from '../../components/MyHr/MyHr';
 import ListComponent from '../../components/ListComponent/ListComponent';
-import PlayerListItem from '../../components/PlayerListItem/PlayerListItem';
 import { Button } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
+import ShortPlayerListItem from '../../components/ShortPlayerListItem/ShortPlayerListItem';
 
 export default function PickRoomSideMenu({ room, changeToEditRoom, mobile }) {
   const styles = mobile ? mobileClasses() : classes()
@@ -39,7 +39,6 @@ export default function PickRoomSideMenu({ room, changeToEditRoom, mobile }) {
           pathname: '/game',
           state: {
             roomId: room.id,
-            roomName: room.roomName
           }
         });
       })
@@ -82,7 +81,7 @@ export default function PickRoomSideMenu({ room, changeToEditRoom, mobile }) {
       }
     });
   }
-  
+
   return (
     <div className={styles.roomSideMenuContainer}>
       <div className={styles.textContainer}>
@@ -106,13 +105,11 @@ export default function PickRoomSideMenu({ room, changeToEditRoom, mobile }) {
         <div className={styles.playersContainer}>
           <ListComponent data={playersInRoom} mapFunction={(item, index) => {
             return (
-              <PlayerListItem
+              <ShortPlayerListItem
                 key={index}
                 mobile={mobile}
-                userId={item.user.id}
-                playerName={item.user.inGameName}
-                gender={item.gender}
-                playerLevel={item.playerLevel}
+                playerStatus={item}
+                isCreator={item.user.id === room.creatorId}
                 action={() => { goToUserPage(item.user) }} />
             )
           }} />

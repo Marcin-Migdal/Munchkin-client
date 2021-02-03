@@ -15,7 +15,7 @@ export default function AddRoomSideMenu({ mobile }) {
 
   const addRoom = () => {
     const addRoomRequest = {
-      roomName: roomName.value,
+      roomName: capitalize(roomName.value),
       slots: slots.value,
       roomPassword: roomPassword.value,
     };
@@ -31,6 +31,11 @@ export default function AddRoomSideMenu({ mobile }) {
           console.log(e)
         });
     }
+  }
+  
+  const capitalize = (inGameName) => {
+    if (typeof inGameName !== 'string') return ''
+    return inGameName.charAt(0).toUpperCase() + inGameName.slice(1)
   }
 
   const setNotyficationText = (text) => {

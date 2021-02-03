@@ -1,34 +1,43 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { classes } from './PlayerListItem.styles'
 import * as IoIcons from "react-icons/io"
-import { Avatar } from '@material-ui/core';
-import userService from '../../api/user.api';
+import * as AiIcons from "react-icons/ai"
+import PlayerStatisticsComponent from '../PlayerStatisticsComponent/PlayerStatisticsComponent'
+import MyAvatar from '../MyAvatar/MyAvatar'
 
-export default function PlayerListItem({ mobile, userId, playerName, gender, playerLevel, action }) {
-  const [avatar, setAvatar] = useState();
+export default function PlayerListItem({ mobile, playerStatus, creatorId, action }) {
   const styles = classes();
-
-  useEffect(() => {
-    const getAvatar = () => {
-      userService.getAvatar(userId)
-        .then(res => setAvatar(URL.createObjectURL(res)))
-        .catch(e => console.log(e))
-    }
-
-    getAvatar();
-  }, [userId]);
+  const { playerBonus, playerLevel, gender } = playerStatus;
+  const { inGameName, id } = playerStatus.user
 
   return (
-    <div className={mobile ? styles.playerContainerMobile : styles.playerContainerDesktop} onClick={action} >
+    <div className={mobile ? styles.containerMobile : styles.containerDesktop} onClick={action} >
       <div className={styles.leftContainer}>
-        <Avatar className={styles.avatarIcon} src={avatar}>{!avatar && playerName.charAt(0)}</Avatar>
-        <p className={styles.usernameText}>{playerName}</p>
+        <MyAvatar inGameName={inGameName} id={playerStatus.user.id}/>
+        {creatorId === id &&
+          <AiIcons.AiOutlineCrown className={styles.creatorIcon} />
+        }
+        <p className={styles.usernameText}>{inGameName}</p>
       </div>
       <div className={styles.rightContainer}>
-        <div className={styles.levelText}>{playerLevel}</div>
+        <PlayerStatisticsComponent
+          style={styles.textContainer}
+          content={playerLevel}
+          type='level'
+          mobile={mobile} />
+        <PlayerStatisticsComponent
+          style={playerBonus < 9 ? styles.textContainer : styles.bigTextContainer}
+          content={playerBonus}
+          type='bonus'
+          mobile={mobile} />
+        <PlayerStatisticsComponent
+          style={playerLevel + playerBonus < 9 ? styles.textContainer : styles.bigTextContainer}
+          content={playerLevel + playerBonus}
+          type='power'
+          mobile={mobile} />
         {gender === 'male' ?
-          <IoIcons.IoMdMale className={styles.genderMale} /> :
-          <IoIcons.IoMdFemale className={styles.genderFemale} />
+          <IoIcons.IoMdMale className={styles.gender} /> :
+          <IoIcons.IoMdFemale className={styles.gender} />
         }
       </div>
     </div>

@@ -5,30 +5,29 @@ export const classes = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'center',
     width: '100%',
-    fontSize: '4vh',
+    fontSize: '8vw',
   },
 
   menuIcon: {
-    marginLeft: '1.7vh',
+    marginLeft: '3.4vw',
   },
 
-  searchIcon:{
-    marginRight: '1.7vh',
-    position:'fixed',
-    right:'0',
-    fontSize:'4vh',
+  searchIcon: {
+    marginRight: '3.4vw',
+    position: 'fixed',
+    right: '0',
   },
 
-  closeSearchIcon:{
-    marginLeft: '1.5vh',
-    position:'fixed',
-    left:'0',
-    fontSize:'4vh',
+  closeSearchIcon: {
+    marginLeft: '2.25vw',
+    position: 'fixed',
+    left: '0',
+    zIndex: 1,
   },
 
   text: {
-    fontSize: '4vh',
-    marginLeft: '1vh',
+    fontSize: '8vw',
+    marginLeft: '2vw',
     color: theme.palette.secondary.main,
 
     webkitRouchCallout: 'none',

@@ -18,7 +18,7 @@ export default function EditRoomSideMenu({ room, changeToPickRoom, mobile }) {
   const editRoom = () => {
     const editRoomRequest = {
       id: room.id,
-      roomName: roomName.value,
+      roomName: capitalize(roomName.value),
       slots: slots.value,
       roomPassword: roomPassword.value,
     };
@@ -34,6 +34,11 @@ export default function EditRoomSideMenu({ room, changeToPickRoom, mobile }) {
           console.log(e)
         });
     }
+  }
+
+  const capitalize = (inGameName) => {
+    if (typeof inGameName !== 'string') return ''
+    return inGameName.charAt(0).toUpperCase() + inGameName.slice(1)
   }
 
   const showDeleteButtons = () => {

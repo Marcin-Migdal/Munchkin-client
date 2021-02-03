@@ -9,7 +9,7 @@ export const classes = makeStyles( theme => ({
   topContainer: {
     display: 'flex',
     alignItems: 'center',
-    height:'8vh',
+    height:'16vw',
     width:'100vw',
     position:'fixed',
     top:0,
@@ -20,9 +20,8 @@ export const classes = makeStyles( theme => ({
 
   bottomContainer: {
     display:'flex',
-    height:'92vh',
     width:'100vw',
-    marginTop:'8vh',
+    marginTop:'16vw',
   },
 
   sideMenuEnabled: {
@@ -47,7 +46,6 @@ export const classes = makeStyles( theme => ({
 
   contentContainer: {
     zIndex: 1,
-    height: '100%',
     width:'100%',
   },
 }));

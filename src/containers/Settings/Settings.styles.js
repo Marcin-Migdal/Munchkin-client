@@ -47,7 +47,9 @@ export const settingsClasses = makeStyles(theme => ({
 
   input: {
     '& .MuiTextField-root': {
+      fontSize:'5vh',
       width: '20vw',
+      minWidth:'175px',
       marginBottom: '1vh',
     },
 

@@ -1,25 +1,25 @@
 import { makeStyles } from "@material-ui/core";
 
-export const roomMenuClasses = makeStyles(theme => ({
+export const roomClasses = makeStyles(theme => ({
   roomMenuContainer: {
     display: 'flex',
     flexDirection: 'column',
-    width: '52vw',
+    alignItems: 'center',
+    width: '100vw',
   },
 
   topContainer: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    width: '100%',
-    margin: '10vh 0 1.5vh 0',
+    width: '90vw',
+    marginTop: '10vh',
   },
 
   roomNameText: {
-    width: '100%',
+    width: '90vw',
     textAlign:'center',
-    marginBottom: '0.5vh',
-    fontSize: '5vh',
+    fontSize: '4vh',
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
@@ -27,56 +27,78 @@ export const roomMenuClasses = makeStyles(theme => ({
   },
 
   text: {
-    fontSize: '3.5vh',
+    marginTop: '0.5vh',
+    fontSize: '3vh',
     color: theme.palette.primary.main,
-  },
-
-  bottomContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    width: '100%',
-  },
-
-  passwordContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    marginBottom: '0.85vh',
   },
 
   input: {
     '& .MuiTextField-root': {
-      width: '20vw',
+      width: '50vw',
     },
 
     '& .MuiInputBase-root': {
+      height: '37px',
       borderRadius: '8px',
       color: theme.palette.primary.main,
     },
   },
 
   button: {
-    marginLeft: '1vh',
+    width: '18vw',
+    height: '37px',
+    marginLeft: '2vw',
     borderRadius: '8px',
-    fontSize: '1.75vh',
+    fontSize: '3vw',
     fontWeight: 600,
     '&.MuiButton-root:hover': {
       backgroundColor: theme.palette.secondary.main,
     }
   },
 
+  bottomContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    width: '90vw',
+    marginTop: '1.25vh',
+  },
+
+  passwordContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    marginBottom: '0.75vh',
+  },
+
   notificationText: {
-    width: 'fit-content',
+    width: '100%',
     textAlign: 'center',
     margin: '0.15vh',
-    fontSize: '2.5vh',
+    fontSize: '1.65vh',
     color: theme.palette.primary.main,
   },
 
   playersContainer: {
-    marginTop: '0.85vh',
+    marginTop: '0.75vh',
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
+  },
+
+  playerText: {
+    fontSize: '2.5vh',
+    color: theme.palette.primary.main,
+  },
+
+  iconContainer: {
+    padding: '1vh',
+    fontSize: '3vh',
+    position: 'absolute',
+    top: 0,
+    left: '3vh',
+    '& :hover': {
+      borderRadius: '6px',
+      backgroundColor: theme.palette.primary.main,
+    }
   },
 }))

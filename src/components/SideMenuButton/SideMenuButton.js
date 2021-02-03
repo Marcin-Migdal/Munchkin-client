@@ -1,11 +1,18 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom';
 
-export default function SideMenuButton({ path, icon, page, classes }) {
+export default function SideMenuButton({ path, icon, text, classes, onClick }) {
   const history = useHistory();
   const styles = classes();
 
   const goToPage = () => {
+    if (history.location.pathname === '/game') {
+      onClick(path)
+      return;
+    } 
+
+    !path && onClick()
+
     history.push(path);
   }
 
@@ -13,7 +20,7 @@ export default function SideMenuButton({ path, icon, page, classes }) {
     <div className={styles.sideMenuItem} onClick={goToPage}>
       {icon}
       <span className={styles.sideMenuItemText}>
-        {page}
+        {text}
       </span>
     </div>
   )

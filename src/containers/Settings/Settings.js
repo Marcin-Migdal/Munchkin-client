@@ -1,4 +1,4 @@
-import { Button, FormControlLabel, Radio, RadioGroup } from '@material-ui/core';
+import { Button, FormControlLabel, Radio, RadioGroup, useTheme } from '@material-ui/core';
 import React, { useState } from 'react'
 import InputImage from '../../components/InputImage/InputImage'
 import MyHr from '../../components/MyHr/MyHr';
@@ -10,6 +10,7 @@ import val from '../../utils/ValidationUtil';
 import useFetchGet from '../../hooks/useFetchGet';
 
 export default function Settings({ classes }) {
+  const theme = useTheme();
   const styles = classes();
   
   const [userData] = useFetchGet({ url: '/api/auth/user' });
@@ -117,7 +118,7 @@ export default function Settings({ classes }) {
   }
 
   return (
-    <IconContext.Provider value={{ color: '#ffcc00' }}>
+    <IconContext.Provider value={{ color: theme.palette.primary.main }}>
       <div className={styles.container}>
         <p className={styles.title}>Ustawienia</p>
 

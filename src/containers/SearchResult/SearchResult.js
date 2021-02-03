@@ -21,19 +21,18 @@ export default function SearchResult({ classes, mobile }) {
   const [status, data, page, lastPage, restart] = useFetchGetPagebale({ query: query, errorFlag });
 
   const [roomSideMenu, setRoomSideMenu] = useState();
+  const searchInput = location.state ? location.state.searchInput : ''
   const styles = classes();
 
   useEffect(() => {
     if (data) restart()
-    if (location.state.searchInput) {
-      setQuery('/search/' + location.state.searchInput + '/' + 0 + '/' + pageSize)
-    } else {
-      setQuery('/search/' + '' + 0 + '/' + pageSize)
+    if (searchInput) {
+      setQuery('/search/' + searchInput + '/' + 0 + '/' + pageSize)
     }
 
-  }, [location.state.searchInput]);
+  }, [searchInput]);
 
-  const loadMoreRooms = () => {
+  const loadMoreRooms = () => { 
     setQuery('/getAll/' + page + '/' + 12);
   }
 
@@ -54,11 +53,11 @@ export default function SearchResult({ classes, mobile }) {
   }
 
   const getErrorMessage = () => {
-    if (!location.state.searchInput) {
+    if (!searchInput) {
       return "Prosze podać faraze wyszukiwania"
     }
-    if (location.state.searchInput.trim()) {
-      return 'Nie znaleziono pokoi za pomocą frazy "' + location.state.searchInput + '"'
+    if (searchInput.trim()) {
+      return 'Nie znaleziono pokoi za pomocą frazy "' + searchInput + '"'
     } else {
       return "Prosze podać faraze wyszukiwania"
     }

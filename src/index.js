@@ -13,13 +13,20 @@ const theme = createMuiTheme({
     },
     secondary: {
       main: '#ffffff',
+      hover: '#f2f2f2',
+      active: '#e6e6e6'
     },
     background: {
       default: '#ffd966',
       paper: '#ffe699',
       hover: '#fffbf0',
       active: '#fff1cc'
-    }
+    },
+    currentUser: {
+      main: '#ff8080',
+      hover: '#ffe6e6',
+      active: '#ffcccc'
+    },
   }
 })
 
