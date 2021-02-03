@@ -6,6 +6,7 @@ import * as IoIcons from "react-icons/io"
 import { IconContext } from 'react-icons/lib';
 import useFetchGet from '../../hooks/useFetchGet';
 import MyAvatar from '../../components/MyAvatar/MyAvatar';
+import { links } from '../../utils/linkUtils';
 
 export default function UserPage({ classes, sideMenuActive, mobile }) {
   const theme = useTheme();
@@ -13,7 +14,7 @@ export default function UserPage({ classes, sideMenuActive, mobile }) {
   const [userData] = useFetchGet({ url: '/api/auth/user' });
   const history = useHistory();
   const styles = classes();
-  const user = location.state ? location.state.user : history.replace('/home');
+  const user = location.state ? location.state.user : history.replace(links.home);
 
   const EditButton = () => {
     if (userData.id === user.id) {
@@ -31,7 +32,7 @@ export default function UserPage({ classes, sideMenuActive, mobile }) {
   }
 
   const goToEditUserPage = () => {
-    history.push('/settings')
+    history.push(links.settings)
   }
 
   return (

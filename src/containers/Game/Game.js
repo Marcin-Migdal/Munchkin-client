@@ -12,6 +12,7 @@ import roomsService from '../../api/rooms.api';
 import PerfectScrollbar from 'react-perfect-scrollbar'
 import * as AiIcons from "react-icons/ai"
 import 'react-perfect-scrollbar/dist/css/styles.css';
+import { links } from '../../utils/linkUtils';
 
 export default function Game({ classes, mobile }) {
   const theme = useTheme()
@@ -44,7 +45,7 @@ export default function Game({ classes, mobile }) {
 
     const checkIfEnteredCorrectly = () => {
       if (!location.state) {
-        history.replace('/rooms');
+        history.replace(links.rooms);
       }
     }
 
@@ -52,7 +53,7 @@ export default function Game({ classes, mobile }) {
     window.addEventListener("beforeunload", handleEvent);
     return () => {
       isMounted = false
-      if (history.location.pathname !== '/game') {
+      if (history.location.pathname !== links.game) {
         playerStatusService.leaveRoom(location.state.roomId)
       }
       window.removeEventListener("beforeunload", handleEvent);
@@ -125,7 +126,7 @@ export default function Game({ classes, mobile }) {
 
   const goToGameSummary = () => {
     history.replace({
-      pathname: '/gameSummary',
+      pathname: links.gameSummary,
       state: {
         room: room,
         user: currentUser
@@ -151,7 +152,7 @@ export default function Game({ classes, mobile }) {
         mobile={mobile}
         onClick={() => {
           history.replace({
-            pathname: '/room',
+            pathname: links.room,
             state: {
               roomId: location.state.roomId,
             }

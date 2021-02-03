@@ -1,17 +1,21 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom';
+import { links } from '../../utils/linkUtils';
 
 export default function SideMenuButton({ path, icon, text, classes, onClick }) {
   const history = useHistory();
   const styles = classes();
 
   const goToPage = () => {
-    if (history.location.pathname === '/game') {
+    if (history.location.pathname === links.game) {
       onClick(path)
       return;
-    } 
+    }
 
-    !path && onClick()
+    if (!path) {
+      onClick()
+      return;
+    } 
 
     history.push(path);
   }

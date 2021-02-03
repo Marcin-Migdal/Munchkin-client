@@ -7,6 +7,7 @@ import ListComponent from '../../components/ListComponent/ListComponent';
 import { Button, useTheme } from '@material-ui/core';
 import { IconContext } from 'react-icons/lib';
 import PlayerListItem from '../../components/PlayerListItem/PlayerListItem';
+import { links } from '../../utils/linkUtils';
 
 export default function Room({ classes, mobile }) {
   const theme = useTheme();
@@ -28,7 +29,7 @@ export default function Room({ classes, mobile }) {
 
   const [userData] = useFetchGet({ url: '/api/auth/user' });
   const [playersInRoom, setPlayersInRoomData] = useFetchGet({
-    url: '/api/playerStatus/allPlayersStatusesInRoom/' + (location.state ? location.state.roomId : history.replace('/home'))
+    url: '/api/playerStatus/getGameSummary/' + (location.state ? location.state.roomId : history.replace(links.home))
   });
 
   useEffect(() => {
@@ -63,7 +64,7 @@ export default function Room({ classes, mobile }) {
       .then(resp => {
         setNotyficationText('Dołączono do pokoju')
         history.push({
-          pathname: '/game',
+          pathname: links.game,
           state: {
             roomId: room.id,
           }
@@ -86,7 +87,7 @@ export default function Room({ classes, mobile }) {
 
   const changeToEditRoomMenu = () => {
     history.push({
-      pathname: '/editRoom',
+      pathname: links.roomEdit,
       state: {
         room: room,
       },
@@ -111,7 +112,7 @@ export default function Room({ classes, mobile }) {
 
   const goToUserPage = (user) => {
     history.push({
-      pathname: '/user',
+      pathname: links.userPage,
       state: {
         user: user,
       }

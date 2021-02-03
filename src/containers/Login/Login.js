@@ -5,6 +5,7 @@ import useInput from '../../hooks/UseInput/useInput';
 import { Button, useMediaQuery } from '@material-ui/core';
 import val from '../../utils/ValidationUtil';
 import { classes } from './Login.styles'
+import { links } from '../../utils/linkUtils';
 
 export default function Login() {
   const [userNameInput, userName, setNserName] = useInput({ inputType: 'text', inputLabel: "Nazwa użytkownika lub Email", size: 'medium', color: 'secondary' });
@@ -19,7 +20,7 @@ export default function Login() {
     if (val.signIn(userName.value, setNserName, password.value, setPassword)) {
       const authorization = { usernameOrEmail: `${userName.value}`, userPassword: `${password.value}` };
       authService.signIn(authorization)
-        .then(resp => history.replace('/home'))
+        .then(resp => history.replace(links.home))
         .catch(e => setError(
           <div className={styles.errorBadCredentials}>
             Niepowodzenie podczas logowania!

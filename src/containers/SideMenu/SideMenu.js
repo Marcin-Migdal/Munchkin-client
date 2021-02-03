@@ -11,6 +11,7 @@ import { mobileClasses } from '../../components/SideMenuButton/SideMenuButtonMob
 import { useHistory, useLocation } from 'react-router-dom';
 import ConfirmationModal from '../../components/ConfirmationModal/ConfirmationModal';
 import playerStatusService from '../../api/playerStatus.api';
+import { links } from '../../utils/linkUtils';
 
 export default function SideMenu({ closeSideMenu, mobile }) {
   const [modal, setModal] = useState(false);
@@ -43,7 +44,7 @@ export default function SideMenu({ closeSideMenu, mobile }) {
       <ConfirmationModal
         text='Czy na pewno chcesz się wylogować ?'
         mobile={mobile}
-        onClickYes={signOut}
+        onClickYes={() => { signOut() }}
         onClickNo={() => { setModal() }} />
     )
     mobile && closeSideMenu()
@@ -56,9 +57,9 @@ export default function SideMenu({ closeSideMenu, mobile }) {
 
   const SignOutButton = () => {
     return (
-      location.pathname === '/game' ?
+      location.pathname === links.game ?
         <SideMenuButton
-          path='/rooms'
+          path={links.rooms}
           icon={<BiIcons.BiArrowBack />}
           text='Wróć'
           classes={styles}

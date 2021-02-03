@@ -8,17 +8,19 @@ import { Button, useTheme } from '@material-ui/core';
 import { desktopClasses } from './SearchBar.styles'
 import { mobileClasses } from './SearchBarMobile.styles'
 import * as AiIcons from "react-icons/ai"
+import { links } from '../../utils/linkUtils';
 
 export default function SearchBar({ mobile, disableSearchBar }) {
   const theme = useTheme();
+  const history = useHistory();
+  const node = useRef();
+
   const [data, setData] = useState();
   const [error, setError] = useState();
   const [isOpen, setIsOpen] = useState(false);
   const [searchInput, setSearchInput] = useState();
 
-  const history = useHistory();
   const styles = mobile ? mobileClasses() : desktopClasses();
-  const node = useRef();
 
   useEffect(() => {
     const handleClick = e => {
@@ -71,7 +73,7 @@ export default function SearchBar({ mobile, disableSearchBar }) {
     }
     clearSearchResult();
     history.push({
-      pathname: '/room',
+      pathname: links.room,
       state: {
         roomId: room.id,
       },
@@ -81,7 +83,7 @@ export default function SearchBar({ mobile, disableSearchBar }) {
   const goToExtendedSearch = () => {
     clearSearchResult();
     history.push({
-      pathname: '/searchResult',
+      pathname: links.searchResult,
       state: {
         searchInput: searchInput,
       },

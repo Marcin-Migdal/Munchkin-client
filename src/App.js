@@ -9,6 +9,7 @@ import MainLayoutMobile from './containers/MainLayout/Mobile/MainLayoutMobile';
 import { desktopClasses } from './components/DefaultPage/DefaultPage.styles'
 import { mobileClasses } from './components/DefaultPage/DefaultPageMobile.styles'
 import api from './api/api';
+import { links } from './utils/linkUtils';
 import './App.css'
 
 function App() {
@@ -31,10 +32,10 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route path="/login">
+        <Route path={links.login}>
           <Login />
         </Route>
-        <Route path="/register">
+        <Route path={links.register}>
           <Register />
         </Route>
         <Route path="/">

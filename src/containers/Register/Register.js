@@ -5,6 +5,7 @@ import authService from '../../api/authentication.api';
 import useInput from '../../hooks/UseInput/useInput';
 import val from '../../utils/ValidationUtil';
 import { classes } from './Register.styles'
+import { links } from '../../utils/linkUtils';
 
 export default function Register() {
   const [inGameNameInput, inGameName, setInGameName] = useInput({ inputType: "text", inputLabel: "Ksywka", size: 'medium', color: 'secondary' });
@@ -37,7 +38,7 @@ export default function Register() {
       };
 
       authService.signUp(signUpRequest)
-        .then(resp => history.replace('/login'))
+        .then(resp => history.replace(links.login))
         .catch(e => setError(
           <div className={styles.errorBadCredentials}>
             {e.response.data.message}

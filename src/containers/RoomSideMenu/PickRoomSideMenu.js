@@ -9,14 +9,17 @@ import ListComponent from '../../components/ListComponent/ListComponent';
 import { Button } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import ShortPlayerListItem from '../../components/ShortPlayerListItem/ShortPlayerListItem';
+import { links } from '../../utils/linkUtils';
 
 export default function PickRoomSideMenu({ room, changeToEditRoom, mobile }) {
+  const history = useHistory();
+
   const styles = mobile ? mobileClasses() : classes()
+
   const [roomPasswordInput, roomPassword, setRoomPassword] = useInput({ inputType: "password", inputLabel: "Hasło pokoju", size: 'small', color: 'secondary', customClasses: styles.input });
   const [notification, setNotification] = useState();
   const [userData] = useFetchGet({ url: '/api/auth/user' });
   const [playersInRoom, setPlayersInRoomData] = useFetchGet({ url: '/api/playerStatus/allPlayersStatusesInRoom/' + room.id });
-  const history = useHistory();
 
   useEffect(() => {
     const cleanUp = () => {
@@ -36,7 +39,7 @@ export default function PickRoomSideMenu({ room, changeToEditRoom, mobile }) {
     roomsService.joinRoom(joinRoomRequest)
       .then(resp => {
         history.push({
-          pathname: '/game',
+          pathname: links.game,
           state: {
             roomId: room.id,
           }
@@ -75,7 +78,7 @@ export default function PickRoomSideMenu({ room, changeToEditRoom, mobile }) {
 
   const goToUserPage = (user) => {
     history.push({
-      pathname: '/user',
+      pathname: links.userPage,
       state: {
         user: user,
       }

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import { Button } from '@material-ui/core';
+import { links } from '../../utils/linkUtils';
 
 export default function DefaultPage({ classes }) {
   const styles = classes();
@@ -19,7 +20,7 @@ export default function DefaultPage({ classes }) {
         <div className={styles.buttonContainer}>
           <Button
             component={Link}
-            to={'/login'}
+            to={links.login}
             variant="contained"
             color="secondary"
             className={styles.button}>
@@ -27,7 +28,7 @@ export default function DefaultPage({ classes }) {
           </Button>
           <Button
             component={Link}
-            to={'/register'}
+            to={links.register}
             variant="contained"
             color="secondary"
             className={styles.button}>

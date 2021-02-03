@@ -4,12 +4,13 @@ import { useHistory, useLocation } from 'react-router-dom';
 import useInput from '../../hooks/UseInput/useInput';
 import val from '../../utils/ValidationUtil';
 import roomsService from '../../api/rooms.api';
+import { links } from '../../utils/linkUtils';
 
 export default function RoomEdit({ classes }) {
   const location = useLocation();
   const history = useHistory();
 
-  const [room] = useState((location.state ? location.state.room : history.replace('/home')));
+  const [room] = useState((location.state ? location.state.room : history.replace(links.home)));
   const [notification, setNotification] = useState();
   const [deleteButtons, setDeleteButtons] = useState();
   
@@ -95,7 +96,7 @@ export default function RoomEdit({ classes }) {
       .then(resp => {
         setNotyficationText('Pokój został usunięty')
         history.push({
-          pathname: '/rooms'
+          pathname: links.rooms
         });
       })
       .catch(e => {
@@ -114,7 +115,7 @@ export default function RoomEdit({ classes }) {
 
   const changeToPickRoom = () => {
     history.push({
-      pathname: '/room',
+      pathname: links.room,
       state: {
         room: room,
       },

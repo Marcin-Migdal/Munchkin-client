@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import * as FaIcons from 'react-icons/fa';
 import { useHistory } from 'react-router-dom';
+import { links } from '../../../utils/linkUtils';
 import SearchBar from '../../SearchBar/SearchBar';
 import { classes } from './NavbarMobile.styles';
 
@@ -10,7 +11,7 @@ export default function NavbarMobile({ toggleSideMenu, mobile, sideMenuActive })
   const styles = classes();
 
   const goToHomePage = () => {
-    history.replace('/home')
+    history.replace(links.home)
   }
 
   const NavbarContent = () => {

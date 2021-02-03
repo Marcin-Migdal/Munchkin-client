@@ -7,6 +7,7 @@ import ListComponent from '../../components/ListComponent/ListComponent';
 import ExtendedPlayerListItem from '../../components/ExtendedPlayerListItem/ExtendedPlayerListItem';
 import PerfectScrollbar from 'react-perfect-scrollbar'
 import 'react-perfect-scrollbar/dist/css/styles.css';
+import { links } from '../../utils/linkUtils';
 
 export default function GameSummary({ classes, mobile }) {
   const theme = useTheme()
@@ -22,7 +23,7 @@ export default function GameSummary({ classes, mobile }) {
   useEffect(() => {
     const checkIfEnteredCorrectly = () => {
       if (!location.state) {
-        history.replace('/rooms');
+        history.replace(links.rooms);
       }
     }
 

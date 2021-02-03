@@ -22,14 +22,18 @@ import { userPageClasses } from '../../UserPage/UserPageMobile.styles';
 import { gameClasses } from '../../Game/GameMobile.styles';
 import { gameSummaryClasses } from '../../GameSummary/GameSummaryMobile.styles';
 import { useTheme } from '@material-ui/core';
+import { links } from '../../../utils/linkUtils';
 
 export default function MainLayoutMobile() {
   const theme = useTheme();
+
   const [sideMenuActive, setSideMenuActive] = useState(false);
-  const toggleSideMenu = () => setSideMenuActive(!sideMenuActive);
-  const closeSideMenu = () => setSideMenuActive(false);
+  
   const styles = classes();
   const mobile = true;
+  
+  const toggleSideMenu = () => setSideMenuActive(!sideMenuActive);
+  const closeSideMenu = () => setSideMenuActive(false);
 
   return (
     <IconContext.Provider value={{ color: theme.palette.secondary.main }}>
@@ -42,31 +46,31 @@ export default function MainLayoutMobile() {
             <SideMenu closeSideMenu={closeSideMenu} mobile={mobile}/>
           </div>
           <div className={styles.contentContainer}>
-            <Route path="/home">
+            <Route path={links.home}>
               <Home />
             </Route>
-            <Route path="/rooms">
+            <Route path={links.rooms}>
               <Rooms classes={roomsClasses} mobile={mobile} />
             </Route>
-            <Route path="/settings">
+            <Route path={links.settings}>
               <Settings classes={settingsClasses} />
             </Route>
-            <Route path="/room">
+            <Route path={links.room}>
               <Room classes={roomClasses} mobile={mobile} />
             </Route>
-            <Route path="/editRoom">
+            <Route path={links.roomEdit}>
               <RoomEdit classes={roomEditClasses} />
             </Route>
-            <Route path="/searchResult">
+            <Route path={links.searchResult}>
               <SearchResult classes={SearchResultClasses} mobile={mobile} />
             </Route>
-            <Route path="/user">
+            <Route path={links.userPage}>
               <UserPage classes={userPageClasses} mobile={mobile} />
             </Route>
-            <Route path="/game">
+            <Route path={links.game}>
               <Game classes={gameClasses} mobile={mobile} />
             </Route>
-            <Route path="/gameSummary">
+            <Route path={links.gameSummary}>
               <GameSummary classes={gameSummaryClasses} mobile={mobile} />
             </Route>
           </div>
