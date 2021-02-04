@@ -18,9 +18,23 @@ export const roomsClasses = makeStyles(theme => ({
   },
 
   topScrollContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
     marginTop: '10vh',
     width: '90vw',
     position: 'relative',
+  },
+
+  sortIcon: {
+    padding:'0.25vh',
+    fontSize: '3.75vh',
+    position: 'absolute',
+    bottom: 0,
+    right: '1vw',
+    borderRadius: '8px',
+    '&:active': {
+      backgroundColor: theme.palette.background.active
+    }
   },
 
   bottomScrollContainer: {
@@ -36,7 +50,7 @@ export const roomsClasses = makeStyles(theme => ({
     justifyContent: 'center',
   },
 
-  addRoomButton: {
+  topButton: {
     fontSize: '1.75vh',
     borderRadius: '8px',
     fontWeight: 600,

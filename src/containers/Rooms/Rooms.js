@@ -12,6 +12,7 @@ import PickRoomSideMenu from '../RoomSideMenu/PickRoomSideMenu';
 import { Button } from '@material-ui/core';
 import * as AiIcons from "react-icons/ai"
 import 'react-perfect-scrollbar/dist/css/styles.css';
+import Dropdown from '../../components/DropDownComponent/Dropdown';
 
 const pageSize = 12;
 export default function Rooms({ classes, mobile }) {
@@ -57,10 +58,10 @@ export default function Rooms({ classes, mobile }) {
             <Button
               variant="outlined"
               color="primary"
-              className={styles.addRoomButton}
+              className={styles.topButton}
               onClick={addRoom}>
               Dodaj Pokój
-            </Button>
+            </Button> 
           </div>
 
           {(data) &&
