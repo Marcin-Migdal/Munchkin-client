@@ -22,14 +22,14 @@ export default function SearchResult({ classes, mobile }) {
   const [errorFlag, setErrorFlag] = useState(0);
   const [status, data, page, lastPage, restart] = useFetchGetPagebale({ query: query, errorFlag });
   const [roomSideMenu, setRoomSideMenu] = useState();
-  
+
   const searchInput = location.state ? location.state.searchInput : ''
   const styles = classes();
 
   useEffect(() => {
     if (data) restart()
     if (searchInput) {
-      setQuery('/search/' + searchInput + '/' + 0 + '/' + pageSize)
+      setQuery('/searchPageable/' + searchInput + '/' + 0 + '/' + pageSize)
     }
 
   }, [searchInput]);
@@ -43,9 +43,11 @@ export default function SearchResult({ classes, mobile }) {
   }
 
   const pickRoom = (room) => {
-    setRoomSideMenu(
-      <PickRoomSideMenu room={room} changeToEditRoom={() => { editRoom(room) }} mobile={mobile} />
-    )
+    if (!room.complete) {
+      setRoomSideMenu(
+        <PickRoomSideMenu room={room} changeToEditRoom={() => { editRoom(room) }} mobile={mobile} />
+      )
+    }
   }
 
   const editRoom = (room) => {

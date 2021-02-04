@@ -22,7 +22,7 @@ const theme = createMuiTheme({
       hover: '#fffbf0',
       active: '#fff1cc'
     },
-    currentUser: {
+    current: {
       main: '#ff8080',
       hover: '#ffe6e6',
       active: '#ffcccc'

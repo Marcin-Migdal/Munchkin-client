@@ -313,7 +313,7 @@ export default function Game({ classes, mobile }) {
                   <IconContext.Provider key={index}
                     value={{
                       color: currentUser.id === playerStatus.user.id ?
-                        theme.palette.currentUser.main :
+                        theme.palette.current.main :
                         theme.palette.primary.main
                     }}>
                     <ExtendedPlayerListItem

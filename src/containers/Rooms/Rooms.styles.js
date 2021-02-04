@@ -6,7 +6,7 @@ export const roomsClasses = makeStyles(theme => ({
     zIndex: 1,
   },
 
-  scrollContentContainer:{
+  scrollContentContainer: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -15,10 +15,11 @@ export const roomsClasses = makeStyles(theme => ({
 
   topScrollContainer: {
     margin: '10vh 0 0.5vh 0',
-    width: '52vw'
+    width: '52vw',
+    position: 'relative',
   },
 
-  roomListContainer:{
+  roomListContainer: {
     width: '52vw'
   },
 

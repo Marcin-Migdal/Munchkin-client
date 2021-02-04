@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core";
 
-export const roomSearchListItemClasses = () => {
+export const roomSearchListItemClasses = (complete) => {
   return makeStyles(theme => ({
     roomContainerDesktop: {
       display: 'flex',
@@ -10,10 +10,10 @@ export const roomSearchListItemClasses = () => {
       marginTop: '1.25vh',
       padding: '0.5vh 1vh',
       border: '1px solid',
-      borderColor: theme.palette.background.paper,
+      borderColor: complete ? theme.palette.current.active : theme.palette.background.paper,
       borderRadius: '8px',
       fontSize: '3vh',
-      color: theme.palette.primary.main,
+      color: complete ? theme.palette.current.main : theme.palette.primary.main,
 
       '& p:nth-of-type(1)': {
         width: '67%',
@@ -28,10 +28,10 @@ export const roomSearchListItemClasses = () => {
       },
 
       '&:hover': {
-        backgroundColor: theme.palette.background.hover,
+        backgroundColor: complete ? theme.palette.current.hover : theme.palette.background.hover,
       },
       '&:active': {
-        backgroundColor: theme.palette.background.active,
+        backgroundColor: complete ? theme.palette.current.active : theme.palette.background.active,
       },
 
       '& p': {

@@ -110,10 +110,10 @@ export const classes = makeStyles(theme => ({
 
   select: {
     '&:before': {
-      borderColor: theme.palette.currentUser.main,
+      borderColor: theme.palette.current.main,
     },
     '&:after': {
-      borderColor: theme.palette.currentUser.main,
+      borderColor: theme.palette.current.main,
     },
     '& .MuiSelect-root': {
       minWidth: '60px',

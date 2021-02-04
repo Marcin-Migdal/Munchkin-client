@@ -19,7 +19,8 @@ export const roomsClasses = makeStyles(theme => ({
 
   topScrollContainer: {
     marginTop: '10vh',
-    width: '90vw'
+    width: '90vw',
+    position: 'relative',
   },
 
   bottomScrollContainer: {

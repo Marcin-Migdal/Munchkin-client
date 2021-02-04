@@ -52,9 +52,9 @@ export default function SearchBar({ mobile, disableSearchBar }) {
 
   const handleSearchInput = (e) => {
     if (e.target.value.length >= 2) {
-      roomsService.getPageableRooms('/search/' + e.target.value + '/0/10')
+      roomsService.getSearchedRooms(e.target.value)
         .then(res => {
-          setSearchResult(res.body.content)
+          setSearchResult(res.body)
           setError()
         })
         .catch(e => {

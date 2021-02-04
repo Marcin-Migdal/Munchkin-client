@@ -13,7 +13,7 @@ export const classes = ((isCurrentPlayer, modalType) => {
         top: '5vh',
         zIndex: 2,
         color: theme.palette.secondary.main,
-        backgroundColor: isCurrentPlayer ? theme.palette.currentUser.main : theme.palette.background.default,
+        backgroundColor: isCurrentPlayer ? theme.palette.current.main : theme.palette.background.default,
 
         '& #titleText': {
           fontSize: '3.5vh',
@@ -35,7 +35,7 @@ export const classes = ((isCurrentPlayer, modalType) => {
         top: '5vh',
         zIndex: 2,
         color: theme.palette.secondary.main,
-        backgroundColor: isCurrentPlayer ? theme.palette.currentUser.main : theme.palette.background.default,
+        backgroundColor: isCurrentPlayer ? theme.palette.current.main : theme.palette.background.default,
 
         
         '& #titleText': {
@@ -61,8 +61,8 @@ export const classes = ((isCurrentPlayer, modalType) => {
         top: '4vh',
         zIndex: 2,
         border: '1px solid',
-        borderColor: isCurrentPlayer ? theme.palette.currentUser.main : theme.palette.primary.main,
-        color: isCurrentPlayer ? theme.palette.currentUser.main : theme.palette.primary.main,
+        borderColor: isCurrentPlayer ? theme.palette.current.main : theme.palette.primary.main,
+        color: isCurrentPlayer ? theme.palette.current.main : theme.palette.primary.main,
         backgroundColor: theme.palette.secondary.main
       },
 
@@ -76,7 +76,7 @@ export const classes = ((isCurrentPlayer, modalType) => {
         right: '2vh',
         top: '4vh',
         zIndex: 2,
-        color: isCurrentPlayer ? theme.palette.currentUser.main : theme.palette.primary.main,
+        color: isCurrentPlayer ? theme.palette.current.main : theme.palette.primary.main,
         backgroundColor: theme.palette.secondary.main
       },
     }));

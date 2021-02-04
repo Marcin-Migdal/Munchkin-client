@@ -9,10 +9,10 @@ export const classes = ((isCurrentPlayer) => {
       marginBottom: '1vh',
       border: '1px solid',
       borderRadius: '1.2vh',
-      borderColor: isCurrentPlayer ? theme.palette.currentUser.main : theme.palette.primary.main,
+      borderColor: isCurrentPlayer ? theme.palette.current.main : theme.palette.primary.main,
       fontSize: '3.5vh',
       backgroundColor: theme.palette.secondary.main,
-      color: isCurrentPlayer ? theme.palette.currentUser.main : theme.palette.primary.main,
+      color: isCurrentPlayer ? theme.palette.current.main : theme.palette.primary.main,
 
       '& p': {
         webkitRouchCallout: 'none',
@@ -26,10 +26,10 @@ export const classes = ((isCurrentPlayer) => {
       '& #topContainer': {
         padding: '0.35vh 1vh',
         '&:hover': {
-          backgroundColor: isCurrentPlayer ? theme.palette.currentUser.hover : theme.palette.background.hover,
+          backgroundColor: isCurrentPlayer ? theme.palette.current.hover : theme.palette.background.hover,
         },
         '&:active': {
-          backgroundColor: isCurrentPlayer ? theme.palette.currentUser.active : theme.palette.background.active,
+          backgroundColor: isCurrentPlayer ? theme.palette.current.active : theme.palette.background.active,
         },
       }
     },
@@ -42,8 +42,8 @@ export const classes = ((isCurrentPlayer) => {
       border: '1px solid',
       borderRadius: '1.2vh',
       fontSize: '3vh',
-      borderColor: isCurrentPlayer ? theme.palette.currentUser.main : theme.palette.primary.main,
-      color: isCurrentPlayer ? theme.palette.currentUser.main : theme.palette.primary.main,
+      borderColor: isCurrentPlayer ? theme.palette.current.main : theme.palette.primary.main,
+      color: isCurrentPlayer ? theme.palette.current.main : theme.palette.primary.main,
 
       '& p': {
         webkitRouchCallout: 'none',
@@ -128,7 +128,7 @@ export const classes = ((isCurrentPlayer) => {
       marginBottom: '0.25vh',
       border: 0,
       borderColor: theme.palette.secondary.main,
-      backgroundColor: isCurrentPlayer ? theme.palette.currentUser.active : theme.palette.background.default,
+      backgroundColor: isCurrentPlayer ? theme.palette.current.active : theme.palette.background.default,
     },
 
     bottomContainer: {
@@ -142,7 +142,7 @@ export const classes = ((isCurrentPlayer) => {
       margin: '0.75vh 0 0.25vh 0',
       border: 0,
       borderColor: theme.palette.secondary.main,
-      backgroundColor: isCurrentPlayer ? theme.palette.currentUser.active : theme.palette.background.default,
+      backgroundColor: isCurrentPlayer ? theme.palette.current.active : theme.palette.background.default,
     },
 
     raceClassContainer: {

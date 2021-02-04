@@ -15,6 +15,7 @@ import 'react-perfect-scrollbar/dist/css/styles.css';
 
 const pageSize = 12;
 export default function Rooms({ classes, mobile }) {
+
   const [query, setQuery] = useState('/getAll/' + 0 + '/' + pageSize);
   const [errorFlag, setErrorFlag] = useState(0);
   const [status, data, page, lastPage] = useFetchGetPagebale({ query: query, errorFlag });
@@ -59,7 +60,7 @@ export default function Rooms({ classes, mobile }) {
               className={styles.addRoomButton}
               onClick={addRoom}>
               Dodaj Pokój
-          </Button>
+            </Button>
           </div>
 
           {(data) &&

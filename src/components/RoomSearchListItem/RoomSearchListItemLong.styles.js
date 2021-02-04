@@ -10,10 +10,9 @@ export const roomSearchListItemClasses = (complete) => {
       marginTop: '1.25vh',
       padding: '0.5vh 1vh',
       border: '1px solid',
-      borderColor: theme.palette.background.paper,
+      borderColor:  complete ? theme.palette.current.active : theme.palette.background.paper,
       borderRadius: '8px',
-      fontSize: '4vh',
-      color: theme.palette.primary.main,
+      color:  complete ? theme.palette.current.main : theme.palette.primary.main,
       
       '& p:nth-of-type(1)': {
         width:'67%',
@@ -24,14 +23,18 @@ export const roomSearchListItemClasses = (complete) => {
       },
   
       '& p:nth-of-type(2)': {
+        fontSize: '2.5vh',
+      },
+  
+      '& p:nth-of-type(3)': {
         fontSize: '3vh',
       },
   
       '&:hover': {
-        backgroundColor: theme.palette.background.hover,
+        backgroundColor: complete ? theme.palette.current.hover : theme.palette.background.hover,
       },
       '&:active': {
-        backgroundColor: theme.palette.background.active,
+        backgroundColor: complete ? theme.palette.current.active : theme.palette.background.active,
       },
   
       '& p': {
@@ -52,9 +55,9 @@ export const roomSearchListItemClasses = (complete) => {
       marginTop: '1.25vh',
       padding: '0.3vh 1vh',
       border: '1px solid',
-      borderColor: theme.palette.background.paper,
+      borderColor: complete ? theme.palette.current.active : theme.palette.background.paper,
       borderRadius: '8px',
-      color: theme.palette.primary.main,
+      color: complete ? theme.palette.current.main : theme.palette.primary.main,
   
       '& p:nth-of-type(1)': {
         width:'65%',
@@ -65,11 +68,15 @@ export const roomSearchListItemClasses = (complete) => {
       },
   
       '& p:nth-of-type(2)': {
+        fontSize: '2vh',
+      },
+
+      '& p:nth-of-type(3)': {
         fontSize: '2.5vh',
       },
   
       '&:active': {
-        backgroundColor: theme.palette.background.active,
+        backgroundColor: complete ? theme.palette.current.active : theme.palette.background.active,
       },
       
       '& p': {
