@@ -15,6 +15,7 @@ export const SearchResultClasses = makeStyles(theme => ({
     flexDirection: 'column',
     alignItems: 'center',
     width: '100vw',
+    marginTop : '10vh',
   },
 
   topScrollContainer: {

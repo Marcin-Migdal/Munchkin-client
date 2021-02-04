@@ -70,7 +70,8 @@ export default function Rooms({ classes, mobile }) {
                     key={index}
                     room={item}
                     mobile={mobile}
-                    action={() => { pickRoom(item) }} />)
+                    action={() => { pickRoom(item) }} />
+                )
               }} />
             </div>
           }

@@ -2,7 +2,8 @@ import React from 'react'
 import { classes } from './RoomListItem.styles'
 
 export default function RoomListItem({ room, action, mobile }) {
-  const {roomName, slots, usersInRoom} = room;
+  const { roomName, slots, usersInRoom } = room;
+
   const styles = classes();
 
   return (

@@ -4,23 +4,25 @@ import PerfectScrollbar from 'react-perfect-scrollbar'
 import useFetchGetPagebale from '../../hooks/useFetchGetPageable';
 import LoadingComponent from '../../components/LoadingComponent/LoadingComponent';
 import ListComponent from '../../components/ListComponent/ListComponent';
-import RoomListItem from '../../components/RoomListItem/RoomListItem';
 import InfoModal from '../../components/InfoModal/InfoModal';
 import MyHr from '../../components/MyHr/MyHr';
 import EditRoomSideMenu from '../RoomSideMenu/EditRoomSideMenu';
 import PickRoomSideMenu from '../RoomSideMenu/PickRoomSideMenu';
 import { Button } from '@material-ui/core';
 import * as AiIcons from "react-icons/ai"
+import RoomSearchListItem from '../../components/RoomSearchListItem/RoomSearchListItem';
 import 'react-perfect-scrollbar/dist/css/styles.css';
+import { roomSearchListItemClasses } from '../../components/RoomSearchListItem/RoomSearchListItemLong.styles';
 
 const pageSize = 12;
 export default function SearchResult({ classes, mobile }) {
   const location = useLocation();
+
   const [query, setQuery] = useState();
   const [errorFlag, setErrorFlag] = useState(0);
   const [status, data, page, lastPage, restart] = useFetchGetPagebale({ query: query, errorFlag });
-
   const [roomSideMenu, setRoomSideMenu] = useState();
+  
   const searchInput = location.state ? location.state.searchInput : ''
   const styles = classes();
 
@@ -32,7 +34,7 @@ export default function SearchResult({ classes, mobile }) {
 
   }, [searchInput]);
 
-  const loadMoreRooms = () => { 
+  const loadMoreRooms = () => {
     setQuery('/getAll/' + page + '/' + 12);
   }
 
@@ -69,13 +71,15 @@ export default function SearchResult({ classes, mobile }) {
         <div className={styles.scrollContentContainer}>
           {(data) &&
             <div className={styles.roomListContainer}>
-              <ListComponent data={data} mapFunction={(item, index) => {
+              <ListComponent data={data} mapFunction={(room, index) => {
                 return (
-                  <RoomListItem
+                  <RoomSearchListItem
                     key={index}
-                    room={item}
+                    room={room}
                     mobile={mobile}
-                    action={() => { pickRoom(item) }} />)
+                    action={() => { pickRoom(room) }}
+                    classes={roomSearchListItemClasses} />
+                )
               }} />
             </div>
           }

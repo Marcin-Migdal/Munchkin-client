@@ -3,19 +3,20 @@ import { useHistory } from 'react-router-dom';
 import { IconContext } from 'react-icons/lib';
 import roomsService from '../../api/rooms.api';
 import ListComponent from '../../components/ListComponent/ListComponent';
-import RoomListSearchItem from '../../components/RoomListSearchItem/RoomListSearchItem';
 import { Button, useTheme } from '@material-ui/core';
 import { desktopClasses } from './SearchBar.styles'
 import { mobileClasses } from './SearchBarMobile.styles'
 import * as AiIcons from "react-icons/ai"
 import { links } from '../../utils/linkUtils';
+import RoomSearchListItem from '../../components/RoomSearchListItem/RoomSearchListItem';
+import { roomSearchListItemClasses } from '../../components/RoomSearchListItem/RoomSearchListItemShort.styles';
 
 export default function SearchBar({ mobile, disableSearchBar }) {
   const theme = useTheme();
   const history = useHistory();
   const node = useRef();
 
-  const [data, setData] = useState();
+  const [searchResult, setSearchResult] = useState();
   const [error, setError] = useState();
   const [isOpen, setIsOpen] = useState(false);
   const [searchInput, setSearchInput] = useState();
@@ -27,7 +28,7 @@ export default function SearchBar({ mobile, disableSearchBar }) {
       if (node.current.contains(e.target)) {
         return
       } else {
-        setData()
+        setSearchResult()
         setError()
         setIsOpen(false)
       }
@@ -44,7 +45,7 @@ export default function SearchBar({ mobile, disableSearchBar }) {
   }, [isOpen]);
 
   const clearSearchResult = () => {
-    setData()
+    setSearchResult()
     setError()
     setIsOpen(false)
   }
@@ -53,11 +54,11 @@ export default function SearchBar({ mobile, disableSearchBar }) {
     if (e.target.value.length >= 2) {
       roomsService.getPageableRooms('/search/' + e.target.value + '/0/10')
         .then(res => {
-          setData(res.body.content)
+          setSearchResult(res.body.content)
           setError()
         })
         .catch(e => {
-          setData()
+          setSearchResult()
           setError('Nie znaleziono żadnego pokoju')
         })
       setIsOpen(true)
@@ -104,15 +105,16 @@ export default function SearchBar({ mobile, disableSearchBar }) {
           </IconContext.Provider>
         </Button>
       </div>
-      {(data) &&
+      {(searchResult) &&
         <div className={styles.searchContent}>
-          <ListComponent data={data} mapFunction={(item, index) => {
+          <ListComponent data={searchResult} mapFunction={(room, index) => {
             return (
-              <RoomListSearchItem
+              <RoomSearchListItem
                 key={index}
-                room={item}
+                room={room}
                 mobile={false}
-                action={() => { pickRoom(item) }} />
+                action={() => { pickRoom(room) }}
+                classes={roomSearchListItemClasses} />
             )
           }} />
         </div>

@@ -1,9 +1,9 @@
 import React from 'react'
-import { classes } from './RoomListSearchItem.styles'
 
-export default function RoomListSearchItem({ room, action, mobile }) {
-  const {roomName, slots, usersInRoom} = room;
-  const styles = classes();
+export default function RoomSearchListItem({ room, action, mobile, classes }) {
+  const { roomName, slots, usersInRoom } = room;
+  
+  const styles = classes(room.complete)();
 
   return (
     <div className={mobile ? styles.roomContainerMobile : styles.roomContainerDesktop} onClick={action} >
