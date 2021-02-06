@@ -12,7 +12,7 @@ import useFetchGet from '../../hooks/useFetchGet';
 export default function Settings({ classes }) {
   const theme = useTheme();
   const styles = classes();
-  
+
   const [userData] = useFetchGet({ url: '/api/auth/user' });
 
   const [userNameInput, userName, setUserName] = useInput({ inputType: "text", inputLabel: "Nazwa użytkownika", size: 'small', color: 'primary', customClasses: styles.input });
@@ -39,7 +39,6 @@ export default function Settings({ classes }) {
   }
 
   const editUser = () => {
-
     const editUserRequest = {
       username: userName.value,
       inGameName: capitalize(inGameName.value),
@@ -49,19 +48,14 @@ export default function Settings({ classes }) {
     if (val.editUserRequest(editUserRequest, setUserName, setInGameName)) {
       userService.editUser(editUserRequest)
         .then(resp => {
-          setNotification(
-            <div className={styles.notificationText}>
-              Edycja użytkownika powiodła sie
-            </div>
-          )
+          setNotyficationText('Edycja użytkownika powiodła sie')
         })
         .catch(e => {
-          console.log(e)
-          setNotification(
-            <div className={styles.notificationText}>
-              Przy edycji użytkownika wystąpił błąd
-            </div>
-          )
+          if (e.response && e.response.status == 400) {
+            setNotyficationText(e.response.data.message)
+          } else {
+            setNotyficationText('Przy edycji użytkownika wystąpił błąd')
+          }
         });
     }
   }
@@ -73,7 +67,7 @@ export default function Settings({ classes }) {
 
   const editPassword = () => {
     setStateCleanUp()
-    
+
     const editUserPasswordRequest = {
       username: userData.username,
       oldPassword: oldPassword.value,
@@ -84,21 +78,14 @@ export default function Settings({ classes }) {
     if (val.editUserPasswordRequest(editUserPasswordRequest, setOldPassword, setNewPassword, setNewRePassword)) {
       userService.editUserPassword(editUserPasswordRequest)
         .then(resp => {
-          setNotification(
-            <div className={styles.notificationText}>
-              Edycja hasła powiodła sie
-            </div>
-          )
+          setNotyficationText('Edycja hasła powiodła sie')
         })
         .catch(e => {
           console.log(e)
-          setNotyficationText('Wystąpił błąd przy zmianie hasła')
-          if (e.response) {
-            if (e.response.data.status === 401) {
-              setNotyficationText('Stare hasło jest nie poprawne')
-            }else {
-              setNotyficationText('Wystąpił błąd przy zmianie hasła')
-            }
+          if (e.response && e.response.data.status === 401) {
+            setNotyficationText('Stare hasło jest nie poprawne')
+          } else {
+            setNotyficationText('Wystąpił błąd przy zmianie hasła')
           }
         });
     }
@@ -116,6 +103,8 @@ export default function Settings({ classes }) {
     setNewPassword(state => ({ ...state, inputError: false, errorMessage: '' }));
     setNewRePassword(state => ({ ...state, inputError: false, errorMessage: '' }));
   }
+
+  console.log(userData)
 
   return (
     <IconContext.Provider value={{ color: theme.palette.primary.main }}>
@@ -183,8 +172,10 @@ export default function Settings({ classes }) {
         </Button>
 
         {segment === 'EditAvatar' &&
-          <div className={styles.avatarContainer}><InputImage />
-            {notification}</div>
+          <div className={styles.avatarContainer}>
+            <InputImage />
+            {notification}
+          </div>
         }
       </div>
     </IconContext.Provider>

@@ -46,9 +46,16 @@ export default function PickRoomSideMenu({ room, changeToEditRoom, mobile }) {
         });
       })
       .catch(e => {
-        setRoomPassword('')
-        setNotyficationText(e.response.data.message)
         console.log(e)
+        setRoomPassword('')
+        if (e.response && (
+          e.response.status === 404 ||
+          e.response.status === 401 ||
+          e.response.status === 400)) {
+          setNotyficationText(e.response.data.message)
+        } else {
+          setNotyficationText('Wystąpił błąd przy dołączaniu do pokoju')
+        }
       });
   }
 

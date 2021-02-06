@@ -31,8 +31,12 @@ export default function EditRoomSideMenu({ room, changeToPickRoom, mobile }) {
           window.location.reload(false);
         })
         .catch(e => {
-          setNotyficationText(e.response.data.message)
           console.log(e)
+          if (e.response && e.response.status === 400) {
+            setNotyficationText(e.response.data.message)
+          } else {
+            setNotyficationText("Wystąpił bład przy edycji pokoju")
+          }
         });
     }
   }
@@ -71,12 +75,11 @@ export default function EditRoomSideMenu({ room, changeToPickRoom, mobile }) {
   const deleteRoom = () => {
     roomsService.deleteRoom(room.id)
       .then(resp => {
-        setNotyficationText('Pokój został usunięty')
         window.location.reload(false);
       })
       .catch(e => {
-        setNotyficationText(e.response.data.message)
         console.log(e)
+        setNotyficationText("Wystąpił bład przy usuwaniu pokoju")
       });
   }
 

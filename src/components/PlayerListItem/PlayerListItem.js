@@ -5,7 +5,7 @@ import * as AiIcons from "react-icons/ai"
 import PlayerStatisticsComponent from '../PlayerStatisticsComponent/PlayerStatisticsComponent'
 import MyAvatar from '../MyAvatar/MyAvatar'
 
-export default function PlayerListItem({ mobile, playerStatus, creatorId, action }) {
+export default function PlayerListItem({ mobile, playerStatus, creatorId, action, isInRoom }) {
   const styles = classes();
   const { playerBonus, playerLevel, gender } = playerStatus;
   const { inGameName, id } = playerStatus.user

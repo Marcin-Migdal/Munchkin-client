@@ -8,7 +8,7 @@ import { Button } from '@material-ui/core';
 
 export default function AddRoomSideMenu({ mobile }) {
   const styles = mobile ? mobileClasses() : classes()
-  
+
   const [roomNameInput, roomName, setRoomName] = useInput({ inputType: "text", inputLabel: "Nazwa pokoju", size: 'small', color: 'secondary', customClasses: styles.input });
   const [slotsInput, slots, setSlots] = useInput({ inputType: "number", inputLabel: "Sloty", size: 'small', color: 'secondary', customClasses: styles.input });
   const [roomPasswordInput, roomPassword, setRoomPassword] = useInput({ inputType: "password", inputLabel: "Hasło pokoju", size: 'small', color: 'secondary', customClasses: styles.input });
@@ -28,12 +28,16 @@ export default function AddRoomSideMenu({ mobile }) {
           window.location.reload(false);
         })
         .catch(e => {
-          setNotyficationText(e.response.data.message)
           console.log(e)
+          if (e.response && e.response.status === 400) {
+            setNotyficationText(e.response.data.message)
+          } else {
+            setNotyficationText("Wystąpił bład przy zakładaniu pokoju")
+          }
         });
     }
   }
-  
+
   const capitalize = (inGameName) => {
     if (typeof inGameName !== 'string') return ''
     return inGameName.charAt(0).toUpperCase() + inGameName.slice(1)

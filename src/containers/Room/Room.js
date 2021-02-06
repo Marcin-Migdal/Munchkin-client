@@ -23,7 +23,7 @@ export default function Room({ classes, mobile }) {
     color: 'primary',
     customClasses: styles.input
   });
-  
+
   const [room, setRoom] = useState();
   const [notification, setNotification] = useState();
 
@@ -71,9 +71,16 @@ export default function Room({ classes, mobile }) {
         });
       })
       .catch(e => {
-        setRoomPassword('')
-        setNotyficationText(e.response.data.message)
         console.log(e)
+        setRoomPassword('')
+        if (e.response && (
+          e.response.status === 404 ||
+          e.response.status === 401 ||
+          e.response.status === 400)) {
+          setNotyficationText(e.response.data.message)
+        } else {
+          setNotyficationText('Wystąpił błąd przy dołączaniu do pokoju')
+        }
       });
   }
 
@@ -142,19 +149,20 @@ export default function Room({ classes, mobile }) {
 
         {notification && notification}
 
-        {playersInRoom &&
+        {(playersInRoom && room && userData) &&
           <div className={styles.playersContainer}>
             <IconContext.Provider value={{ color: theme.palette.primary.main }}>
-              <ListComponent data={playersInRoom} mapFunction={(item, index) => {
+              <ListComponent data={playersInRoom} mapFunction={(playerStatus, index) => {
                 return (
                   <div>
                     <PlayerListItem
                       key={index}
                       mobile={mobile}
-                      playerStatus={item}
+                      playerStatus={playerStatus}
                       currentUser={userData}
                       creatorId={room.creatorId}
-                      action={() => { goToUserPage(item.user) }} />
+                      isInRoom={playerStatus.playerInRoom}
+                      action={() => { goToUserPage(playerStatus.user) }} />
                   </div>
                 )
               }} />
