@@ -6,7 +6,7 @@ import PlayerStatisticsComponent from '../PlayerStatisticsComponent/PlayerStatis
 import MyAvatar from '../MyAvatar/MyAvatar'
 
 export default function PlayerListItem({ mobile, playerStatus, creatorId, action, isInRoom }) {
-  const styles = classes();
+  const styles = classes(isInRoom)();
   const { playerBonus, playerLevel, gender } = playerStatus;
   const { inGameName, id } = playerStatus.user
 

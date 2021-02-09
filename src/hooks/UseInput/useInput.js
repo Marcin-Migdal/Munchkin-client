@@ -11,6 +11,14 @@ export default function useInput({ inputType, inputLabel, size, color, customCla
 
   const styles = classes();
 
+  const handleChange = (e) => {
+    setValue({
+      value: e.target.value,
+      inputError: false,
+      errorMessage: ''
+    });
+  }
+
   const input = (
     <div className={customClasses ? customClasses : styles.input}>
       <TextField
@@ -19,16 +27,11 @@ export default function useInput({ inputType, inputLabel, size, color, customCla
         size={size}
         label={inputLabel}
         type={inputType}
+        value={values.value}
         InputProps={{ inputProps: { min: 3, max: 8 } }}
         error={values.inputError}
         helperText={values.errorMessage}
-        onChange={(e) => {
-          setValue({
-            value: e.target.value,
-            inputError: false,
-            errorMessage: ''
-          });
-        }}
+        onChange={handleChange}
       />
     </div>
   );

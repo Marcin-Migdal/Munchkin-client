@@ -20,6 +20,10 @@ class UserService {
   saveAvatar(fd) {
     return api.httpPOST('/api/auth/editAvatar', fd);
   }
+
+  deleteAvatar(userId) {
+    return api.httpDELETE('/api/auth/deleteAvatar/' + userId);
+  }
 }
 
 const userService = new UserService();

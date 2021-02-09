@@ -9,23 +9,24 @@ const theme = createMuiTheme({
     primary: {
       main: '#ffcc00',
       hover: '#ffd11a',
-      active: '#ffcc00'
+      active: '#ffcc00',
     },
     secondary: {
       main: '#ffffff',
       hover: '#f2f2f2',
-      active: '#e6e6e6'
+      active: '#e6e6e6',
+      dark: '#cccccc',
     },
     background: {
       default: '#ffd966',
       paper: '#ffe699',
       hover: '#fffbf0',
-      active: '#fff1cc'
+      active: '#fff1cc',
     },
     current: {
       main: '#ff8080',
       hover: '#ffe6e6',
-      active: '#ffcccc'
+      active: '#ffcccc',
     },
   }
 })

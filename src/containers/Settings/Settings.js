@@ -13,7 +13,8 @@ export default function Settings({ classes }) {
   const theme = useTheme();
   const styles = classes();
 
-  const [userData] = useFetchGet({ url: '/api/auth/user' });
+  const [userRefreshFlag, setUserRefreshFlag] = useState(0);
+  const [userData] = useFetchGet({ url: '/api/auth/user', reloadFlag: userRefreshFlag });
 
   const [userNameInput, userName, setUserName] = useInput({ inputType: "text", inputLabel: "Nazwa użytkownika", size: 'small', color: 'primary', customClasses: styles.input });
   const [inGameNameInput, inGameName, setInGameName] = useInput({ inputType: "text", inputLabel: "Ksywka", size: 'small', color: 'primary', customClasses: styles.input });
@@ -51,7 +52,7 @@ export default function Settings({ classes }) {
           setNotyficationText('Edycja użytkownika powiodła sie')
         })
         .catch(e => {
-          if (e.response && e.response.status == 400) {
+          if (e.response && e.response.status === 400) {
             setNotyficationText(e.response.data.message)
           } else {
             setNotyficationText('Przy edycji użytkownika wystąpił błąd')
@@ -104,7 +105,39 @@ export default function Settings({ classes }) {
     setNewRePassword(state => ({ ...state, inputError: false, errorMessage: '' }));
   }
 
-  console.log(userData)
+  const saveAvatar = (avatar) => {
+    if(avatar.size < 500000){
+      const fd = new FormData();
+      fd.append('image', avatar, avatar.name);
+      userService.saveAvatar(fd)
+        .then(res => {
+          setNotyficationText('Avatar został zapisany')
+          refreshUser()
+        })
+        .catch(e => {
+          console.log(e);
+          setNotyficationText('Przy zapisywaniu avatara wystąpił błąd')
+        })
+    }else{
+      setNotyficationText('Wybrany plik jest za duży, maksymalny rozmiar pliku to 500kb')
+    }
+  }
+
+  const deleteAvatar = () => {
+    userService.deleteAvatar(userData.id)
+      .then(res => {
+        setNotyficationText('Avatar został usunięty')
+        refreshUser()
+      })
+      .catch(e => {
+        console.log(e);
+        setNotyficationText('Przy usuwaniu avatara wystąpił błąd')
+      })
+  }
+
+  const refreshUser = () => {
+    setUserRefreshFlag(prevState => prevState + 1)
+  }
 
   return (
     <IconContext.Provider value={{ color: theme.palette.primary.main }}>
@@ -167,13 +200,16 @@ export default function Settings({ classes }) {
         <Button
           onClick={() => { changeSegment('EditAvatar') }}
           className={styles.showSegmentButton}>
-          Zmiana Avataru
+          Ustawienia Avataru
           <IoIcons.IoIosArrowDown />
         </Button>
 
         {segment === 'EditAvatar' &&
           <div className={styles.avatarContainer}>
-            <InputImage />
+            <InputImage
+              hasAvatar={userData.hasAvatar}
+              saveAvatar={(avatar) => { saveAvatar(avatar) }}
+              deleteAvatar={deleteAvatar} />
             {notification}
           </div>
         }

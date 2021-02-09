@@ -6,7 +6,7 @@ export const classes = makeStyles(theme => ({
     flexDirection: 'row',
   },
 
-  addAvatarButton: {
+  button: {
     marginRight: '1vh',
     borderRadius: '8px',
     fontWeight: 600,
@@ -29,7 +29,7 @@ export const classes = makeStyles(theme => ({
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-    color:theme.palette.primary.main,
+    color: theme.palette.primary.main,
   },
 }));
 

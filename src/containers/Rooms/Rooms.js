@@ -51,9 +51,11 @@ export default function Rooms({ classes, mobile }) {
   }
 
   const setRoomSortType = (sortBy) => {
-    restart()
-    setSortType(sortBy)
-    setQuery('/getAll/' + 0 + '/' + pageSize + '/' + sortBy);
+    if(sortBy !== sortType){
+      restart()
+      setSortType(sortBy)
+      setQuery('/getAll/' + 0 + '/' + pageSize + '/' + sortBy);
+    }
   }
 
   return (
@@ -68,7 +70,7 @@ export default function Rooms({ classes, mobile }) {
               onClick={addRoom}>
               Dodaj Pokój
             </Button>
-            <Dropdown chooseSortOption={(item) => { setRoomSortType(item) }} />
+            <Dropdown chooseSortOption={(sortBy) => { setRoomSortType(sortBy) }} />
           </div>
 
           {(data) &&
