@@ -18,7 +18,6 @@ export const roomsClasses = makeStyles(theme => ({
     justifyContent: 'space-between',
     margin: '10vh 0 0.5vh 0',
     width: '52vw',
-    position: 'relative',
   },
   roomListContainer: {
     width: '52vw'
@@ -38,6 +37,7 @@ export const roomsClasses = makeStyles(theme => ({
   },
 
   topButton: {
+    fontSize: '1.75vh',
     borderRadius: '8px',
     fontWeight: 600,
   },

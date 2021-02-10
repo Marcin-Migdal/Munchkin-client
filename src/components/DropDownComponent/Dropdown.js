@@ -23,7 +23,7 @@ const sortOptions = [
   },
 ];
 
-export default function Dropdown({ chooseSortOption }) {
+export default function Dropdown({ chooseSortOption, mobile }) {
   const theme = useTheme()
   const [isOpen, setIsOpen] = useState(false);
 
@@ -52,7 +52,7 @@ export default function Dropdown({ chooseSortOption }) {
         <InfoModal
           onClick={() => { setIsOpen() }}
           customModal={
-            <ul className={styles.list}>
+            <ul className={mobile ? styles.mobileList : styles.list}>
               {sortOptions.map(item => (
                 <button
                   key={item.id}

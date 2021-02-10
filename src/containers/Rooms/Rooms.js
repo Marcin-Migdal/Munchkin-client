@@ -51,7 +51,7 @@ export default function Rooms({ classes, mobile }) {
   }
 
   const setRoomSortType = (sortBy) => {
-    if(sortBy !== sortType){
+    if (sortBy !== sortType) {
       restart()
       setSortType(sortBy)
       setQuery('/getAll/' + 0 + '/' + pageSize + '/' + sortBy);
@@ -70,7 +70,11 @@ export default function Rooms({ classes, mobile }) {
               onClick={addRoom}>
               Dodaj Pokój
             </Button>
-            <Dropdown chooseSortOption={(sortBy) => { setRoomSortType(sortBy) }} />
+            <Dropdown
+              mobile={mobile}
+              chooseSortOption={(sortBy) => {
+                setRoomSortType(sortBy)
+              }} />
           </div>
 
           {(data) &&

@@ -22,7 +22,6 @@ export const roomsClasses = makeStyles(theme => ({
     justifyContent: 'space-between',
     marginTop: '10vh',
     width: '90vw',
-    position: 'relative',
   },
 
   sortIcon: {
@@ -54,7 +53,6 @@ export const roomsClasses = makeStyles(theme => ({
     fontSize: '1.75vh',
     borderRadius: '8px',
     fontWeight: 600,
-    color: theme.palette.primary.main,
   },
 
   button: {

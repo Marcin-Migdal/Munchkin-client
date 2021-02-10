@@ -6,6 +6,7 @@ export const classes = makeStyles(theme => ({
   },
 
   openDropMenuButton: {
+    fontSize: '1.75vh',
     borderRadius: '8px',
     fontWeight: 600,
   },
@@ -38,7 +39,8 @@ export const classes = makeStyles(theme => ({
     display: 'flex',
     flexDirection: 'column',
     position: 'absolute',
-    top: '47px',
+    top: 'auto',
+    marginTop: '1.5vh',
     right: 0,
 
     '& button:nth-of-type(1)': {
@@ -53,4 +55,25 @@ export const classes = makeStyles(theme => ({
       borderBottomRightRadius: '8px',
     }
   },
+
+  mobileList: {
+    display: 'flex',
+    flexDirection: 'column',
+    position: 'absolute',
+    top: 'auto',
+    marginTop: '1.125vh',
+    right: 0,
+
+    '& button:nth-of-type(1)': {
+      borderTop: '1px solid',
+      borderTopLeftRadius: '8px',
+      borderTopRightRadius: '8px',
+      borderColor: theme.palette.primary.main,
+    },
+
+    '& button:nth-of-type(3)': {
+      borderBottomLeftRadius: '8px',
+      borderBottomRightRadius: '8px',
+    }
+  }
 }));
