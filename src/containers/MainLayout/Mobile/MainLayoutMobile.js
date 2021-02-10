@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom';
 import { IconContext } from 'react-icons';
 import NavbarMobile from '../../Navbar/Mobile/NavbarMobile';
 import SideMenu from '../../SideMenu/SideMenu';
-import Home from '../../../prepPages/Home';
+import Home from '../../Home/Home';
 import Rooms from '../../Rooms/Rooms';
 import Settings from '../../Settings/Settings';
 import Room from '../../Room/Room';
@@ -23,15 +23,16 @@ import { gameClasses } from '../../Game/GameMobile.styles';
 import { gameSummaryClasses } from '../../GameSummary/GameSummaryMobile.styles';
 import { useTheme } from '@material-ui/core';
 import { links } from '../../../utils/linkUtils';
+import { homePageClasses } from '../../Home/HomeMobile.styles';
 
 export default function MainLayoutMobile() {
   const theme = useTheme();
 
   const [sideMenuActive, setSideMenuActive] = useState(false);
-  
+
   const styles = classes();
   const mobile = true;
-  
+
   const toggleSideMenu = () => setSideMenuActive(!sideMenuActive);
   const closeSideMenu = () => setSideMenuActive(false);
 
@@ -43,11 +44,11 @@ export default function MainLayoutMobile() {
         </div>
         <div className={styles.bottomContainer}>
           <div className={sideMenuActive ? styles.sideMenuEnabled : styles.sideMenuDisabled}>
-            <SideMenu closeSideMenu={closeSideMenu} mobile={mobile}/>
+            <SideMenu closeSideMenu={closeSideMenu} mobile={mobile} />
           </div>
           <div className={styles.contentContainer}>
             <Route path={links.home}>
-              <Home />
+              <Home classes={homePageClasses} />
             </Route>
             <Route path={links.rooms}>
               <Rooms classes={roomsClasses} mobile={mobile} />

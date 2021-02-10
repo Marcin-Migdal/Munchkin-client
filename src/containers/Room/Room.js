@@ -151,22 +151,20 @@ export default function Room({ classes, mobile }) {
 
         {(playersInRoom && room && userData) &&
           <div className={styles.playersContainer}>
-            <IconContext.Provider value={{ color: theme.palette.primary.main }}>
-              <ListComponent data={playersInRoom} mapFunction={(playerStatus, index) => {
-                return (
-                  <div>
-                    <PlayerListItem
-                      key={index}
-                      mobile={mobile}
-                      playerStatus={playerStatus}
-                      currentUser={userData}
-                      creatorId={room.creatorId}
-                      isInRoom={playerStatus.playerInRoom}
-                      action={() => { goToUserPage(playerStatus.user) }} />
-                  </div>
-                )
-              }} />
-            </IconContext.Provider>
+            <ListComponent data={playersInRoom} mapFunction={(playerStatus, index) => {
+              return (
+                <IconContext.Provider value={{ color: playerStatus.playerInRoom ? theme.palette.primary.main : theme.palette.inActive.main }}>
+                  <PlayerListItem
+                    key={index}
+                    mobile={mobile}
+                    playerStatus={playerStatus}
+                    currentUser={userData}
+                    creatorId={room.creatorId}
+                    isInRoom={playerStatus.playerInRoom}
+                    action={() => { goToUserPage(playerStatus.user) }} />
+                </IconContext.Provider>
+              )
+            }} />
           </div>
         }
       </div>

@@ -29,7 +29,6 @@ export default function Dropdown({ chooseSortOption }) {
 
   const styles = classes()
 
-
   const toggle = () => setIsOpen(!isOpen);
 
   const handleEvent = (sortBy) => {

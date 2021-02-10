@@ -9,8 +9,11 @@ import playerStatusService from '../../api/playerStatus.api'
 import * as IoIcons from "react-icons/io"
 import * as AiIcons from "react-icons/ai"
 import { classes } from './ExtendedPlayerListItem.styles'
+import { useTheme } from '@material-ui/core'
 
 export default function ExtendedPlayerListItem({ mobile, playerStatus, creatorId, isCurrentPlayer, action, isExtended, refreshFlag, onlyRead }) {
+  const theme = useTheme()
+
   const [isChangeGenderModalVisible, setIsChangeGenderModalVisible] = useState(false);
   const [selectContent, setSelectContent] = useState({
     raceArray: [],
@@ -18,8 +21,11 @@ export default function ExtendedPlayerListItem({ mobile, playerStatus, creatorId
     isInMemory: false
   });
 
+  const styles = classes(isCurrentPlayer ? theme.palette.current : theme.palette.primary)()
+
   const { playerBonus, playerLevel, gender } = playerStatus;
   const { inGameName, id } = playerStatus.user;
+
 
   useEffect(() => {
     const getRacesAndClasses = () => {
@@ -31,8 +37,6 @@ export default function ExtendedPlayerListItem({ mobile, playerStatus, creatorId
 
     (isCurrentPlayer && !selectContent.isInMemory) && getRacesAndClasses();
   }, []);
-
-  const styles = classes(isCurrentPlayer)()
 
   const showGenderModal = (e) => {
     if (isCurrentPlayer) {

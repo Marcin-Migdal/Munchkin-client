@@ -1,20 +1,21 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import ResponsiveComponent from './components/ResponsiveComponent/ResponsiveComponent';
-import DefaultPage from './components/DefaultPage/DefaultPage';
+import WelcomePage from './components/WelcomePage/WelcomePage';
 import Login from './containers/Login/Login';
 import Register from './containers/Register/Register';
 import MainLayout from './containers/MainLayout/Desktop/MainLayout';
 import MainLayoutMobile from './containers/MainLayout/Mobile/MainLayoutMobile';
-import { desktopClasses } from './components/DefaultPage/DefaultPage.styles'
-import { mobileClasses } from './components/DefaultPage/DefaultPageMobile.styles'
+import { desktopClasses } from './components/WelcomePage/WelcomePage.styles'
+import { mobileClasses } from './components/WelcomePage/WelcomePageMobile.styles'
 import api from './api/api';
 import { links } from './utils/linkUtils';
 import './App.css'
 
 function App() {
   const HomePage = () => {
-    if (localStorage.getItem('token') && api.validateToken()) {
+    console.log(localStorage.getItem('tokenExpired'))
+    if (api.validateToken()) {
       return (
         <ResponsiveComponent
           MobileComponent={<MainLayoutMobile />}
@@ -23,8 +24,8 @@ function App() {
     } else {
       return (
         < ResponsiveComponent
-          MobileComponent={< DefaultPage classes={mobileClasses} />}
-          DesktopComponent={< DefaultPage classes={desktopClasses} />} />
+          MobileComponent={< WelcomePage classes={mobileClasses} />}
+          DesktopComponent={< WelcomePage classes={desktopClasses} />} />
       )
     }
   }

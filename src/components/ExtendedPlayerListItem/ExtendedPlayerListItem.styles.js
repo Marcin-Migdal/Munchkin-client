@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core";
 
-export const classes = ((isCurrentPlayer) => {
+export const classes = ((color) => {
   return makeStyles(theme => ({
     containerDesktop: {
       display: 'flex',
@@ -9,10 +9,10 @@ export const classes = ((isCurrentPlayer) => {
       marginBottom: '1vh',
       border: '1px solid',
       borderRadius: '1.2vh',
-      borderColor: isCurrentPlayer ? theme.palette.current.main : theme.palette.primary.main,
+      borderColor: color.main,
       fontSize: '3.5vh',
       backgroundColor: theme.palette.secondary.main,
-      color: isCurrentPlayer ? theme.palette.current.main : theme.palette.primary.main,
+      color: color.main,
 
       '& p': {
         webkitRouchCallout: 'none',
@@ -26,10 +26,10 @@ export const classes = ((isCurrentPlayer) => {
       '& #topContainer': {
         padding: '0.35vh 1vh',
         '&:hover': {
-          backgroundColor: isCurrentPlayer ? theme.palette.current.hover : theme.palette.background.hover,
+          backgroundColor: color.hover,
         },
         '&:active': {
-          backgroundColor: isCurrentPlayer ? theme.palette.current.active : theme.palette.background.active,
+          backgroundColor: color.active,
         },
       }
     },
@@ -42,8 +42,8 @@ export const classes = ((isCurrentPlayer) => {
       border: '1px solid',
       borderRadius: '1.2vh',
       fontSize: '3vh',
-      borderColor: isCurrentPlayer ? theme.palette.current.main : theme.palette.primary.main,
-      color: isCurrentPlayer ? theme.palette.current.main : theme.palette.primary.main,
+      borderColor: color.main,
+      color: color.main,
 
       '& p': {
         webkitRouchCallout: 'none',
@@ -128,7 +128,7 @@ export const classes = ((isCurrentPlayer) => {
       marginBottom: '0.25vh',
       border: 0,
       borderColor: theme.palette.secondary.main,
-      backgroundColor: isCurrentPlayer ? theme.palette.current.active : theme.palette.background.default,
+      backgroundColor: color.active,
     },
 
     bottomContainer: {
@@ -138,11 +138,11 @@ export const classes = ((isCurrentPlayer) => {
 
     shortCustomHrStyle: {
       height: '1px',
-      width: '45%', 
+      width: '45%',
       margin: '0.75vh 0 0.25vh 0',
       border: 0,
       borderColor: theme.palette.secondary.main,
-      backgroundColor: isCurrentPlayer ? theme.palette.current.active : theme.palette.background.default,
+      backgroundColor: color.active,
     },
 
     raceClassContainer: {

@@ -14,7 +14,7 @@ import RoomSearchListItem from '../../components/RoomSearchListItem/RoomSearchLi
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import { roomSearchListItemClasses } from '../../components/RoomSearchListItem/RoomSearchListItemLong.styles';
 
-const pageSize = 12;
+const pageSize = 11;
 export default function SearchResult({ classes, mobile }) {
   const location = useLocation();
 
@@ -29,13 +29,13 @@ export default function SearchResult({ classes, mobile }) {
   useEffect(() => {
     if (data) restart()
     if (searchInput) {
-      setQuery('/searchPageable/' + searchInput + '/' + 0 + '/' + pageSize)
+      setQuery('/searchPageable/' + searchInput + '/' + page + '/' + pageSize)
     }
 
   }, [searchInput]);
 
   const loadMoreRooms = () => {
-    setQuery('/getAll/' + page + '/' + 12);
+    setQuery('/searchPageable/' + searchInput + '/' + page + '/' + pageSize)
   }
 
   const loadRoomsAfterError = () => {

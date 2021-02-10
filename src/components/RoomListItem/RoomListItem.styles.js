@@ -27,10 +27,10 @@ export const classes = makeStyles(theme => ({
     },
 
     '&:hover': {
-      backgroundColor: theme.palette.background.hover,
+      backgroundColor: theme.palette.primary.hover,
     },
     '&:active': {
-      backgroundColor: theme.palette.background.active,
+      backgroundColor: theme.palette.primary.active,
     },
 
     '& p': {
@@ -68,7 +68,7 @@ export const classes = makeStyles(theme => ({
     },
 
     '&:active': {
-      backgroundColor: theme.palette.background.active,
+      backgroundColor: theme.palette.primary.active,
     },
     
     '& p': {

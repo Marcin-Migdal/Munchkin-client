@@ -8,6 +8,8 @@ import { classes } from './Register.styles'
 import { links } from '../../utils/linkUtils';
 
 export default function Register() {
+  const history = useHistory();
+  
   const [inGameNameInput, inGameName, setInGameName] = useInput({ inputType: "text", inputLabel: "Ksywka", size: 'medium', color: 'secondary' });
   const [userNameInput, userName, setUserName] = useInput({ inputType: "text", inputLabel: "Nazwa użytkownika", size: 'medium', color: 'secondary' });
   const [emailInput, email, setEmail] = useInput({ inputType: "text", inputLabel: "Email", size: 'medium', color: 'secondary' });
@@ -15,7 +17,7 @@ export default function Register() {
   const [rePasswordInput, rePassword, setRePassword] = useInput({ inputType: "password", inputLabel: "Powtórz hasło", size: 'medium', color: 'secondary' });
   const [gender, setGender] = useState('male');
   const [error, setError] = useState('');
-  const history = useHistory();
+
   const styles = classes();
 
   const mobile = useMediaQuery('(max-width:620px)');;

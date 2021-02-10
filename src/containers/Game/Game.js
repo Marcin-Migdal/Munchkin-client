@@ -11,8 +11,8 @@ import ConfirmationModal from '../../components/ConfirmationModal/ConfirmationMo
 import roomsService from '../../api/rooms.api';
 import PerfectScrollbar from 'react-perfect-scrollbar'
 import * as AiIcons from "react-icons/ai"
-import 'react-perfect-scrollbar/dist/css/styles.css';
 import { links } from '../../utils/linkUtils';
+import 'react-perfect-scrollbar/dist/css/styles.css';
 
 export default function Game({ classes, mobile }) {
   const theme = useTheme()
@@ -145,7 +145,6 @@ export default function Game({ classes, mobile }) {
 
 
   const LeftRoomModal = () => {
-    console.log(location.state.roomId)
     return (
       <InfoModal
         text='Opóściłeś pokój, chcąc wrócić do gry wejdź do niego jeszcze raz.'

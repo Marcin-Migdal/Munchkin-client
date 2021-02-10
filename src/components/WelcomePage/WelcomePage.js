@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 import { links } from '../../utils/linkUtils';
 
-export default function DefaultPage({ classes }) {
+export default function WelcomePage({ classes }) {
   const styles = classes();
 
-  useEffect(() => {
+  useEffect(() => { 
     return function cleanUp() {
       localStorage.removeItem('tokenExpired')
     }

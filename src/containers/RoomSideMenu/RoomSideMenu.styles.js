@@ -6,6 +6,7 @@ export const classes = makeStyles(theme => ({
     flexDirection: 'column',
     alignItems: 'center',
     width: '100%',
+    color: theme.palette.secondary.main,
   },
 
   textContainer: {
@@ -41,7 +42,6 @@ export const classes = makeStyles(theme => ({
     textAlign: 'center',
     margin: '0.75vh 0',
     fontSize: '2.65vh',
-    color: theme.palette.secondary.main,
   },
 
   roomNameText: {
@@ -52,7 +52,6 @@ export const classes = makeStyles(theme => ({
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-    color: theme.palette.secondary.main,
   },
 
   notificationText: {
@@ -60,7 +59,6 @@ export const classes = makeStyles(theme => ({
     textAlign: 'center',
     marginBottom: '1.75vh',
     fontSize: '2.5vh',
-    color: theme.palette.secondary.main,
   },
 
   playersContainer: {
@@ -72,7 +70,6 @@ export const classes = makeStyles(theme => ({
 
   playerText: {
     fontSize: '2.5vh',
-    color: theme.palette.secondary.main,
   },
 
   iconContainer: {

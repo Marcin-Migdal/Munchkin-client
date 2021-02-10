@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom';
 import { IconContext } from 'react-icons';
 import Navbar from '../../Navbar/Desktop/Navbar';
 import SideMenu from '../../SideMenu/SideMenu';
-import Home from '../../../prepPages/Home';
+import Home from '../../Home/Home';
 import Rooms from '../../Rooms/Rooms';
 import Settings from '../../Settings/Settings';
 import Room from '../../Room/Room';
@@ -23,6 +23,7 @@ import { gameClasses } from '../../Game/Game.styles';
 import { gameSummaryClasses } from '../../GameSummary/GameSummary.styles';
 import { useTheme } from '@material-ui/core';
 import { links } from '../../../utils/linkUtils';
+import { homePageClasses } from '../../Home/Home.styles';
 
 export default function MainLayout() {
   const theme = useTheme();
@@ -46,7 +47,7 @@ export default function MainLayout() {
           </div>
           <div className={styles.contentContainer}>
             <Route path={links.home}>
-              <Home />
+              <Home classes={homePageClasses} />
             </Route>
             <Route path={links.rooms}>
               <Rooms classes={roomsClasses} mobile={mobile} />

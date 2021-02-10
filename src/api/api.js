@@ -1,7 +1,7 @@
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 
-const backendUrl = 'http://localhost:5000';
+const backendUrl = 'http://192.168.0.102:5000';
 class ApiService {
   httpGET(url) {
     if (this.validateToken()) {
@@ -91,6 +91,9 @@ class ApiService {
   }
 
   validateToken = () => {
+    if(!localStorage.getItem('token')){
+      return false;
+    }
     const decodedToken = jwt_decode(localStorage.getItem('token'))
     const currentDate = new Date();
     if (decodedToken.exp * 1000 < currentDate.getTime()) {
@@ -106,7 +109,7 @@ class ApiService {
   ifExpired = () => {
     window.location.reload(false);
     return new Promise((resolve) => {
-      resolve(console.log("Token expired, redirect to default page"));
+      resolve(console.log("Token expired, redirect to welcome page"));
     })
   }
 }

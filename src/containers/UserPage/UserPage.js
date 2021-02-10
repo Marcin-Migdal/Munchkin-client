@@ -11,8 +11,10 @@ import { links } from '../../utils/linkUtils';
 export default function UserPage({ classes, sideMenuActive, mobile }) {
   const theme = useTheme();
   const location = useLocation();
-  const [userData] = useFetchGet({ url: '/api/auth/user' });
   const history = useHistory();
+
+  const [userData] = useFetchGet({ url: '/api/auth/user' });
+  
   const styles = classes();
   const user = location.state ? location.state.user : history.replace(links.home);
 

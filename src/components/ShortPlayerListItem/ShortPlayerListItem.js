@@ -8,6 +8,7 @@ import MyAvatar from '../MyAvatar/MyAvatar';
 export default function ShortPlayerListItem({ mobile, playerStatus, isCreator, action }) {
   const { playerLevel, gender } = playerStatus;
   const { inGameName, userId } = playerStatus.user;
+  
   const styles = classes();
 
   return (

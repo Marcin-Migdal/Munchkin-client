@@ -15,7 +15,7 @@ export const classes = makeStyles(theme => ({
     padding: '1vh 1vh',
     border: '1px solid',
     borderTop: 0,
-    borderColor: theme.palette.primary.hover,
+    borderColor: theme.palette.primary.main,
     fontSize: '2vh',
     color: theme.palette.primary.main,
     backgroundColor: theme.palette.secondary.main,
@@ -24,13 +24,13 @@ export const classes = makeStyles(theme => ({
     '&:hover, &:focus': {
       outline: 'none',
       cursor: 'pointer',
-      backgroundColor: theme.palette.background.hover,
+      backgroundColor: theme.palette.primary.hover,
     },
 
     '&:active': {
       outline: 'none',
       cursor: 'pointer',
-      backgroundColor: theme.palette.background.active,
+      backgroundColor: theme.palette.primary.active,
     }
   },
 
@@ -45,7 +45,7 @@ export const classes = makeStyles(theme => ({
       borderTop: '1px solid',
       borderTopLeftRadius: '8px',
       borderTopRightRadius: '8px',
-      borderColor: theme.palette.primary.hover,
+      borderColor: theme.palette.primary.main,
     },
 
     '& button:nth-of-type(3)': {

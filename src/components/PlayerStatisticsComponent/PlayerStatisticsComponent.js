@@ -1,11 +1,15 @@
+import { useTheme } from '@material-ui/core';
 import React, { useState } from 'react'
 import InfoModal from '../InfoModal/InfoModal';
 import { classes } from './PlayerStatisticsComponent.styles'
 
 export default function PlayerStatisticsComponent({ style, content, type, mobile, isCurrentPlayer }) {
+  const theme = useTheme();
+
   const [modalType, setModalType] = useState('inGame');
   const [playerStatisticsModal, setPlayerStatisticsModal] = useState();
-  const styles = classes(isCurrentPlayer, modalType)();
+  
+  const styles = classes(isCurrentPlayer ? theme.palette.current : theme.palette.primary , modalType)();
 
   const handleClick = (e) => {
     e.stopPropagation();

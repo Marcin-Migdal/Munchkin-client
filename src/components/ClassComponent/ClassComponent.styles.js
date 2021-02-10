@@ -22,11 +22,11 @@ export const classes = makeStyles(theme => ({
     fontSize: '2.5vh',
     '& :hover': {
       borderRadius: '6px',
-      backgroundColor: theme.palette.secondary.hover,
+      backgroundColor: theme.palette.inActive.hover,
     },
     '& :active': {
       borderRadius: '6px',
-      backgroundColor: theme.palette.secondary.active,
+      backgroundColor: theme.palette.inActive.active,
     },
   },
 
@@ -55,10 +55,10 @@ export const classes = makeStyles(theme => ({
     },
 
     '&:hover': {
-      backgroundColor: theme.palette.secondary.hover,
+      backgroundColor: theme.palette.inActive.hover,
     },
     '&:active': {
-      backgroundColor: theme.palette.secondary.active,
+      backgroundColor: theme.palette.inActive.active,
     },
 
     '& p': {
@@ -92,10 +92,10 @@ export const classes = makeStyles(theme => ({
     },
 
     '&:hover': {
-      backgroundColor: theme.palette.secondary.hover,
+      backgroundColor: theme.palette.inActive.hover,
     },
     '&:active': {
-      backgroundColor: theme.palette.secondary.active,
+      backgroundColor: theme.palette.inActive.active,
     },
 
     '& p': {

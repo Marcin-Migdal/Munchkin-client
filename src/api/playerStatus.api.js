@@ -14,6 +14,11 @@ class PlayerStatusService {
       .catch((e) => console.log(e));
   }
 
+  leaveRoomOnLogIn(){
+    return api.httpPATCH('/api/playerStatus/exitRoomOnLogIn/')
+      .catch((e) => console.log(e));
+  }
+
   savePlayerStatus(currentPlayerStatus) {
     return api.httpPUT('/api/playerStatus/setPlayerStatus/', currentPlayerStatus)
   }

@@ -14,10 +14,10 @@ export const classes = makeStyles(theme => ({
     color: theme.palette.secondary.main,
 
     '&:hover': {
-      backgroundColor: theme.palette.primary.hover,
+      backgroundColor: theme.palette.primary.darkerHover,
     },
     '&:active': {
-      backgroundColor: theme.palette.primary.active,
+      backgroundColor: theme.palette.primary.main,
     },
 
     '& p': {

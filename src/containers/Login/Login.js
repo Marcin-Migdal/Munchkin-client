@@ -8,10 +8,12 @@ import { classes } from './Login.styles'
 import { links } from '../../utils/linkUtils';
 
 export default function Login() {
+  const history = useHistory();
+  
   const [userNameInput, userName, setNserName] = useInput({ inputType: 'text', inputLabel: "Nazwa użytkownika lub Email", size: 'medium', color: 'secondary' });
   const [passwordInput, password, setPassword] = useInput({ inputType: 'password', inputLabel: "Hasło", size: 'medium', color: 'secondary' });
   const [error, setError] = useState('');
-  const history = useHistory();
+  
   const styles = classes();
 
   const mobile = useMediaQuery('(max-width:620px)');;

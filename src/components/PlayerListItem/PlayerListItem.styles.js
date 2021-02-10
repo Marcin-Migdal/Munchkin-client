@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core";
 
-export const classes = (isInRoom) => {
+export const classes = (color) => {
   return makeStyles(theme => ({
     containerDesktop: {
       display: 'flex',
@@ -11,15 +11,15 @@ export const classes = (isInRoom) => {
       padding: '0.35vh 1vh',
       border: '1px solid',
       borderRadius: '1.2vh',
-      borderColor: isInRoom ? theme.palette.primary.main : theme.palette.secondary.dark,
+      borderColor: color.main,
       fontSize: '3.5vh',
       backgroundColor: theme.palette.secondary.main,
-      color: isInRoom ? theme.palette.primary.main : theme.palette.secondary.dark,
+      color: color.main,
       '&:hover': {
-        backgroundColor: isInRoom ? theme.palette.background.hover : theme.palette.secondary.hover,
+        backgroundColor: color.hover,
       },
       '&:active': {
-        backgroundColor: isInRoom ? theme.palette.background.active : theme.palette.secondary.active,
+        backgroundColor: color.active,
       },
 
       '& p': {
@@ -42,11 +42,11 @@ export const classes = (isInRoom) => {
       border: '1px solid',
       borderRadius: '1.2vh',
       fontSize: '3vh',
-      borderColor: isInRoom ? theme.palette.primary.main : theme.palette.secondary.dark,
-      color: isInRoom ? theme.palette.primary.main : theme.palette.secondary.dark,
+      borderColor: color.main,
+      color: color.main,
 
       '&:active': {
-        backgroundColor: isInRoom ? theme.palette.background.active : theme.palette.secondary.active,
+        backgroundColor: color.active,
       },
 
       '& p': {
@@ -67,7 +67,7 @@ export const classes = (isInRoom) => {
       width: '3.5vh',
       margin: '0.5vh',
       border: '1px solid',
-      borderColor: isInRoom ? theme.palette.primary.main : theme.palette.secondary.dark,
+      borderColor: color.main,
       borderRadius: '100%',
       position: 'relative',
     },
@@ -81,7 +81,7 @@ export const classes = (isInRoom) => {
       margin: '0.5vh',
       padding: '0.35vw',
       border: '1px solid',
-      borderColor: isInRoom ? theme.palette.primary.main : theme.palette.secondary.dark,
+      borderColor: color.main,
       borderRadius: '16px',
       position: 'relative',
     },

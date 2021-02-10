@@ -12,6 +12,7 @@ export default function useFetchGetPageable({ query, errorFlag }) {
     if (!query) return;
     const fetchData = async () => {
       if (mounted) setStatus('fetching');
+      console.log(query)
       await roomsService.getPageableRooms(query)
         .then((response) => {
           if (mounted) {
