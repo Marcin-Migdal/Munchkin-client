@@ -1,0 +1,44 @@
+{
+  "game": {
+    "titleLabel": "Pokój: ",
+    "saveStatus": "Zapisz Status",
+    "modal": {
+      "leaveRoom": "Opóściłeś pokój, chcąc wrócić do gry wejdź do niego jeszcze raz",
+      "winning": "Czy na pewno wbiłeś 10 lvl ?"
+    },
+    "notyfication": {
+      "levelTooLow": "Twój level nie może być mniejszy niż 1",
+      "bonusTooLow": "Twój bonus nie może być mniejszy niż 0",
+      "maxBonus": "Maksymalny bonus"
+    },
+    "error": "Podczas próby zapisania statusu wystąpił problem"
+  },
+  "gameSummary": {
+    "firstPlace": "Pierwsze miejsce",
+    "secondPlace": "Drugie miejsce",
+    "thirdPlace": "Trzecie miejsce"
+  },
+  "extendedPlayer": {
+    "genderModal": "Czy jesteś pewny ze chcesz zmienić płeć swojej postaci ?",
+    "class": {
+      "firstClassLabel": "Klasa:",
+      "secondClassLabel": "Druga Klasa:"
+    },
+    "race": {
+      "firstRaceLabel": "Rasa:",
+      "secondRaceLabel": "Druga Rasa:"
+    }
+  },
+  "playerStatistics": {
+    "title": {
+      "level": "Level",
+      "bonus": "Bonus",
+      "power": "Moc"
+    },
+    "description": {
+      "level": "Level postaci jest warunkiem zwycięztwa, level zdobywa sie za przy pokonaniu potwora, można też zdobyć level za pomocą specjalnych kart lub gdy sprzeda sie przedmioty o łącznej wartości 1000 złota lub więcej, zdobycie 10 lvl oznacza zwycięstwo oraz zakończenie gry",
+      "bonus": "Bonus postaci zdobywa sie zakładając przedmioty np: Broń, zbroja (bonus pozostaje do momentu zdjęcia części ekwipunku) można także zwiększyć bonus za pomocą kart jednorazowego użytku (bonus pozostaje na czas walki w której użyto karty), bonus jest częścią mocy gracza",
+      "power": "Na moc postaci składa się suma level'u gracza oraz jego bonusu, moc postaci to statystyka przeważająca o wygranej lub przegranej z potworem"
+    }
+  }
+}

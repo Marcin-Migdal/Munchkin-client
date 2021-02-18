@@ -12,7 +12,7 @@ export const roomClasses = makeStyles(theme => ({
     flexDirection: 'column',
     alignItems: 'center',
     width: '100%',
-    margin: '10vh 0 1.5vh 0',
+    marginTop: '10vh',
   },
 
   roomNameText: {
@@ -36,12 +36,13 @@ export const roomClasses = makeStyles(theme => ({
     flexDirection: 'column',
     alignItems: 'center',
     width: '100%',
+    marginTop: '0.85vh',
   },
 
   passwordContainer: {
     display: 'flex',
     flexDirection: 'row',
-    marginBottom: '0.85vh',
+    marginTop: '1.5vh',
   },
 
   input: {

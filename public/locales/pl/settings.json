@@ -1,0 +1,56 @@
+{
+  "title": "Ustawienia",
+  "inputLabel": {
+    "oldPassword": "Stare hasło",
+    "newPassword": "Nowe hasło"
+  },
+  "response": {
+    "editUser": "Edycja użytkownika powiodła sie",
+    "editPassword": "Edycja hasła powiodła sie",
+    "saveAvatar": "Avatar został zapisany",
+    "deleteAvatar": "Avatar został usunięty"
+  },
+  "error": {
+    "editUser": "Przy edycji użytkownika wystąpił błąd",
+    "oldPasswordIncorrect": "Stare hasło jest nie poprawne",
+    "editPassword": "Wystąpił błąd przy zmianie hasła",
+    "saveAvatar": "Przy zapisywaniu avatara wystąpił błąd",
+    "fileTooBig": "Wybrany plik jest za duży, maksymalny rozmiar pliku to 500kb",
+    "deleteAvatar": "Przy usuwaniu avatara wystąpił błąd"
+  },
+  "button": {
+    "userSettings": "Edycja użytkownika",
+    "passwordSettings": "Ustawienia hasła",
+    "savePassword": "Zmień hasło",
+    "avatarSettings": "Ustawienia Avataru",
+    "languageSettings": "Zmień Język",
+    "english": "Angielski",
+    "polish": "Polski"
+  },
+  "validation": {
+    "user": {
+      "empty": {
+        "username": "Podaj nazwe użytkownika",
+        "inGameName": "Podaj Ksywke"
+      },
+      "tooShort": {
+        "username": "Nazwa użytkownika jest za krótka",
+        "inGameName": "Ksywka jest za krótka"
+      },
+      "tooLong": {
+        "username": "Nazwa użytkownika jest za długa",
+        "inGameName": "Ksywka jest za długa"
+      }
+    },
+    "password": {
+      "empty": {
+        "oldPassword": "Podaj stare hasło",
+        "newPassword": "Podaj nowe hasło"
+      },
+      "doNotMatch": "Hasła nie są takie same",
+      "newPasswordMatchAsOld": "Nowe hasło jest takie same jak stare hasło",
+      "tooShort": "Hasło jest za krótkie",
+      "tooLong": "Hasło jest za długie"
+    }
+  }
+}

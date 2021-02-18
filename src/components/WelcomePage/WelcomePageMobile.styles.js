@@ -44,7 +44,7 @@ export const mobileClasses = makeStyles( theme => ({
   button: {
     fontWeight: 600,
     fontSize: '1.4vh',
-    width: '27vw',
+    width: '32vw',
     color: theme.palette.primary.main,
     margin: '0.75vh 0'
   },

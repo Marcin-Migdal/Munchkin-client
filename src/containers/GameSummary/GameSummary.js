@@ -6,17 +6,21 @@ import playerStatusService from '../../api/playerStatus.api';
 import ListComponent from '../../components/ListComponent/ListComponent';
 import ExtendedPlayerListItem from '../../components/ExtendedPlayerListItem/ExtendedPlayerListItem';
 import PerfectScrollbar from 'react-perfect-scrollbar'
-import 'react-perfect-scrollbar/dist/css/styles.css';
 import { links } from '../../utils/linkUtils';
+import 'react-perfect-scrollbar/dist/css/styles.css';
+import { useTranslation } from 'react-i18next';
 
 export default function GameSummary({ classes, mobile }) {
+  const { t } = useTranslation(['game']);
+
   const theme = useTheme()
   const location = useLocation();
   const history = useHistory();
 
   const [playerStatuses, setPlayerStatuses] = useState();
   const [isExtended, setIsExtended] = useState();
-  const placementArray = ['Pierwsze miejsce', 'Drugie miejsce', 'Trzecie miejsce'];
+
+  const placementArray = [t('game:gameSummary.firstPlace'), t('game:gameSummary.secondPlace'), t('game:gameSummary.thirdPlace')];
 
   const styles = classes();
 

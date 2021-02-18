@@ -10,8 +10,10 @@ import * as IoIcons from "react-icons/io"
 import * as AiIcons from "react-icons/ai"
 import { classes } from './ExtendedPlayerListItem.styles'
 import { useTheme } from '@material-ui/core'
+import { useTranslation } from 'react-i18next'
 
 export default function ExtendedPlayerListItem({ mobile, playerStatus, creatorId, isCurrentPlayer, action, isExtended, refreshFlag, onlyRead }) {
+  const { t } = useTranslation(['game', 'buttons']);
   const theme = useTheme()
 
   const [isChangeGenderModalVisible, setIsChangeGenderModalVisible] = useState(false);
@@ -48,7 +50,7 @@ export default function ExtendedPlayerListItem({ mobile, playerStatus, creatorId
   const GenderModal = () => {
     return (
       <ConfirmationModal
-        text='Czy chcesz zmienić płeć postaci ?'
+        text={t('game:extendedPlayer.genderModal')}
         mobile={mobile}
         onClickYes={saveNewGender}
         onClickNo={() => setIsChangeGenderModalVisible()} />
@@ -121,6 +123,7 @@ export default function ExtendedPlayerListItem({ mobile, playerStatus, creatorId
               selectContent={selectContent.raceArray}
               onlyRead={onlyRead} />
           }
+          
           <MyHr customClass={styles.shortCustomHrStyle} />
 
           <ClassComponent

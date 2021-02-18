@@ -6,28 +6,40 @@ import { Button, useMediaQuery } from '@material-ui/core';
 import val from '../../utils/ValidationUtil';
 import { classes } from './Login.styles'
 import { links } from '../../utils/linkUtils';
+import { useTranslation } from 'react-i18next';
 
 export default function Login() {
+  const { t } = useTranslation(['auth', 'inputLabels']);
+  const mobile = useMediaQuery('(max-width:620px)');;
   const history = useHistory();
-  
-  const [userNameInput, userName, setNserName] = useInput({ inputType: 'text', inputLabel: "Nazwa użytkownika lub Email", size: 'medium', color: 'secondary' });
-  const [passwordInput, password, setPassword] = useInput({ inputType: 'password', inputLabel: "Hasło", size: 'medium', color: 'secondary' });
+
+  const [userNameInput, userName, setNserName] = useInput({
+    inputType: 'text',
+    inputLabel: t('auth:signIn.inputLabelUsername'),
+    size: 'medium',
+    color: 'secondary'
+  });
+  const [passwordInput, password, setPassword] = useInput({
+    inputType: 'password',
+    inputLabel: t('inputLabels:password'),
+    size: 'medium',
+    color: 'secondary'
+  });
+
   const [error, setError] = useState('');
-  
+
   const styles = classes();
 
-  const mobile = useMediaQuery('(max-width:620px)');;
-
   const signIn = () => {
-    if (val.signIn(userName.value, setNserName, password.value, setPassword)) {
+    if (val.signIn(userName.value, setNserName, password.value, setPassword, t)) {
       const authorization = { usernameOrEmail: `${userName.value}`, userPassword: `${password.value}` };
       authService.signIn(authorization)
         .then(resp => history.replace(links.home))
         .catch(e => setError(
           <div className={styles.errorBadCredentials}>
-            Niepowodzenie podczas logowania!
+            {t('auth:signIn.errorPart1')}
             <br />
-            Sprawdź poprawność loginu i hasła.
+            {t('auth:signIn.errorPart2')}
           </div>,
         ));
     }
@@ -35,7 +47,7 @@ export default function Login() {
 
   return (
     <div className={mobile ? styles.containerMobile : styles.containerDesktop}>
-      <span className={styles.title}>Logowanie</span>
+      <span className={styles.title}>{t('auth:signIn.title')}</span>
       {userNameInput}
       {passwordInput}
       <Button
@@ -43,7 +55,7 @@ export default function Login() {
         color="secondary"
         className={styles.button}
         onClick={signIn}>
-        Zaloguj się
+        {t('auth:buttons.signIn')}
       </Button>
       {error && error}
     </div>

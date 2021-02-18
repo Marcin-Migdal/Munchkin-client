@@ -1,12 +1,16 @@
 import { Button } from '@material-ui/core';
 import React, { useState, useEffect, useRef } from 'react'
+import { useTranslation } from 'react-i18next';
 import { classes } from './ConfirmationModal.styles'
 import { mobileClasses } from './ConfirmationModalMobile.styles '
 
 export default function ConfirmationModal({ text, mobile, onClickYes, onClickNo }) {
-  const [isOpen, setIsOpen] = useState(true);
-  const styles = mobile ? mobileClasses() : classes();
+  const { t } = useTranslation();
   const node = useRef();
+
+  const [isOpen, setIsOpen] = useState(true);
+
+  const styles = mobile ? mobileClasses() : classes();
 
   useEffect(() => {
     const handleClick = e => {
@@ -35,14 +39,14 @@ export default function ConfirmationModal({ text, mobile, onClickYes, onClickNo 
           color='primary'
           variant="outlined"
           onClick={onClickYes}>
-          Tak
+          {t('menu:confirmationModal.yes')}
         </Button>
         <Button
           className={styles.button}
           color='primary'
           variant="outlined"
           onClick={onClickNo}>
-          Nie
+          {t('menu:confirmationModal.no')}
         </Button>
       </div>
     </div>

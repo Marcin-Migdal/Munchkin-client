@@ -75,7 +75,7 @@ export const mobileClasses = makeStyles(theme => ({
     fontSize: '4vh',
     position: 'absolute',
     top: 0,
-    left: '4vh',
+    left: '4.5vh',
     '& :hover': {
       borderRadius: '6px',
       backgroundColor: theme.palette.primary.main,

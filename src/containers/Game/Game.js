@@ -13,8 +13,11 @@ import PerfectScrollbar from 'react-perfect-scrollbar'
 import * as AiIcons from "react-icons/ai"
 import { links } from '../../utils/linkUtils';
 import 'react-perfect-scrollbar/dist/css/styles.css';
+import { useTranslation } from 'react-i18next';
 
 export default function Game({ classes, mobile }) {
+  const { t } = useTranslation(['game']);
+
   const theme = useTheme()
   const location = useLocation();
   const history = useHistory();
@@ -143,11 +146,10 @@ export default function Game({ classes, mobile }) {
     savePlayerStatus()
   }
 
-
   const LeftRoomModal = () => {
     return (
       <InfoModal
-        text='Opóściłeś pokój, chcąc wrócić do gry wejdź do niego jeszcze raz.'
+        text={t('game:game.modal.leaveRoom')}
         mobile={mobile}
         onClick={() => {
           history.replace({
@@ -181,7 +183,7 @@ export default function Game({ classes, mobile }) {
     const { playerStatus, index } = findCurrentPlayerStatus(playerStatuses, currentUser.id)
 
     if (playerStatus.playerLevel + level <= 0) {
-      setNotyficationModal('Twój level nie może być mniejszy niż 1')
+      setNotyficationModal(t('game:game.notyfication.levelTooLow'))
     }
     else if (playerStatus.playerLevel + level < 9) {
       playerStatus.playerLevel = playerStatus.playerLevel + level
@@ -202,7 +204,7 @@ export default function Game({ classes, mobile }) {
     setNotyfication(
       <ConfirmationModal
         mobile={mobile}
-        text='Czy na pewno wbiłeś 10 lvl ?'
+        text={t('game:game.modal.winning')}
         onClickYes={() => confirmWinning(index, playerStatus)}
         onClickNo={() => declineWinning(index, playerStatus)} />
     )
@@ -221,10 +223,10 @@ export default function Game({ classes, mobile }) {
     const { playerStatus, index } = findCurrentPlayerStatus(playerStatuses, currentUser.id)
 
     if (playerStatus.playerBonus + bonus < 0) {
-      setNotyficationModal('Twój bonus nie może być mniejszy niż 0')
+      setNotyficationModal(t('game:game.notyfication.bonusTooLow'))
     }
     else if (playerStatus.playerBonus + bonus > 990) {
-      setNotyficationModal('Maksymalny bonus')
+      setNotyficationModal(t('game:game.notyfication.maxBonus'))
     }
     else {
       playerStatus.playerBonus = playerStatus.playerBonus + bonus
@@ -269,7 +271,7 @@ export default function Game({ classes, mobile }) {
         }
       })
       .catch((e) => {
-        setNotyficationModal('Podczas próby zapisania statusu wystąpił problem')
+        setNotyficationModal(t('game:game.error'))
         console.log(e)
       })
   }
@@ -305,7 +307,7 @@ export default function Game({ classes, mobile }) {
       <PerfectScrollbar>
         <div className={styles.scrollContentContainer}>
           <div className={styles.topContainer}>
-            {room && <p className={styles.roomNameText}>Pokój: {room.roomName}</p>}
+            {room && <p className={styles.roomNameText}>{t('game:game.titleLabel')}{room.roomName}</p>}
             {(playerStatuses && currentUser && isExtended.isInMemory) ?
               <ListComponent data={playerStatuses} mapFunction={(playerStatus, index) => {
                 return (
@@ -322,7 +324,7 @@ export default function Game({ classes, mobile }) {
                       creatorId={room.creatorId}
                       isExtended={isExtended.isExtendedArray[index].isExtended}
                       action={() => { showExtendedPlayerStatus(index) }}
-                      refreshFlag={refreshPlayerStatuses} />
+                      refreshFlag={refreshPlayerStatuses}/>
                   </IconContext.Provider>
                 )
               }} /> :
@@ -333,8 +335,8 @@ export default function Game({ classes, mobile }) {
           </div>
           <div className={styles.bottomContainer}>
             <div className={styles.bottomTextContainer}>
-              <p className={styles.text}>Level</p>
-              <p className={styles.text}>Bonus</p>
+              <p className={styles.text}>{t('game:playerStatistics.title.level')}</p>
+              <p className={styles.text}>{t('game:playerStatistics.title.bonus')}</p>
             </div>
             <div className={styles.playerStatusButtonContainer}>
               <IconContext.Provider value={{ color: theme.palette.primary.main }}>
@@ -366,7 +368,7 @@ export default function Game({ classes, mobile }) {
                   variant={"contained"}
                   color="primary"
                   onClick={savePlayerStatus}>
-                  Zapisz Status
+                  {t('game:game.saveStatus')}
                 </Button>
               }
               <Button

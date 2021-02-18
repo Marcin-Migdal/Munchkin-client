@@ -73,11 +73,10 @@ export const classes = makeStyles(theme => ({
   },
 
   iconContainer: {
-    padding: '1vh',
     fontSize: '3vh',
     position: 'absolute',
-    top: 0,
-    left: '3vh',
+    top: '1vh',
+    left: '4.5vh',
     '& :hover': {
       borderRadius: '6px',
       backgroundColor: theme.palette.primary.main,

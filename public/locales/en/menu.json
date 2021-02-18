@@ -1,0 +1,25 @@
+{
+  "searchBar": {
+    "inputPlaceHolder": "Room search",
+    "error": "No room was found"
+  },
+  "roomSearchListItem": {
+    "gameOver": "Game is over",
+    "slots": "Slots:"
+  },
+  "sideMenu": {
+    "modal": {
+      "exitRoom": "Are you sure you want to exit ?",
+      "signOut": "Are you sure you want to sign out ?"
+    },
+    "button": {
+      "signOut": "Sign out",
+      "rooms": "Rooms",
+      "settings": "Settings"
+    }
+  },
+  "confirmationModal": {
+    "yes": "Yes",
+    "no": "No"
+  }
+}

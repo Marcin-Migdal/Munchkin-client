@@ -35,14 +35,14 @@ export const desktopClasses = makeStyles(theme => ({
 
   button: {
     fontWeight: 600,
-    width: '16.5vh',
     margin: '1.5vw 1.5vh 1.5vh 1.5vh',
     color: theme.palette.primary.main,
   },
 
   sesionExpiredText: {
-    textAlign:'center',
-    fontSize: '2vh',
+    width: '18vw',
+    textAlign: 'center',
+    fontSize: '1.25vw',
     color: theme.palette.secondary.main,
   }
 }));

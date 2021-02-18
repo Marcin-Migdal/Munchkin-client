@@ -8,21 +8,54 @@ import * as IoIcons from "react-icons/io"
 import userService from '../../api/user.api';
 import val from '../../utils/ValidationUtil';
 import useFetchGet from '../../hooks/useFetchGet';
+import { useTranslation } from 'react-i18next';
 
 export default function Settings({ classes }) {
+  const { t, i18n } = useTranslation(['settings', 'buttons', 'inputLabels']);
   const theme = useTheme();
   const styles = classes();
 
   const [userRefreshFlag, setUserRefreshFlag] = useState(0);
   const [userData] = useFetchGet({ url: '/api/auth/user', reloadFlag: userRefreshFlag });
 
-  const [userNameInput, userName, setUserName] = useInput({ inputType: "text", inputLabel: "Nazwa użytkownika", size: 'small', color: 'primary', customClasses: styles.input });
-  const [inGameNameInput, inGameName, setInGameName] = useInput({ inputType: "text", inputLabel: "Ksywka", size: 'small', color: 'primary', customClasses: styles.input });
+  const [userNameInput, userName, setUserName] = useInput({
+    inputType: "text",
+    inputLabel: t('inputLabels:username'),
+    size: 'small',
+    color: 'primary',
+    customClasses: styles.input
+  });
+  const [inGameNameInput, inGameName, setInGameName] = useInput({
+    inputType: "text",
+    inputLabel: t('inputLabels:inGameName'),
+    size: 'small',
+    color: 'primary',
+    customClasses: styles.input
+  });
+  const [oldPasswordInput, oldPassword, setOldPassword] = useInput({
+    inputType: "password",
+    inputLabel: t('settings:inputLabel.oldPassword'),
+    size: 'small',
+    color: 'primary',
+    customClasses: styles.input
+  });
+  const [newPasswordInput, newPassword, setNewPassword] = useInput({
+    inputType: "password",
+    inputLabel: t('settings:inputLabel.newPassword'),
+    size: 'small',
+    color: 'primary',
+    customClasses: styles.input
+  });
+  const [newRePasswordInput, newRePassword, setNewRePassword] = useInput({
+    inputType: "password",
+    inputLabel: t('inputLabels:rePassword'),
+    size: 'small',
+    color: 'primary',
+    customClasses: styles.input
+  });
 
-  const [oldPasswordInput, oldPassword, setOldPassword] = useInput({ inputType: "password", inputLabel: "Stare Hasło", size: 'small', color: 'primary', customClasses: styles.input });
-  const [newPasswordInput, newPassword, setNewPassword] = useInput({ inputType: "password", inputLabel: "Nowe Hasło", size: 'small', color: 'primary', customClasses: styles.input });
-  const [newRePasswordInput, newRePassword, setNewRePassword] = useInput({ inputType: "password", inputLabel: "Powtórz Hasło", size: 'small', color: 'primary', customClasses: styles.input });
   const [gender, setGender] = useState('male');
+
   const [notification, setNotification] = useState();
   const [segment, setSegment] = useState();
 
@@ -46,16 +79,16 @@ export default function Settings({ classes }) {
       gender: gender
     };
 
-    if (val.editUserRequest(editUserRequest, setUserName, setInGameName)) {
+    if (val.editUserRequest(editUserRequest, setUserName, setInGameName, t)) {
       userService.editUser(editUserRequest)
         .then(resp => {
-          setNotyficationText('Edycja użytkownika powiodła sie')
+          setNotyficationText(t('settings:response.editUser'))
         })
         .catch(e => {
           if (e.response && e.response.status === 400) {
             setNotyficationText(e.response.data.message)
           } else {
-            setNotyficationText('Przy edycji użytkownika wystąpił błąd')
+            setNotyficationText(t('settings:error.editUser'))
           }
         });
     }
@@ -76,17 +109,17 @@ export default function Settings({ classes }) {
       newRePassword: newRePassword.value,
     };
 
-    if (val.editUserPasswordRequest(editUserPasswordRequest, setOldPassword, setNewPassword, setNewRePassword)) {
+    if (val.editUserPasswordRequest(editUserPasswordRequest, setOldPassword, setNewPassword, setNewRePassword, t)) {
       userService.editUserPassword(editUserPasswordRequest)
         .then(resp => {
-          setNotyficationText('Edycja hasła powiodła sie')
+          setNotyficationText(t('settings:response.editPassword'))
         })
         .catch(e => {
           console.log(e)
           if (e.response && e.response.data.status === 401) {
-            setNotyficationText('Stare hasło jest nie poprawne')
+            setNotyficationText(t('settings:error.oldPasswordIncorrect'))
           } else {
-            setNotyficationText('Wystąpił błąd przy zmianie hasła')
+            setNotyficationText(t('settings:error.editPassword'))
           }
         });
     }
@@ -106,32 +139,32 @@ export default function Settings({ classes }) {
   }
 
   const saveAvatar = (avatar) => {
-    if(avatar.size < 500000){
+    if (avatar.size < 500000) {
       const fd = new FormData();
       fd.append('image', avatar, avatar.name);
       userService.saveAvatar(fd)
         .then(res => {
-          setNotyficationText('Avatar został zapisany')
+          setNotyficationText(t('settings:response.saveAvatar'))
           refreshUser()
         })
         .catch(e => {
           console.log(e);
-          setNotyficationText('Przy zapisywaniu avatara wystąpił błąd')
+          setNotyficationText(t('settings:error.saveAvatar'))
         })
-    }else{
-      setNotyficationText('Wybrany plik jest za duży, maksymalny rozmiar pliku to 500kb')
+    } else {
+      setNotyficationText(t('settings:error.fileTooBig'))
     }
   }
 
   const deleteAvatar = () => {
-    userService.deleteAvatar(userData.id)
+    userService.deleteAvatar()
       .then(res => {
-        setNotyficationText('Avatar został usunięty')
+        setNotyficationText(t('settings:response.deleteAvatar'))
         refreshUser()
       })
       .catch(e => {
         console.log(e);
-        setNotyficationText('Przy usuwaniu avatara wystąpił błąd')
+        setNotyficationText(t('settings:error.deleteAvatar'))
       })
   }
 
@@ -139,15 +172,19 @@ export default function Settings({ classes }) {
     setUserRefreshFlag(prevState => prevState + 1)
   }
 
+  const handleLanguageChange = (language) => {
+    i18n.changeLanguage(language)
+  }
+
   return (
     <IconContext.Provider value={{ color: theme.palette.primary.main }}>
       <div className={styles.container}>
-        <p className={styles.title}>Ustawienia</p>
+        <p className={styles.title}>{t('settings:title')}</p>
 
         <Button
           onClick={() => { changeSegment('EditUser') }}
           className={styles.showSegmentButton}>
-          Edycja użytkownika
+          {t('settings:button.userSettings')}
           <IoIcons.IoIosArrowDown />
         </Button>
 
@@ -155,16 +192,16 @@ export default function Settings({ classes }) {
           <div className={styles.inputContainer}>
             {userNameInput}
             {inGameNameInput}
-            <RadioGroup className={styles.genderRadioContainer} aria-label="gender" name="gender1" value={gender} onChange={handleChange}>
-              <FormControlLabel value="female" control={<Radio color='primary' />} label="Female" />
-              <FormControlLabel color='primary' value="male" control={<Radio color='primary' />} label="Male" />
+            <RadioGroup className={styles.genderRadioContainer} value={gender} onChange={handleChange}>
+              <FormControlLabel value="female" control={<Radio color='primary' />} label={t('inputLabels:genderFemale')} />
+              <FormControlLabel color='primary' value="male" control={<Radio color='primary' />} label={t('inputLabels:genderMale')} />
             </RadioGroup>
             <Button
               variant="outlined"
               color="primary"
               className={styles.button}
               onClick={editUser}>
-              Zapisz
+              {t('buttons:save')}
             </Button>
             {notification}
           </div>
@@ -175,7 +212,7 @@ export default function Settings({ classes }) {
         <Button
           onClick={() => { changeSegment('EditPassword') }}
           className={styles.showSegmentButton}>
-          Zmiana hasła
+          {t('settings:button.passwordSettings')}
           <IoIcons.IoIosArrowDown />
         </Button>
 
@@ -189,7 +226,7 @@ export default function Settings({ classes }) {
               color="primary"
               className={styles.button}
               onClick={editPassword}>
-              Zmień hasło
+              {t('settings:button.savePassword')}
             </Button>
             {notification}
           </div>
@@ -200,17 +237,46 @@ export default function Settings({ classes }) {
         <Button
           onClick={() => { changeSegment('EditAvatar') }}
           className={styles.showSegmentButton}>
-          Ustawienia Avataru
+          {t('settings:button.avatarSettings')}
           <IoIcons.IoIosArrowDown />
         </Button>
 
         {segment === 'EditAvatar' &&
-          <div className={styles.avatarContainer}>
+          <div className={styles.rowContainer}>
             <InputImage
               hasAvatar={userData.hasAvatar}
               saveAvatar={(avatar) => { saveAvatar(avatar) }}
               deleteAvatar={deleteAvatar} />
             {notification}
+          </div>
+        }
+
+        <MyHr customClass={styles.customHr} />
+
+        <Button
+          onClick={() => { changeSegment('ChangeLanguage') }}
+          className={styles.showSegmentButton}>
+          {t('settings:button.languageSettings')}
+          <IoIcons.IoIosArrowDown />
+        </Button>
+
+        {segment === 'ChangeLanguage' &&
+          <div className={styles.rowContainer}>
+            <Button
+              id='languageButton'
+              color='primary'
+              variant="outlined"
+              className={styles.button}
+              onClick={() => handleLanguageChange('en')}>
+              {t('settings:button.english')}
+            </Button>
+            <Button
+              color='primary'
+              variant="outlined"
+              className={styles.button}
+              onClick={() => handleLanguageChange('pl')}>
+              {t('settings:button.polish')}
+            </Button>
           </div>
         }
       </div>

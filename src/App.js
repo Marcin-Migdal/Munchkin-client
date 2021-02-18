@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import ResponsiveComponent from './components/ResponsiveComponent/ResponsiveComponent';
 import WelcomePage from './components/WelcomePage/WelcomePage';
@@ -10,11 +10,11 @@ import { desktopClasses } from './components/WelcomePage/WelcomePage.styles'
 import { mobileClasses } from './components/WelcomePage/WelcomePageMobile.styles'
 import api from './api/api';
 import { links } from './utils/linkUtils';
+import FallbackLoading from './components/FallbackLoading/FallbackLoading';
 import './App.css'
 
-function App() {
+export default function App() {
   const HomePage = () => {
-    console.log(localStorage.getItem('tokenExpired'))
     if (api.validateToken()) {
       return (
         <ResponsiveComponent
@@ -31,20 +31,20 @@ function App() {
   }
 
   return (
-    <Router>
-      <Switch>
-        <Route path={links.login}>
-          <Login />
-        </Route>
-        <Route path={links.register}>
-          <Register />
-        </Route>
-        <Route path="/">
-          <HomePage />
-        </Route>
-      </Switch>
-    </Router>
+    <Suspense fallback={<FallbackLoading />}>
+      <Router>
+        <Switch>
+          <Route path={links.login}>
+            <Login />
+          </Route>
+          <Route path={links.register}>
+            <Register />
+          </Route>
+          <Route path="/">
+            <HomePage />
+          </Route>
+        </Switch>
+      </Router>
+    </Suspense>
   );
 }
-
-export default App;

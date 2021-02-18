@@ -1,0 +1,44 @@
+{
+  "game": {
+    "titleLabel": "Room: ",
+    "saveStatus": "Save Status",
+    "modal": {
+      "leaveRoom": "You leaved the room, if you want to come back you have to enter room again",
+      "winning": "Are you sure you got to level 10 ?"
+    },
+    "notyfication": {
+      "levelTooLow": "Your level cannot be lower then 1",
+      "bonusTooLow": "Your bonus cannot be lower then 0",
+      "maxBonus": "Max bonus"
+    },
+    "error": "While saving status unexpected error occurred"
+  },
+  "gameSummary": {
+    "firstPlace": "First place",
+    "secondPlace": "Second place",
+    "thirdPlace": "Third place"
+  },
+  "extendedPlayer": {
+    "genderModal": "Are you sure you want to change gender of your character ?",
+    "class": {
+      "firstClassLabel": "Class:",
+      "secondClassLabel": "Second Class:"
+    },
+    "race": {
+      "firstRaceLabel": "Race:",
+      "secondRaceLabel": "Second Race:"
+    }
+  },
+  "playerStatistics": {
+    "title": {
+      "level": "Level",
+      "bonus": "Bonus",
+      "power": "Power"
+    },
+    "description": {
+      "level": "Player level is a winning condition, you can level up by winning a fight with a monster, you can also level up by using special card or by selling items, that together are worth 1000 gold or more, getting to level 10 means winning and ending the game",
+      "bonus": "You can get player bonus by equiping items, for example: weapon, armor(bonus stays as long, as item is a part of your equipment) you can also rise your bonus temporary for a duration of one fight with a one time use card",
+      "power": "Player power is a combination of player level and his bonus, player power is a statistic that determines, whenever player wins or lose"
+    }
+  }
+}

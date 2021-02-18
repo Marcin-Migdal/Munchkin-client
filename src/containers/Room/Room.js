@@ -8,8 +8,10 @@ import { Button, useTheme } from '@material-ui/core';
 import { IconContext } from 'react-icons/lib';
 import PlayerListItem from '../../components/PlayerListItem/PlayerListItem';
 import { links } from '../../utils/linkUtils';
+import { useTranslation } from 'react-i18next';
 
 export default function Room({ classes, mobile }) {
+  const { t } = useTranslation(['buttons', 'inputLabels', 'rooms']);
   const theme = useTheme();
   const location = useLocation();
   const history = useHistory();
@@ -18,7 +20,7 @@ export default function Room({ classes, mobile }) {
 
   const [roomPasswordInput, roomPassword, setRoomPassword] = useInput({
     inputType: "password",
-    inputLabel: "Hasło pokoju",
+    inputLabel: t('inputLabels:password'),
     size: 'small',
     color: 'primary',
     customClasses: styles.input
@@ -62,7 +64,6 @@ export default function Room({ classes, mobile }) {
 
     roomsService.joinRoom(joinRoomRequest)
       .then(resp => {
-        setNotyficationText('Dołączono do pokoju')
         history.push({
           pathname: links.game,
           state: {
@@ -79,7 +80,7 @@ export default function Room({ classes, mobile }) {
           e.response.status === 400)) {
           setNotyficationText(e.response.data.message)
         } else {
-          setNotyficationText('Wystąpił błąd przy dołączaniu do pokoju')
+          setNotyficationText(t('rooms:pickRoom.error'))
         }
       });
   }
@@ -109,7 +110,7 @@ export default function Room({ classes, mobile }) {
           color="primary"
           onClick={() => { changeToEditRoomMenu() }}
           className={styles.button}>
-          Edytuj
+          {t('buttons:editRoom')}
         </Button>
       )
     } else {
@@ -130,32 +131,30 @@ export default function Room({ classes, mobile }) {
     <div className={styles.roomMenuContainer}>
       {room &&
         <div className={styles.topContainer}>
-          <p className={styles.roomNameText}>Pokój: {room.roomName}</p>
-          <p className={styles.text}>Gracze w pokoju: {room.usersInRoom}/{room.slots}</p>
+          <p className={styles.roomNameText}>{t('rooms:pickRoom.title')} {room.roomName}</p>
+          <p className={styles.text}>{t('rooms:pickRoom.slots')} {room.usersInRoom}/{room.slots}</p>
+
+          <div className={styles.passwordContainer}>
+            {roomPasswordInput}
+            <Button
+              variant="outlined"
+              color="primary"
+              onClick={joinRoom}
+              className={styles.button}>
+              {t('buttons:joinRoom')}
+            </Button>
+            {(userData && room) && <EditButton />}
+          </div>
         </div>
       }
       <div className={styles.bottomContainer}>
-        <div className={styles.passwordContainer}>
-          {roomPasswordInput}
-          <Button
-            variant="outlined"
-            color="primary"
-            onClick={joinRoom}
-            className={styles.button}>
-            Dołącz
-          </Button>
-          {(userData && room) && <EditButton />}
-        </div>
-
         {notification && notification}
-
         {(playersInRoom && room && userData) &&
           <div className={styles.playersContainer}>
             <ListComponent data={playersInRoom} mapFunction={(playerStatus, index) => {
               return (
-                <IconContext.Provider value={{ color: playerStatus.playerInRoom ? theme.palette.primary.main : theme.palette.inActive.main }}>
+                <IconContext.Provider key={index} value={{ color: playerStatus.playerInRoom ? theme.palette.primary.main : theme.palette.inActive.main }}>
                   <PlayerListItem
-                    key={index}
                     mobile={mobile}
                     playerStatus={playerStatus}
                     currentUser={userData}

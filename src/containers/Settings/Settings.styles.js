@@ -47,9 +47,9 @@ export const settingsClasses = makeStyles(theme => ({
 
   input: {
     '& .MuiTextField-root': {
-      fontSize:'5vh',
+      fontSize: '5vh',
       width: '20vw',
-      minWidth:'175px',
+      minWidth: '175px',
       marginBottom: '1vh',
     },
 
@@ -64,7 +64,7 @@ export const settingsClasses = makeStyles(theme => ({
     width: '100%',
   },
 
-  avatarContainer: {
+  rowContainer: {
     marginLeft: '28vw',
   },
 
@@ -76,6 +76,9 @@ export const settingsClasses = makeStyles(theme => ({
     fontWeight: 600,
     '&.MuiButton-root:hover': {
       backgroundColor: theme.palette.secondary.main,
+    },
+    '&#languageButton':{
+      marginRight: '1vh',
     }
   },
 

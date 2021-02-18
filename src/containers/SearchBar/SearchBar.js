@@ -10,8 +10,11 @@ import * as AiIcons from "react-icons/ai"
 import { links } from '../../utils/linkUtils';
 import RoomSearchListItem from '../../components/RoomSearchListItem/RoomSearchListItem';
 import { roomSearchListItemClasses } from '../../components/RoomSearchListItem/RoomSearchListItemShort.styles';
+import { useTranslation } from 'react-i18next';
+import InfoModal from '../../components/InfoModal/InfoModal';
 
 export default function SearchBar({ mobile, disableSearchBar }) {
+  const { t } = useTranslation();
   const theme = useTheme();
   const history = useHistory();
   const node = useRef();
@@ -48,6 +51,7 @@ export default function SearchBar({ mobile, disableSearchBar }) {
     setSearchResult()
     setError()
     setIsOpen(false)
+    setSearchInput()
   }
 
   const handleSearchInput = (e) => {
@@ -59,7 +63,7 @@ export default function SearchBar({ mobile, disableSearchBar }) {
         })
         .catch(e => {
           setSearchResult()
-          setError('Nie znaleziono żadnego pokoju')
+          setError(t('menu:searchBar.error'))
         })
       setIsOpen(true)
     } else {
@@ -94,8 +98,9 @@ export default function SearchBar({ mobile, disableSearchBar }) {
   return (
     <div className={styles.container} ref={node}>
       <div className={styles.searchBarContainer}>
-        <input placeholder='Wyszukiwarka pokoi' className={styles.searchInput} type="text" onChange={(e) => { handleSearchInput(e) }} />
+        <input placeholder={t('menu:searchBar.inputPlaceHolder')} className={styles.searchInput} type="text" onChange={(e) => { handleSearchInput(e) }} />
         <Button
+          disabled={searchInput ? false : true}
           variant="outlined"
           color="secondary"
           className={styles.searchButton}
@@ -107,16 +112,20 @@ export default function SearchBar({ mobile, disableSearchBar }) {
       </div>
       {(searchResult) &&
         <div className={styles.searchContent}>
-          <ListComponent data={searchResult} mapFunction={(room, index) => {
-            return (
-              <RoomSearchListItem
-                key={index}
-                room={room}
-                mobile={false}
-                action={() => { pickRoom(room) }}
-                classes={roomSearchListItemClasses} />
-            )
-          }} />
+          <InfoModal
+            onClick={() => clearSearchResult()}
+            customModal={
+              <ListComponent data={searchResult} mapFunction={(room, index) => {
+                return (
+                  <RoomSearchListItem
+                    key={index}
+                    room={room}
+                    mobile={false}
+                    action={() => { pickRoom(room) }}
+                    classes={roomSearchListItemClasses} />
+                )
+              }} />
+            } />
         </div>
       }
       {error &&

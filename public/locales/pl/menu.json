@@ -1,0 +1,25 @@
+{
+  "searchBar": {
+    "inputPlaceHolder": "Wyszukiwarka pokoi",
+    "error": "Nie znaleziono żadnego pokoju"
+  },
+  "roomSearchListItem": {
+    "gameOver": "Gra skończona",
+    "slots": "Sloty:"
+  },
+  "sideMenu": {
+    "modal": {
+      "exitRoom": "Czy na pewno chcesz wyjśc z gry ?",
+      "signOut": "Czy na pewno chcesz się wylogować ?"
+    },
+    "button": {
+      "signOut": "Wyloguj",
+      "rooms": "Pokoje",
+      "settings": "Ustawienia"
+    }
+  },
+  "confirmationModal":{
+    "yes":"Tak",
+    "no":"Nie"
+  }
+}

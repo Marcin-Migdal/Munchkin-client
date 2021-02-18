@@ -27,7 +27,6 @@ export default function useInput({ inputType, inputLabel, size, color, customCla
         size={size}
         label={inputLabel}
         type={inputType}
-        value={values.value}
         InputProps={{ inputProps: { min: 3, max: 8 } }}
         error={values.inputError}
         helperText={values.errorMessage}

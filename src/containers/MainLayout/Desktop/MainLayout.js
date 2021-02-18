@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Suspense  } from 'react';
 import { Route } from 'react-router-dom';
 import { IconContext } from 'react-icons';
 import Navbar from '../../Navbar/Desktop/Navbar';
@@ -24,8 +24,11 @@ import { gameSummaryClasses } from '../../GameSummary/GameSummary.styles';
 import { useTheme } from '@material-ui/core';
 import { links } from '../../../utils/linkUtils';
 import { homePageClasses } from '../../Home/Home.styles';
+import FallbackLoading from '../../../components/FallbackLoading/FallbackLoading';
+import { useTranslation } from 'react-i18next';
 
 export default function MainLayout() {
+  const { t } = useTranslation(['menu']);
   const theme = useTheme();
 
   const [sideMenuActive, setSideMenuActive] = useState(true);
@@ -45,35 +48,37 @@ export default function MainLayout() {
           <div className={sideMenuActive ? styles.sideMenuContainerEnabled : styles.sideMenuContainerDisabled}>
             <SideMenu mobile={mobile} />
           </div>
-          <div className={styles.contentContainer}>
-            <Route path={links.home}>
-              <Home classes={homePageClasses} />
-            </Route>
-            <Route path={links.rooms}>
-              <Rooms classes={roomsClasses} mobile={mobile} />
-            </Route>
-            <Route path={links.settings}>
-              <Settings classes={settingsClasses} />
-            </Route>
-            <Route path={links.room}>
-              <Room classes={roomClasses} mobile={mobile} />
-            </Route>
-            <Route path={links.roomEdit}>
-              <RoomEdit classes={roomEditClasses} />
-            </Route>
-            <Route path={links.searchResult}>
-              <SearchResult classes={SearchResultClasses} mobile={mobile} />
-            </Route>
-            <Route path={links.userPage}>
-              <UserPage classes={userPageClasses} sideMenuActive={sideMenuActive} mobile={mobile} />
-            </Route>
-            <Route path={links.game}>
-              <Game classes={gameClasses} mobile={mobile} />
-            </Route>
-            <Route path={links.gameSummary}>
-              <GameSummary classes={gameSummaryClasses} mobile={mobile} />
-            </Route>
-          </div>
+          <Suspense fallback={<FallbackLoading />}>
+            <div className={styles.contentContainer}>
+              <Route path={links.home}>
+                <Home classes={homePageClasses} />
+              </Route>
+              <Route path={links.rooms}>
+                <Rooms classes={roomsClasses} mobile={mobile} />
+              </Route>
+              <Route path={links.settings}>
+                <Settings classes={settingsClasses} />
+              </Route>
+              <Route path={links.room}>
+                <Room classes={roomClasses} mobile={mobile} />
+              </Route>
+              <Route path={links.roomEdit}>
+                <RoomEdit classes={roomEditClasses} />
+              </Route>
+              <Route path={links.searchResult}>
+                <SearchResult classes={SearchResultClasses} mobile={mobile} />
+              </Route>
+              <Route path={links.userPage}>
+                <UserPage classes={userPageClasses} sideMenuActive={sideMenuActive} mobile={mobile} />
+              </Route>
+              <Route path={links.game}>
+                <Game classes={gameClasses} mobile={mobile} />
+              </Route>
+              <Route path={links.gameSummary}>
+                <GameSummary classes={gameSummaryClasses} mobile={mobile} />
+              </Route>
+            </div>
+          </Suspense>
         </div>
       </div>
     </IconContext.Provider>

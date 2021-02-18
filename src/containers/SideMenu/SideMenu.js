@@ -12,8 +12,10 @@ import { useHistory, useLocation } from 'react-router-dom';
 import ConfirmationModal from '../../components/ConfirmationModal/ConfirmationModal';
 import playerStatusService from '../../api/playerStatus.api';
 import { links } from '../../utils/linkUtils';
+import { useTranslation } from 'react-i18next';
 
 export default function SideMenu({ closeSideMenu, mobile }) {
+  const { t } = useTranslation(['buttons']);
   const [modal, setModal] = useState(false);
   const location = useLocation();
   const history = useHistory();
@@ -23,7 +25,7 @@ export default function SideMenu({ closeSideMenu, mobile }) {
   const showExitModal = (path) => {
     setModal(
       <ConfirmationModal
-        text='Czy na pewno chcesz wyjśc z gry ?'
+        text={t('menu:sideMenu.modal.exitRoom')}
         mobile={mobile}
         onClickYes={() => { leaveRoom(path) }}
         onClickNo={() => { setModal() }} />
@@ -42,7 +44,7 @@ export default function SideMenu({ closeSideMenu, mobile }) {
   const showSignOutModal = () => {
     setModal(
       <ConfirmationModal
-        text='Czy na pewno chcesz się wylogować ?'
+        text={t('menu:sideMenu.modal.signOut')}
         mobile={mobile}
         onClickYes={() => { signOut() }}
         onClickNo={() => { setModal() }} />
@@ -61,13 +63,13 @@ export default function SideMenu({ closeSideMenu, mobile }) {
         <SideMenuButton
           path={links.rooms}
           icon={<BiIcons.BiArrowBack />}
-          text='Wróć'
+          text={t('buttons:back')}
           classes={styles}
           onClick={(path) => { showExitModal(path) }}
         /> :
         <SideMenuButton
           icon={<AiIcons.AiOutlineLogout />}
-          text='Wyloguj'
+          text={t('menu:sideMenu.button.signOut')}
           classes={styles}
           onClick={() => { showSignOutModal() }} />
     )
@@ -83,7 +85,7 @@ export default function SideMenu({ closeSideMenu, mobile }) {
               <SideMenuButton
                 path={item.path}
                 icon={item.icon}
-                text={item.page}
+                text={t('menu:sideMenu.button.' + item.page)}
                 classes={styles}
                 onClick={(path) => { showExitModal(path) }} />
             </li>

@@ -13,9 +13,11 @@ import * as AiIcons from "react-icons/ai"
 import RoomSearchListItem from '../../components/RoomSearchListItem/RoomSearchListItem';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import { roomSearchListItemClasses } from '../../components/RoomSearchListItem/RoomSearchListItemLong.styles';
+import { useTranslation } from 'react-i18next';
 
 const pageSize = 11;
 export default function SearchResult({ classes, mobile }) {
+  const { t } = useTranslation(['inputLabels', 'rooms']);
   const location = useLocation();
 
   const [query, setQuery] = useState();
@@ -56,17 +58,6 @@ export default function SearchResult({ classes, mobile }) {
     )
   }
 
-  const getErrorMessage = () => {
-    if (!searchInput) {
-      return "Prosze podać faraze wyszukiwania"
-    }
-    if (searchInput.trim()) {
-      return 'Nie znaleziono pokoi za pomocą frazy "' + searchInput + '"'
-    } else {
-      return "Prosze podać faraze wyszukiwania"
-    }
-  }
-
   return (
     <div className={styles.scrollContainer}>
       <PerfectScrollbar onYReachEnd={() => { if (!lastPage && data && status === 'fetched') loadMoreRooms() }}>
@@ -93,17 +84,16 @@ export default function SearchResult({ classes, mobile }) {
                   color="primary"
                   className={styles.button}
                   onClick={loadRoomsAfterError}>
-                  Wczytaj Pokoje
+                  {t('rooms:searchResult.loadRooms')}
                 </Button>
                 <InfoModal
                   mobile={mobile}
-                  text='Coś poszło nie tak, wystąpił błąd podczas wczytywania pokoi,
-                  spróbuj wczytać pokoje jeszcze raz lub odśwież strone' />
+                  text={t('rooms:searchResult.error')} />
               </div>}
             {status === 'notFound' &&
               <div className={styles.errorContainer}>
                 <InfoModal
-                  text={getErrorMessage()} mobile={mobile} />
+                  text={t('rooms:searchResult.notFound') + "'" + searchInput + "'"} mobile={mobile} />
               </div>
             }
             <LoadingComponent condition={(status === 'fetching')} />

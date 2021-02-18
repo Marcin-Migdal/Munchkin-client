@@ -1,30 +1,45 @@
 import { useTheme } from '@material-ui/core';
 import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next';
 import InfoModal from '../InfoModal/InfoModal';
 import { classes } from './PlayerStatisticsComponent.styles'
 
 export default function PlayerStatisticsComponent({ style, content, type, mobile, isCurrentPlayer }) {
+  const { t } = useTranslation();
+
   const theme = useTheme();
 
   const [modalType, setModalType] = useState('inGame');
   const [playerStatisticsModal, setPlayerStatisticsModal] = useState();
-  
-  const styles = classes(isCurrentPlayer ? theme.palette.current : theme.palette.primary , modalType)();
+
+  const styles = classes(isCurrentPlayer ? theme.palette.current : theme.palette.primary, modalType)();
 
   const handleClick = (e) => {
     e.stopPropagation();
     switch (type) {
       case 'level':
-        setPlayerStatisticsModal({ title: "Level", description: "Level postaci jest warunkiem zwycięztwa, zdobycie 10 lvl oznacza zwycięstwo oraz zakończenie gry" })
+        setPlayerStatisticsModal({
+          title: t('game:playerStatistics.title.level'),
+          description: t('game:playerStatistics.description.level')
+        })
         break;
       case 'bonus':
-        setPlayerStatisticsModal({ title: "Bonus", description: "Bonus postaci zdobywa sie zakładając przedmioty np: Broń, zbroja (bonus pozostaje do momentu zdjęcia części ekwipunku) oraz za pomocą kart jednorazowego użytku (bonus pozostaje na czas walki w której użyto karty), bonus jest częścią mocy gracza" })
+        setPlayerStatisticsModal({
+          title: t('game:playerStatistics.title.bonus'),
+          description: t('game:playerStatistics.description.bonus')
+        })
         break;
       case 'power':
-        setPlayerStatisticsModal({ title: "Moc", description: "Na moc postaci składa się suma level'u gracza oraz jego bonusu, moc postaci to statystyka przeważająca o wygranej lub przegranej z potworem" })
+        setPlayerStatisticsModal({
+          title: t('game:playerStatistics.title.power'),
+          description: t('game:playerStatistics.description.power')
+        })
         break;
       case 'sideMenu':
-        setPlayerStatisticsModal({ title: "Level", description: "Level postaci jest warunkiem zwycięztwa, zdobycie 10 lvl oznacza zwycięstwo oraz zakończenie gry"  })
+        setPlayerStatisticsModal({
+          title: t('game:playerStatistics.title.level'),
+          description: t('game:playerStatistics.description.level')
+        })
         setModalType('sideMenu')
         break;
       default:

@@ -5,8 +5,10 @@ import playerStatusService from '../../api/playerStatus.api';
 import * as AiIcons from "react-icons/ai"
 import MyAvatar from '../MyAvatar/MyAvatar';
 import InfoModal from '../InfoModal/InfoModal';
+import { useTranslation } from 'react-i18next';
 
 export default function ClassComponent({ mobile, isCurrentPlayer, playerStatus, refreshFlag, isSecondClass, selectContent, onlyRead}) {
+  const { t } = useTranslation();
   const [classId, setClassId] = useState();
   const [classInfoModal, setClassInfoModal] = useState();
   const [showClassInput, setShowClassInput] = useState(false);
@@ -99,7 +101,7 @@ export default function ClassComponent({ mobile, isCurrentPlayer, playerStatus, 
 
   return (
     <div className={styles.container}>
-      <p>{isSecondClass ? 'Druga Klasa:' : 'Klasa:'}</p>
+      <p>{isSecondClass ? t('game:extendedPlayer.class.secondClassLabel') : t('game:extendedPlayer.class.firstClassLabel')}</p>
       {!showClassInput ?
         <div className={styles.buttonContainer}>
           <button
@@ -113,7 +115,7 @@ export default function ClassComponent({ mobile, isCurrentPlayer, playerStatus, 
               id='saveButton'
               className={mobile ? styles.buttonStyleMobile : styles.buttonStyle}
               onClick={() => { setShowClassInput(true) }}>
-              Zmień
+              {t('buttons:change')}
           </button>
           }
         </div> :
@@ -122,7 +124,7 @@ export default function ClassComponent({ mobile, isCurrentPlayer, playerStatus, 
             <InputLabel
               className={styles.selectedInput}
               id="open-select-label">
-              Wybierz
+              {t('buttons:choose')}
             </InputLabel>
             <SelectComponent />
           </FormControl>
@@ -132,7 +134,7 @@ export default function ClassComponent({ mobile, isCurrentPlayer, playerStatus, 
               id='saveButton'
               className={mobile ? styles.buttonStyleMobile : styles.buttonStyle}
               onClick={saveClass}>
-              Zapisz
+              {t('buttons:save')}
             </button> :
             <div className={styles.iconContainer} onClick={() => setShowClassInput(false)}>
               <AiIcons.AiOutlineClose />

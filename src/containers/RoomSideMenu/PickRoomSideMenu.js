@@ -10,13 +10,22 @@ import { Button } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import ShortPlayerListItem from '../../components/ShortPlayerListItem/ShortPlayerListItem';
 import { links } from '../../utils/linkUtils';
+import { useTranslation } from 'react-i18next';
 
 export default function PickRoomSideMenu({ room, changeToEditRoom, mobile }) {
+  const { t } = useTranslation(['inputLabels', 'buttons']);
   const history = useHistory();
 
   const styles = mobile ? mobileClasses() : classes()
 
-  const [roomPasswordInput, roomPassword, setRoomPassword] = useInput({ inputType: "password", inputLabel: "Hasło pokoju", size: 'small', color: 'secondary', customClasses: styles.input });
+  const [roomPasswordInput, roomPassword, setRoomPassword] = useInput({
+    inputType: "password",
+    inputLabel: t('inputLabels:roomPassword'),
+    size: 'small',
+    color: 'secondary',
+    customClasses: styles.input
+  });
+
   const [notification, setNotification] = useState();
   const [userData] = useFetchGet({ url: '/api/auth/user' });
   const [playersInRoom, setPlayersInRoomData] = useFetchGet({ url: '/api/playerStatus/allPlayersStatusesInRoom/' + room.id });
@@ -54,7 +63,7 @@ export default function PickRoomSideMenu({ room, changeToEditRoom, mobile }) {
           e.response.status === 400)) {
           setNotyficationText(e.response.data.message)
         } else {
-          setNotyficationText('Wystąpił błąd przy dołączaniu do pokoju')
+          setNotyficationText(t('rooms:pickRoom.error'))
         }
       });
   }
@@ -75,7 +84,7 @@ export default function PickRoomSideMenu({ room, changeToEditRoom, mobile }) {
           color="primary"
           onClick={() => { changeToEditRoom(room) }}
           className={styles.button}>
-          Edytuj
+          {t('buttons:editRoom')}
         </Button>
       )
     } else {
@@ -95,8 +104,8 @@ export default function PickRoomSideMenu({ room, changeToEditRoom, mobile }) {
   return (
     <div className={styles.roomSideMenuContainer}>
       <div className={styles.textContainer}>
-        <p className={styles.roomNameText}>{room.roomName}</p>
-        <p className={styles.text}>Sloty: {room.usersInRoom}/{room.slots}</p>
+        <p className={styles.roomNameText}>{t('rooms:pickRoom.title')} {room.roomName}</p>
+        <p className={styles.text}>{t('rooms:pickRoom.slots')} {room.usersInRoom}/{room.slots}</p>
         {roomPasswordInput}
       </div>
       <div className={styles.buttonContainer}>
@@ -105,7 +114,7 @@ export default function PickRoomSideMenu({ room, changeToEditRoom, mobile }) {
           color="primary"
           onClick={joinRoom}
           className={styles.button}>
-          Dołącz
+          {t('buttons:joinRoom')}
         </Button>
         {userData && <EditButton />}
       </div>

@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react'
+import { useTranslation } from 'react-i18next';
 import playerStatusService from '../../api/playerStatus.api';
 
 export default function Home({ classes }) {
+  const { t } = useTranslation();
   const styles = classes(); 
   
   useEffect(() => {

@@ -13,15 +13,18 @@ import { Button } from '@material-ui/core';
 import Dropdown from '../../components/DropDownComponent/Dropdown';
 import * as AiIcons from "react-icons/ai"
 import 'react-perfect-scrollbar/dist/css/styles.css';
+import { useTranslation } from 'react-i18next';
 
 const pageSize = 12;
 export default function Rooms({ classes, mobile }) {
+  const { t } = useTranslation(['inputLabels', 'rooms']);
+
   const [sortType, setSortType] = useState('id');
   const [query, setQuery] = useState('/getAll/' + 0 + '/' + pageSize + '/' + sortType);
   const [errorFlag, setErrorFlag] = useState(0);
   const [status, data, page, lastPage, restart] = useFetchGetPagebale({ query: query, errorFlag });
-
   const [roomSideMenu, setRoomSideMenu] = useState();
+
   const styles = classes();
 
   const loadMoreRooms = () => {
@@ -68,7 +71,7 @@ export default function Rooms({ classes, mobile }) {
               color="primary"
               className={styles.topButton}
               onClick={addRoom}>
-              Dodaj Pokój
+              {t('rooms:rooms.buttons.addRoom')}
             </Button>
             <Dropdown
               mobile={mobile}
@@ -99,10 +102,9 @@ export default function Rooms({ classes, mobile }) {
                   color="primary"
                   className={styles.button}
                   onClick={loadRoomsAfterError}>
-                  Wczytaj Pokoje
+                  {t('rooms:rooms.buttons.loadRooms')}
                 </Button>
-                <InfoModal
-                  text='Coś poszło nie tak, wystąpił błąd podczas wczytywania pokoi, spróbuj wczytać pokoje jeszcze raz lub odśwież strone' mobile={mobile} />
+                <InfoModal text={t('rooms:rooms.error')} mobile={mobile} />
               </div>}
             <LoadingComponent condition={(status === 'fetching')} />
           </div>

@@ -2,8 +2,11 @@ import React, { useState } from 'react'
 import { classes } from './InputImage.styles'
 import * as AiIcons from 'react-icons/ai'
 import { Avatar, Button } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
 
 export default function InputImage({ hasAvatar, saveAvatar, deleteAvatar }) {
+  const { t } = useTranslation(['buttons']);
+
   const [avatar, setAvatar] = useState();
   const styles = classes();
 
@@ -36,7 +39,7 @@ export default function InputImage({ hasAvatar, saveAvatar, deleteAvatar }) {
           component="span"
           className={styles.button}
           startIcon={<AiIcons.AiFillFileAdd className={styles.buttonIcon} />}>
-          Wybierz
+          {t('buttons:chooseAvatar')}
           </Button>
         {(hasAvatar && !avatar) &&
           <Button
@@ -45,7 +48,7 @@ export default function InputImage({ hasAvatar, saveAvatar, deleteAvatar }) {
             className={styles.button}
             startIcon={<AiIcons.AiFillDelete className={styles.buttonIcon} />}
             onClick={() => { deleteAvatar() }}>
-            Usuń
+            {t('buttons:delete')}
         </Button>
         }
       </label>
@@ -59,7 +62,7 @@ export default function InputImage({ hasAvatar, saveAvatar, deleteAvatar }) {
             className={styles.button}
             startIcon={<AiIcons.AiOutlineUpload className={styles.buttonIcon} />}
             onClick={handleSave}>
-            Zapisz
+            {t('buttons:save')}
             </Button>
           <p className={styles.fileNameText} onClick={() => setAvatar()} >
             {avatar.name}

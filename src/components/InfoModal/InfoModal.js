@@ -8,13 +8,13 @@ export default function InfoModal({ text, mobile, onClick, customModal }) {
 
   useEffect(() => {
     if (isOpen) {
-      document.addEventListener("mousedown", handleClick);
+      document.addEventListener("click", handleClick);
     } else {
-      document.removeEventListener("mousedown", handleClick);
+      document.removeEventListener("click", handleClick);
     }
 
     return () => {
-      document.removeEventListener("mousedown", handleClick);
+      document.removeEventListener("click", handleClick);
     }
   })
 

@@ -29,7 +29,7 @@ export default function useFetchGetPageable({ query, errorFlag }) {
           if (mounted) {
             console.log(e)
             setStatus('error')
-            if(e.response) setStatus('notFound')     
+            if (e.response && e.response.status === 404) setStatus('notFound')
           }
         })
     };
@@ -40,7 +40,7 @@ export default function useFetchGetPageable({ query, errorFlag }) {
     }
   }, [query, errorFlag]);
 
-  
+
   const restart = () => {
     setStatus('idle')
     setData()

@@ -2,11 +2,14 @@ import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 import { links } from '../../utils/linkUtils';
+import { useTranslation } from 'react-i18next';
 
 export default function WelcomePage({ classes }) {
+  const { t } = useTranslation(['auth', 'inputLabels']);
+
   const styles = classes();
 
-  useEffect(() => { 
+  useEffect(() => {
     return function cleanUp() {
       localStorage.removeItem('tokenExpired')
     }
@@ -14,9 +17,9 @@ export default function WelcomePage({ classes }) {
 
   return (
     <div className={styles.backgroundLayer}>
-      <span className={styles.title}>Munchkin</span>
+      <p className={styles.title}>Munchkin</p>
       <div className={styles.container}>
-        <span className={styles.description}>Uprość swoją rozgrywkę w grze karcianej Munchkin dzieki zapisywaniu postępu swojej postaci oraz możliwości natychmiastowego sprawdzania postępu swoich przeciwników</span>
+        <span className={styles.description}>{t('auth:welcomePage.description')}</span>
         <div className={styles.buttonContainer}>
           <Button
             component={Link}
@@ -24,7 +27,7 @@ export default function WelcomePage({ classes }) {
             variant="contained"
             color="secondary"
             className={styles.button}>
-            Logowanie
+            {t('auth:buttons.signIn')}
           </Button>
           <Button
             component={Link}
@@ -32,14 +35,14 @@ export default function WelcomePage({ classes }) {
             variant="contained"
             color="secondary"
             className={styles.button}>
-            Rejestracja
+            {t('auth:buttons.signUp')}
           </Button>
         </div>
         {localStorage.getItem('tokenExpired') &&
           <div>
-            <p className={styles.sesionExpiredText}>Czas sesji się skończył</p>
-            <p className={styles.sesionExpiredText}>proszę zalogować się ponownie</p>
-          </div>}
+            <p className={styles.sesionExpiredText}>{t('auth:welcomePage.sesionExpired')}</p>
+          </div>
+        }
       </div>
     </div>
   )

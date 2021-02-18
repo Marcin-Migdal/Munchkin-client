@@ -61,13 +61,13 @@ export const roomClasses = makeStyles(theme => ({
     flexDirection: 'column',
     alignItems: 'center',
     width: '90vw',
-    marginTop: '1.25vh',
+    marginTop: '0.75vh',
   },
 
   passwordContainer: {
     display: 'flex',
     flexDirection: 'row',
-    marginBottom: '0.75vh',
+    marginTop: '1.25vh',
   },
 
   notificationText: {

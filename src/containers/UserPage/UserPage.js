@@ -7,15 +7,18 @@ import { IconContext } from 'react-icons/lib';
 import useFetchGet from '../../hooks/useFetchGet';
 import MyAvatar from '../../components/MyAvatar/MyAvatar';
 import { links } from '../../utils/linkUtils';
+import { useTranslation } from 'react-i18next';
 
 export default function UserPage({ classes, sideMenuActive, mobile }) {
-  const theme = useTheme();
+  const { t } = useTranslation(['translation', 'buttons']);
   const location = useLocation();
   const history = useHistory();
+  const theme = useTheme();
 
   const [userData] = useFetchGet({ url: '/api/auth/user' });
-  
+
   const styles = classes();
+  
   const user = location.state ? location.state.user : history.replace(links.home);
 
   const EditButton = () => {
@@ -26,7 +29,7 @@ export default function UserPage({ classes, sideMenuActive, mobile }) {
           color="primary"
           className={styles.editButton}
           onClick={goToEditUserPage}>
-          Edytuj
+          {t('buttons:editRoom')}
         </Button>
       )
     }
@@ -43,7 +46,7 @@ export default function UserPage({ classes, sideMenuActive, mobile }) {
         {user && <MyAvatar customStyles={styles.avatarIcon} inGameName={user.inGameName} id={user.id} />}
         {user &&
           <div className={styles.topRightContainer}>
-            <p className={styles.nick}>{mobile ? user.inGameName : 'Pseudonim: ' + user.inGameName}
+            <p className={styles.nick}>{mobile ? user.inGameName : t('rooms:userPage.inGameName') + user.inGameName}
               <IconContext.Provider value={{ color: theme.palette.primary.main }}>
                 {user.gender === 'male' ?
                   <IoIcons.IoMdMale className={styles.gender} /> :

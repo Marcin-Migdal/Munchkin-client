@@ -5,14 +5,12 @@ import { links } from './linkUtils';
 
 export const SideMenuData = [
   {
-    page: 'Pokoje',
+    page: 'rooms',
     path: links.rooms,
-    icon: <AiIcons.AiFillHome />,
-    className: 'nav-menu-item'
+    icon: <AiIcons.AiFillHome />
   },{
-    page: 'Ustawienia',
+    page: 'settings',
     path: links.settings,
-    icon: <IoIcons.IoIosSettings />,
-    className: 'nav-menu-item'
+    icon: <IoIcons.IoIosSettings />
   },
 ];

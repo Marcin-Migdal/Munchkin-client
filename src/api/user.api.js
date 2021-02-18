@@ -21,8 +21,8 @@ class UserService {
     return api.httpPOST('/api/auth/editAvatar', fd);
   }
 
-  deleteAvatar(userId) {
-    return api.httpDELETE('/api/auth/deleteAvatar/' + userId);
+  deleteAvatar() {
+    return api.httpDELETE('/api/auth/deleteAvatar');
   }
 }
 

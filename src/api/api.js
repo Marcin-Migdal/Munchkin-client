@@ -1,7 +1,7 @@
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 
-const backendUrl = 'http://localhost:5000';
+const backendUrl = 'http://192.168.0.101:5000';
 class ApiService {
   httpGET(url) {
     if (this.validateToken()) {

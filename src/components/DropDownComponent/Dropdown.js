@@ -1,35 +1,39 @@
 import { Button, useTheme } from '@material-ui/core';
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import * as HiIcons from "react-icons/hi"
 import { IconContext } from 'react-icons/lib';
 import InfoModal from '../InfoModal/InfoModal';
 import { classes } from './Dropdown.styles'
 
-const sortOptions = [
-  {
-    id: 1,
-    text: 'Datą powstania',
-    sortBy: 'id',
-  },
-  {
-    id: 2,
-    text: 'Nazwą',
-    sortBy: 'roomName',
-  },
-  {
-    id: 3,
-    text: 'Moje pokoje',
-    sortBy: 'createdByMe',
-  },
-];
-
 export default function Dropdown({ chooseSortOption, mobile }) {
+  const { t } = useTranslation(['rooms']);
   const theme = useTheme()
   const [isOpen, setIsOpen] = useState(false);
 
   const styles = classes()
 
-  const toggle = () => setIsOpen(!isOpen);
+  const openDropDownMenu = () => {
+    !isOpen && setIsOpen(true)
+  };
+
+  const sortOptions = [
+    {
+      id: 1,
+      text: t('rooms:rooms.sortOptions.byDate'),
+      sortBy: 'id',
+    },
+    {
+      id: 2,
+      text: t('rooms:rooms.sortOptions.byName'),
+      sortBy: 'roomName',
+    },
+    {
+      id: 3,
+      text: t('rooms:rooms.sortOptions.createdByMe'),
+      sortBy: 'createdByMe',
+    },
+  ];
 
   const handleEvent = (sortBy) => {
     setIsOpen(false)
@@ -43,14 +47,14 @@ export default function Dropdown({ chooseSortOption, mobile }) {
           className={styles.openDropMenuButton}
           variant="outlined"
           color="primary"
-          onClick={() => toggle(!isOpen)}
+          onClick={openDropDownMenu}
           endIcon={<HiIcons.HiOutlineSortDescending />}>
-          Sortuj
+          {t('rooms:rooms.buttons.sort')}
         </Button>
       </IconContext.Provider>
       {isOpen &&
         <InfoModal
-          onClick={() => { setIsOpen() }}
+          onClick={() => { setIsOpen(false) }}
           customModal={
             <ul className={mobile ? styles.mobileList : styles.list}>
               {sortOptions.map(item => (

@@ -1,0 +1,66 @@
+{
+  "editRoom": {
+    "title": "Edytowanie pokoju",
+    "roomEditButton": "Pokój został zedytowany",
+    "deleteRoomConfirmation": "Czy na pewno chcesz usnąć ten pokój ?",
+    "roomDeleteResponse": "Pokój został usunięty"
+  },
+  "rooms": {
+    "sortOptions": {
+      "byDate": "Datą powstania",
+      "byName": "Nazwą",
+      "createdByMe": "Moje pokoje"
+    },
+    "buttons": {
+      "sort": "Sortuj",
+      "addRoom": "Dodaj Pokój",
+      "loadRooms": "Wczytaj Pokoje"
+    },
+    "slots": "Sloty:",
+    "error": "Coś poszło nie tak, wystąpił błąd podczas wczytywania pokoi, spróbuj wczytać pokoje jeszcze raz lub odśwież strone"
+  },
+  "searchResult": {
+    "loadRooms": "Wczytaj Pokoje",
+    "notFound": "Nie znaleziono pokoi za pomocą frazy ",
+    "error": "Coś poszło nie tak, wystąpił błąd podczas wczytywania pokoi, spróbuj wczytać pokoje jeszcze raz lub odśwież strone"
+  },
+  "roomValidation": {
+    "empty": {
+      "roomName": "Podaj nazwe pokoju",
+      "slots": "Sloty nie mogą być puste",
+      "roomPassword": "Podaj hasło pokoju"
+    },
+    "tooShort": {
+      "roomName": "Nazwa pokoju jest za krótka",
+      "slots": "Minimalna liczba slotów to 3",
+      "roomPassword": "Hasło jest za krótkie"
+    },
+    "tooLong": {
+      "roomName": "Nazwa pokoju jest za długa",
+      "slots": "Slotów może być maksymalnie 8",
+      "roomPassword": "Hasło jest za długie"
+    }
+  },
+  "roomSideMenu": {
+    "add": {
+      "title": "Dodawanie pokoju",
+      "error": "Wystąpił bład przy zakładaniu pokoju",
+      "addRoomButton": "Stwórz pokój"
+    },
+    "edit": {
+      "title": "Edytowanie pokoju",
+      "deleteConfiramtion": "Czy na pewno chcesz usnąć ten pokój ?",
+      "editError": "Wystąpił bład przy edytowaniu pokoju",
+      "deleteError": "Wystąpił bład przy usuwaniu pokoju"
+    },
+    "roomNameError": "Pokój z tą nazwą już istnieje"
+  },
+  "pickRoom": {
+    "title": "Pokój:",
+    "slots": "Gracze w pokoju:",
+    "error": "Wystąpił błąd przy dołączaniu do pokoju"
+  },
+  "userPage":{
+    "inGameName":"Pseudonim: "
+  }
+}

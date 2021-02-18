@@ -5,13 +5,34 @@ import { classes } from './RoomSideMenu.styles';
 import { mobileClasses } from './RoomSideMenuMobile.styles';
 import roomsService from '../../api/rooms.api';
 import { Button } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
 
 export default function AddRoomSideMenu({ mobile }) {
+  const { t } = useTranslation(['inputLabels']);
   const styles = mobile ? mobileClasses() : classes()
 
-  const [roomNameInput, roomName, setRoomName] = useInput({ inputType: "text", inputLabel: "Nazwa pokoju", size: 'small', color: 'secondary', customClasses: styles.input });
-  const [slotsInput, slots, setSlots] = useInput({ inputType: "number", inputLabel: "Sloty", size: 'small', color: 'secondary', customClasses: styles.input });
-  const [roomPasswordInput, roomPassword, setRoomPassword] = useInput({ inputType: "password", inputLabel: "Hasło pokoju", size: 'small', color: 'secondary', customClasses: styles.input });
+  const [roomNameInput, roomName, setRoomName] = useInput({
+    inputType: "text",
+    inputLabel: t('inputLabels:roomName'),
+    size: 'small',
+    color: 'secondary',
+    customClasses: styles.input
+  });
+  const [slotsInput, slots, setSlots] = useInput({
+    inputType: "number",
+    inputLabel: t('inputLabels:slots'),
+    size: 'small',
+    color: 'secondary',
+    customClasses: styles.input
+  });
+  const [roomPasswordInput, roomPassword, setRoomPassword] = useInput({
+    inputType: "password",
+    inputLabel: t('inputLabels:roomPassword'),
+    size: 'small',
+    color: 'secondary',
+    customClasses: styles.input
+  });
+
   const [notification, setNotification] = useState('');
 
   const addRoom = () => {
@@ -21,18 +42,17 @@ export default function AddRoomSideMenu({ mobile }) {
       roomPassword: roomPassword.value,
     };
 
-    if (val.roomRequest(addRoomRequest, setRoomName, setSlots, setRoomPassword)) {
+    if (val.roomRequest(addRoomRequest, setRoomName, setSlots, setRoomPassword, t)) {
       roomsService.addRoom(addRoomRequest)
         .then(resp => {
-          setNotyficationText('Pokój został założony')
           window.location.reload(false);
         })
         .catch(e => {
           console.log(e)
           if (e.response && e.response.status === 400) {
-            setNotyficationText(e.response.data.message)
+            setNotyficationText(t('rooms:roomSideMenu.roomNameError'))
           } else {
-            setNotyficationText("Wystąpił bład przy zakładaniu pokoju")
+            setNotyficationText(t('rooms:roomSideMenu.addadd.error'))
           }
         });
     }
@@ -54,7 +74,7 @@ export default function AddRoomSideMenu({ mobile }) {
   return (
     <div className={styles.roomSideMenuContainer}>
       <div className={styles.textContainer}>
-        <p className={styles.text}>Dodawanie pokoju</p>
+        <p className={styles.text}>{t('rooms:roomSideMenu.add.title')}</p>
       </div>
       {roomNameInput}
       {slotsInput}
@@ -65,7 +85,7 @@ export default function AddRoomSideMenu({ mobile }) {
           color="primary"
           onClick={addRoom}
           className={styles.button}>
-          Stwórz pokój
+          {t('rooms:roomSideMenu.add.addRoomButton')}
         </Button>
       </div>
       {notification && notification}

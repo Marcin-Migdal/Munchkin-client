@@ -5,20 +5,22 @@ import useInput from '../../hooks/UseInput/useInput';
 import val from '../../utils/ValidationUtil';
 import roomsService from '../../api/rooms.api';
 import { links } from '../../utils/linkUtils';
+import { useTranslation } from 'react-i18next';
 
 export default function RoomEdit({ classes }) {
+  const { t } = useTranslation(['translation', 'buttons', 'inputLabels', 'rooms']);
   const location = useLocation();
   const history = useHistory();
 
   const [room] = useState((location.state ? location.state.room : history.replace(links.home)));
   const [notification, setNotification] = useState();
   const [deleteButtons, setDeleteButtons] = useState();
-  
+
   const styles = classes()
 
   const [roomNameInput, roomName, setRoomName] = useInput({
     inputType: "text",
-    inputLabel: "Nazwa pokoju",
+    inputLabel: t('inputLabels:roomName'),
     size: 'small',
     color: 'primary',
     customClasses: styles.input
@@ -26,7 +28,7 @@ export default function RoomEdit({ classes }) {
 
   const [slotsInput, slots, setSlots] = useInput({
     inputType: "number",
-    inputLabel: "Sloty",
+    inputLabel: t('inputLabels:slots'),
     size: 'small',
     color: 'primary',
     customClasses: styles.input
@@ -34,7 +36,7 @@ export default function RoomEdit({ classes }) {
 
   const [roomPasswordInput, roomPassword, setRoomPassword] = useInput({
     inputType: "password",
-    inputLabel: "Hasło pokoju",
+    inputLabel: t('inputLabels:roomPassword'),
     size: 'small',
     color: 'primary',
     customClasses: styles.input
@@ -48,10 +50,10 @@ export default function RoomEdit({ classes }) {
       roomPassword: roomPassword.value,
     };
 
-    if (val.roomRequest(editRoomRequest, setRoomName, setSlots, setRoomPassword)) {
+    if (val.roomRequest(editRoomRequest, setRoomName, setSlots, setRoomPassword, t)) {
       roomsService.editRoom(editRoomRequest)
         .then(resp => {
-          setNotyficationText('Pokój został zedytowany')
+          setNotyficationText(t('rooms:editRoom.roomEditButton'))
           changeToPickRoom()
         })
         .catch(e => {
@@ -74,7 +76,7 @@ export default function RoomEdit({ classes }) {
           color="primary"
           onClick={deleteRoom}
           className={styles.button}>
-          Tak
+          {t('menu:confirmationModal.yes')}
         </Button>
         <Button
           variant="outlined"
@@ -84,17 +86,17 @@ export default function RoomEdit({ classes }) {
             setNotification()
             setDeleteButtons()
           }}>
-          Nie
+          {t('menu:confirmationModal.no')}
         </Button>
       </div>
     )
-    setNotyficationText('Czy na pewno chcesz usnąć ten pokój ?')
+    setNotyficationText(t('rooms:editRoom.deleteRoomConfirmation'))
   }
 
   const deleteRoom = () => {
     roomsService.deleteRoom(room.id)
       .then(resp => {
-        setNotyficationText('Pokój został usunięty')
+        setNotyficationText(t('rooms:editRoom.roomDeleteResponse'))
         history.push({
           pathname: links.rooms
         });
@@ -117,14 +119,14 @@ export default function RoomEdit({ classes }) {
     history.push({
       pathname: links.room,
       state: {
-        room: room,
+        roomId: room.id,
       },
     });
   }
 
   return (
     <div className={styles.roomEditContainer}>
-      <p className={styles.text}>Edytowanie pokoju</p>
+      <p className={styles.text}>{t('rooms:editRoom.title')}</p>
       {roomNameInput}
       {slotsInput}
       {roomPasswordInput}
@@ -135,21 +137,21 @@ export default function RoomEdit({ classes }) {
             color="primary"
             onClick={showDeleteButtons}
             className={styles.button}>
-            Usuń
+            {t('buttons:delete')}
           </Button>
           <Button
             variant="outlined"
             color="primary"
             onClick={changeToPickRoom}
             className={styles.button}>
-            Wróć
+            {t('buttons:back')}
           </Button>
           <Button
             variant="outlined"
             color="primary"
             onClick={editRoom}
             className={styles.button}>
-            Edytuj
+            {t('buttons:editRoom')}
           </Button>
         </div>
       }

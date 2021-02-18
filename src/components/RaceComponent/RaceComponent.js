@@ -5,8 +5,10 @@ import playerStatusService from '../../api/playerStatus.api';
 import * as AiIcons from "react-icons/ai"
 import MyAvatar from '../MyAvatar/MyAvatar';
 import InfoModal from '../InfoModal/InfoModal';
+import { useTranslation } from 'react-i18next';
 
 export default function RaceComponent({ mobile, isCurrentPlayer, playerStatus, refreshFlag, isSecondRace, selectContent, onlyRead }) {
+  const { t } = useTranslation();
   const [raceId, setRaceId] = useState();
   const [raceInfoModalIsVisible, serRaceInfoModalIsVisible] = useState(false);
   const [showRaceInput, setShowRaceInput] = useState(false);
@@ -100,7 +102,7 @@ export default function RaceComponent({ mobile, isCurrentPlayer, playerStatus, r
 
   return (
     <div className={styles.container}>
-      <p>{isSecondRace ? 'Druga Rasa:' : 'Rasa:'}</p>
+      <p>{isSecondRace ? t('game:extendedPlayer.race.secondRaceLabel') : t('game:extendedPlayer.race.firstRaceLabel')}</p>
       {!showRaceInput ?
         <div className={styles.buttonContainer}>
           <button
@@ -114,7 +116,7 @@ export default function RaceComponent({ mobile, isCurrentPlayer, playerStatus, r
               id='saveButton'
               className={mobile ? styles.buttonStyleMobile : styles.buttonStyle}
               onClick={() => { setShowRaceInput(true) }}>
-              Zmień
+              {t('buttons:change')}
           </button>
           }
         </div> :
@@ -123,7 +125,7 @@ export default function RaceComponent({ mobile, isCurrentPlayer, playerStatus, r
             <InputLabel
               className={styles.selectedInput}
               id="open-select-label">
-              Wybierz
+              {t('buttons:choose')}
           </InputLabel>
             <SelectComponent />
           </FormControl>
@@ -133,7 +135,7 @@ export default function RaceComponent({ mobile, isCurrentPlayer, playerStatus, r
               id='saveButton'
               className={mobile ? styles.buttonStyleMobile : styles.buttonStyle}
               onClick={saveRace}>
-              Zapisz
+              {t('buttons:save')}
             </button> :
             <div className={styles.iconContainer} onClick={() => setShowRaceInput(false)}>
               <AiIcons.AiOutlineClose />
