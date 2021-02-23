@@ -1,6 +1,12 @@
 import React, { useState, Suspense, useEffect } from 'react';
 import { Route } from 'react-router-dom';
 import { IconContext } from 'react-icons';
+import { useTheme } from '@material-ui/core';
+import { links } from '../../../utils/linkUtils';
+import { homePageClasses } from '../../Home/HomeMobile.styles';
+import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
+import { fetchCurrentUser } from '../../../slices/currentUser';
 import NavbarMobile from '../../Navbar/Mobile/NavbarMobile';
 import SideMenu from '../../SideMenu/SideMenu';
 import Home from '../../Home/Home';
@@ -12,6 +18,7 @@ import SearchResult from '../../SearchResult/SearchResult';
 import UserPage from '../../UserPage/UserPage';
 import Game from '../../Game/Game';
 import GameSummary from '../../GameSummary/GameSummary';
+import FallbackLoading from '../../../components/FallbackLoading/FallbackLoading';
 import { classes } from './MainLayoutMobile.styles'
 import { roomsClasses } from '../../Rooms/RoomsMobile.styles';
 import { settingsClasses } from '../../Settings/SettingsMobile.styles';
@@ -21,13 +28,6 @@ import { SearchResultClasses } from '../../SearchResult/SearchResultMobile.style
 import { userPageClasses } from '../../UserPage/UserPageMobile.styles';
 import { gameClasses } from '../../Game/GameMobile.styles';
 import { gameSummaryClasses } from '../../GameSummary/GameSummaryMobile.styles';
-import { useTheme } from '@material-ui/core';
-import { links } from '../../../utils/linkUtils';
-import { homePageClasses } from '../../Home/HomeMobile.styles';
-import { useTranslation } from 'react-i18next';
-import FallbackLoading from '../../../components/FallbackLoading/FallbackLoading';
-import { useDispatch } from 'react-redux';
-import { fetchCurrentUser } from '../../../slices/currentUser';
 
 export default function MainLayoutMobile() {
   const dispatch = useDispatch()
