@@ -5,7 +5,7 @@ import { useTheme } from '@material-ui/core';
 import { links } from '../../../utils/linkUtils';
 import { homePageClasses } from '../../Home/Home.styles';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { fetchCurrentUser } from '../../../slices/currentUser';
 import Navbar from '../../Navbar/Desktop/Navbar';
 import SideMenu from '../../SideMenu/SideMenu';
@@ -28,48 +28,50 @@ import { SearchResultClasses } from '../../SearchResult/SearchResult.styles';
 import { userPageClasses } from '../../UserPage/UserPage.styles';
 import { gameClasses } from '../../Game/Game.styles';
 import { gameSummaryClasses } from '../../GameSummary/GameSummary.styles';
+import { layoutSelector, setLayout, toogleSideMenu } from '../../../slices/layout';
 
 export default function MainLayout() {
   const dispatch = useDispatch()
+  const { layout, loaded } = useSelector(layoutSelector)
   const { t } = useTranslation(['menu']);
   const theme = useTheme();
 
-  const [sideMenuActive, setSideMenuActive] = useState(true);
-
   const styles = classes();
-  const mobile = false;
 
-  const toggleSideMenu = () => setSideMenuActive(!sideMenuActive);
+  const toggleSideMenu = () => {
+    dispatch(toogleSideMenu())
+  };
 
   useEffect(() => {
     dispatch(fetchCurrentUser())
+    dispatch(setLayout({ mobile: false, sideMenuActive: true }))
   }, [dispatch]);
 
   return (
     <IconContext.Provider value={{ color: theme.palette.secondary.main }}>
-      <div className={styles.container}>
-        <div className={styles.topContainer} >
-          <Navbar toggleSideMenu={toggleSideMenu} mobile={mobile} />
-        </div>
-        <div className={styles.bottomContainerSideMenu}>
-          <div className={sideMenuActive ? styles.sideMenuContainerEnabled : styles.sideMenuContainerDisabled}>
-            <SideMenu mobile={mobile} />
+      {loaded &&
+        <div className={styles.container}>
+          <div className={styles.topContainer} >
+            <Navbar toggleSideMenu={toggleSideMenu} />
           </div>
-          <Suspense fallback={<FallbackLoading />}>
-            <div className={styles.contentContainer}>
-              <Route path={links.home} render={(props) => <Home {...props} classes={homePageClasses} />} />
-              <Route path={links.rooms} render={(props) => <Rooms  {...props} classes={roomsClasses} mobile={mobile} />} />
-              <Route path={links.settings} render={(props) => <Settings {...props} classes={settingsClasses} mobile={mobile} />} />
-              <Route path={links.room} render={(props) => <Room {...props} classes={roomClasses} mobile={mobile} />} />
-              <Route path={links.roomEdit} render={(props) => <RoomEdit {...props} classes={roomEditClasses} />} />
-              <Route path={links.searchResult} render={(props) => <SearchResult {...props} classes={SearchResultClasses} mobile={mobile} />} />
-              <Route path={links.userPage} render={(props) => <UserPage {...props} classes={userPageClasses} sideMenuActive={sideMenuActive} mobile={mobile} />} />
-              <Route path={links.game} render={(props) => <Game {...props} classes={gameClasses} mobile={mobile} />} />
-              <Route path={links.gameSummary} render={(props) => <GameSummary {...props} classes={gameSummaryClasses} mobile={mobile} />} />
-            </div>
-          </Suspense>
+          <div className={styles.bottomContainerSideMenu}>
+            <SideMenu style={layout.sideMenuActive ? styles.sideMenuContainerEnabled : styles.sideMenuContainerDisabled} />
+            <Suspense fallback={<FallbackLoading />}>
+              <div className={styles.contentContainer}>
+                <Route path={links.home} render={props => <Home {...props} classes={homePageClasses} />} />
+                <Route path={links.rooms} render={props => <Rooms  {...props} classes={roomsClasses} />} />
+                <Route path={links.settings} render={props => <Settings {...props} classes={settingsClasses} />} />
+                <Route path={links.room} render={props => <Room {...props} classes={roomClasses} />} />
+                <Route path={links.roomEdit} render={props => <RoomEdit {...props} classes={roomEditClasses} />} />
+                <Route path={links.searchResult} render={props => <SearchResult {...props} classes={SearchResultClasses} />} />
+                <Route path={links.userPage} render={props => <UserPage {...props} classes={userPageClasses} />} />
+                <Route path={links.game} render={props => <Game {...props} classes={gameClasses} />} />
+                <Route path={links.gameSummary} render={props => <GameSummary {...props} classes={gameSummaryClasses} />} />
+              </div>
+            </Suspense>
+          </div>
         </div>
-      </div>
+      }
     </IconContext.Provider>
   );
 }

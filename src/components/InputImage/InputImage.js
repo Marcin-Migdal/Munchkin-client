@@ -4,12 +4,15 @@ import { mobileClasses } from './InputImageMobile.styles'
 import * as AiIcons from 'react-icons/ai'
 import { Avatar, Button } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
+import { layoutSelector } from '../../slices/layout';
 
-export default function InputImage({ hasAvatar, saveAvatar, deleteAvatar, mobile }) {
+export default function InputImage({ hasAvatar, saveAvatar, deleteAvatar }) {
+  const { layout } = useSelector(layoutSelector)
   const { t } = useTranslation(['buttons']);
 
   const [avatar, setAvatar] = useState();
-  const styles = mobile ? mobileClasses() : desktopClasses();
+  const styles = layout.mobile ? mobileClasses() : desktopClasses();
 
   const selectAvatar = (e) => {
     if (e) {

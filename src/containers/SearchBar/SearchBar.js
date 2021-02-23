@@ -12,8 +12,11 @@ import RoomSearchListItem from '../../components/RoomSearchListItem/RoomSearchLi
 import { roomSearchListItemClasses } from '../../components/RoomSearchListItem/RoomSearchListItemShort.styles';
 import { useTranslation } from 'react-i18next';
 import InfoModal from '../../components/InfoModal/InfoModal';
+import { layoutSelector } from '../../slices/layout';
+import { useSelector } from 'react-redux';
 
-export default function SearchBar({ mobile, disableSearchBar }) {
+export default function SearchBar({ disableSearchBar }) {
+  const { layout } = useSelector(layoutSelector)
   const { t } = useTranslation();
   const theme = useTheme();
   const history = useHistory();
@@ -24,7 +27,7 @@ export default function SearchBar({ mobile, disableSearchBar }) {
   const [isOpen, setIsOpen] = useState(false);
   const [searchInput, setSearchInput] = useState();
 
-  const styles = mobile ? mobileClasses() : desktopClasses();
+  const styles = layout.mobile ? mobileClasses() : desktopClasses();
 
   useEffect(() => {
     const handleClick = e => {
@@ -73,7 +76,7 @@ export default function SearchBar({ mobile, disableSearchBar }) {
   }
 
   const pickRoom = (room) => {
-    if (mobile) {
+    if (layout.mobile) {
       disableSearchBar()
     }
     clearSearchResult();

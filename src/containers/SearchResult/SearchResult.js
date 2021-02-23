@@ -14,9 +14,12 @@ import RoomSearchListItem from '../../components/RoomSearchListItem/RoomSearchLi
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import { roomSearchListItemClasses } from '../../components/RoomSearchListItem/RoomSearchListItemLong.styles';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
+import { layoutSelector } from '../../slices/layout';
 
 const pageSize = 11;
-export default function SearchResult({ classes, mobile }) {
+export default function SearchResult({ classes }) {
+  const { layout } = useSelector(layoutSelector)
   const { t } = useTranslation(['inputLabels', 'rooms']);
   const location = useLocation();
 
@@ -47,14 +50,14 @@ export default function SearchResult({ classes, mobile }) {
   const pickRoom = (room) => {
     if (!room.complete) {
       setRoomSideMenu(
-        <PickRoomSideMenu room={room} changeToEditRoom={() => { editRoom(room) }} mobile={mobile} />
+        <PickRoomSideMenu room={room} changeToEditRoom={() => { editRoom(room) }} />
       )
     }
   }
 
   const editRoom = (room) => {
     setRoomSideMenu(
-      <EditRoomSideMenu room={room} changeToPickRoom={() => { pickRoom(room) }} mobile={mobile} />
+      <EditRoomSideMenu room={room} changeToPickRoom={() => { pickRoom(room) }} />
     )
   }
 
@@ -69,7 +72,7 @@ export default function SearchResult({ classes, mobile }) {
                   <RoomSearchListItem
                     key={index}
                     room={room}
-                    mobile={mobile}
+                    mobile={layout.mobile}
                     action={() => { pickRoom(room) }}
                     classes={roomSearchListItemClasses} />
                 )
@@ -86,14 +89,11 @@ export default function SearchResult({ classes, mobile }) {
                   onClick={loadRoomsAfterError}>
                   {t('rooms:searchResult.loadRooms')}
                 </Button>
-                <InfoModal
-                  mobile={mobile}
-                  text={t('rooms:searchResult.error')} />
+                <InfoModal text={t('rooms:searchResult.error')} />
               </div>}
             {status === 'notFound' &&
               <div className={styles.errorContainer}>
-                <InfoModal
-                  text={t('rooms:searchResult.notFound') + "'" + searchInput + "'"} mobile={mobile} />
+                <InfoModal text={t('rooms:searchResult.notFound') + "'" + searchInput + "'"} />
               </div>
             }
             <LoadingComponent condition={(status === 'fetching')} />

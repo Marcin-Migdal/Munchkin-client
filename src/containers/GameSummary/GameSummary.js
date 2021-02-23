@@ -9,11 +9,16 @@ import PerfectScrollbar from 'react-perfect-scrollbar'
 import { links } from '../../utils/linkUtils';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import { currentUserSelector } from '../../slices/currentUser';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 
-export default function GameSummary({ classes, mobile }) {
-  const { currentUser, currentUserLoading } = useSelector(currentUserSelector)
+export default function GameSummary({ classes }) {
+  const { layout, currentUser, currentUserLoading } = useSelector((state) => {
+    return {
+      layout: state.layout.layout,
+      currentUser: state.currentUser.currentUser,
+      currentUserLoading: state.currentUser.currentUserLoading
+    }
+  })
   const { t } = useTranslation(['game']);
 
   const theme = useTheme()
@@ -85,7 +90,7 @@ export default function GameSummary({ classes, mobile }) {
                         </p>
                       }
                       <ExtendedPlayerListItem
-                        mobile={mobile}
+                        mobile={layout.mobile}
                         playerStatus={playerStatus}
                         isCurrentPlayer={currentUser.id === playerStatus.user.id}
                         creatorId={location.state.room.creatorId}
@@ -97,7 +102,7 @@ export default function GameSummary({ classes, mobile }) {
                 )
               }} /> :
               <div className={styles.loaderContainer}>
-                <CircularProgress size={mobile ? 50 : 40} color="primary" />
+                <CircularProgress size={layout.mobile ? 50 : 40} color="primary" />
               </div>
             }
           </div>

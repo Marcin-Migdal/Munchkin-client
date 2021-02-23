@@ -10,17 +10,23 @@ import PlayerListItem from '../../components/PlayerListItem/PlayerListItem';
 import { links } from '../../utils/linkUtils';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import { currentUserSelector } from '../../slices/currentUser';
 
-export default function Room({ classes, mobile }) {
-  const { currentUser, currentUserLoading } = useSelector(currentUserSelector)
+export default function Room({ classes }) {
+  const { layout, currentUser, currentUserLoading } = useSelector((state) => {
+    return {
+      layout: state.layout.layout,
+      currentUser: state.currentUser.currentUser,
+      currentUserLoading: state.currentUser.currentUserLoading
+    }
+  })
+
   const { t } = useTranslation(['buttons', 'inputLabels', 'rooms']);
   const theme = useTheme();
   const location = useLocation();
   const history = useHistory();
 
   const styles = classes()
-  
+
   const [roomPasswordInput, roomPassword, setRoomPassword] = useInput({
     inputType: "password",
     inputLabel: t('inputLabels:password'),
@@ -33,7 +39,7 @@ export default function Room({ classes, mobile }) {
   const [playersInRoom, setPlayersInRoomData] = useFetchGet({
     url: '/api/playerStatus/getGameSummary/' + (location.state ? location.state.roomId : history.replace(links.home))
   });
-  
+
   const [notification, setNotification] = useState();
 
   useEffect(() => {
@@ -149,7 +155,7 @@ export default function Room({ classes, mobile }) {
               return (
                 <IconContext.Provider key={index} value={{ color: playerStatus.playerInRoom ? theme.palette.primary.main : theme.palette.inActive.main }}>
                   <PlayerListItem
-                    mobile={mobile}
+                    mobile={layout.mobile}
                     playerStatus={playerStatus}
                     currentUser={currentUser}
                     creatorId={room.creatorId}

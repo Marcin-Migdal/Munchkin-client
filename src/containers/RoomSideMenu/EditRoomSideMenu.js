@@ -7,10 +7,13 @@ import roomsService from '../../api/rooms.api';
 import * as IoIcons from "react-icons/io"
 import { Button } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
+import { layoutSelector } from '../../slices/layout';
 
-export default function EditRoomSideMenu({ room, changeToPickRoom, mobile }) {
+export default function EditRoomSideMenu({ room, changeToPickRoom }) {
+  const { layout } = useSelector(layoutSelector)
   const { t } = useTranslation(['inputLabels', 'buttons']);
-  const styles = mobile ? mobileClasses() : classes()
+  const styles = layout.mobile ? mobileClasses() : classes()
 
   const [roomNameInput, roomName, setRoomName] = useInput({
     inputType: "text",
@@ -129,14 +132,14 @@ export default function EditRoomSideMenu({ room, changeToPickRoom, mobile }) {
             color="primary"
             onClick={showDeleteButtons}
             className={styles.button}>
-            {t('buttons:delete')} 
+            {t('buttons:delete')}
           </Button>
           <Button
             variant="outlined"
             color="primary"
             onClick={editRoom}
             className={styles.button}>
-            {t('buttons:editRoom')} 
+            {t('buttons:editRoom')}
           </Button>
         </div>
       }

@@ -5,7 +5,7 @@ import { links } from '../../../utils/linkUtils';
 import SearchBar from '../../SearchBar/SearchBar';
 import { classes } from './Navbar.styles';
 
-export default function Navbar({ toggleSideMenu, mobile }) {
+export default function Navbar({ toggleSideMenu }) {
   const history = useHistory();
   const styles = classes();
 
@@ -15,9 +15,9 @@ export default function Navbar({ toggleSideMenu, mobile }) {
 
   return (
     <div className={styles.navbarContainer}>
-        <FaIcons.FaBars className={styles.icon} onClick={toggleSideMenu} />
-        <p className={styles.text} onClick={goToHomePage}>Munchkin</p>
-        <SearchBar mobile={mobile} />
-      </div>
+      <FaIcons.FaBars className={styles.icon} onClick={toggleSideMenu} />
+      <p className={styles.text} onClick={goToHomePage}>Munchkin</p>
+      <SearchBar />
+    </div>
   )
 }

@@ -15,9 +15,12 @@ import * as AiIcons from "react-icons/ai"
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import { useTranslation } from 'react-i18next';
 import { Suspense } from 'react';
+import { useSelector } from 'react-redux';
+import { layoutSelector } from '../../slices/layout';
 
 const pageSize = 12;
-export default function Rooms({ classes, mobile }) {
+export default function Rooms({ classes }) {
+  const { layout } = useSelector(layoutSelector)
   const { t } = useTranslation(['inputLabels', 'rooms']);
 
   const [sortType, setSortType] = useState('id');
@@ -38,19 +41,19 @@ export default function Rooms({ classes, mobile }) {
 
   const addRoom = () => {
     setRoomSideMenu(
-      <AddRoomSideMenu mobile={mobile} />
+      <AddRoomSideMenu />
     )
   }
 
   const pickRoom = (room) => {
     setRoomSideMenu(
-      <PickRoomSideMenu room={room} changeToEditRoom={() => { editRoom(room) }} mobile={mobile} />
+      <PickRoomSideMenu room={room} changeToEditRoom={() => { editRoom(room) }} />
     )
   }
 
   const editRoom = (room) => {
     setRoomSideMenu(
-      <EditRoomSideMenu room={room} changeToPickRoom={() => { pickRoom(room) }} mobile={mobile} />
+      <EditRoomSideMenu room={room} changeToPickRoom={() => { pickRoom(room) }} />
     )
   }
 
@@ -76,7 +79,6 @@ export default function Rooms({ classes, mobile }) {
                 {t('rooms:rooms.buttons.addRoom')}
               </Button>
               <Dropdown
-                mobile={mobile}
                 chooseSortOption={(sortBy) => {
                   setRoomSortType(sortBy)
                 }} />
@@ -89,7 +91,7 @@ export default function Rooms({ classes, mobile }) {
                     <RoomListItem
                       key={index}
                       room={item}
-                      mobile={mobile}
+                      mobile={layout.mobile}
                       action={() => { pickRoom(item) }} />
                   )
                 }} />
@@ -106,7 +108,7 @@ export default function Rooms({ classes, mobile }) {
                     onClick={loadRoomsAfterError}>
                     {t('rooms:rooms.buttons.loadRooms')}
                   </Button>
-                  <InfoModal text={t('rooms:rooms.error')} mobile={mobile} />
+                  <InfoModal text={t('rooms:rooms.error')} />
                 </div>}
               <LoadingComponent condition={(status === 'fetching')} />
             </div>

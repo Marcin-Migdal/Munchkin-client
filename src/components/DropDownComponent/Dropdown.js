@@ -3,10 +3,13 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import * as HiIcons from "react-icons/hi"
 import { IconContext } from 'react-icons/lib';
+import { useSelector } from 'react-redux';
+import { layoutSelector } from '../../slices/layout';
 import InfoModal from '../InfoModal/InfoModal';
 import { classes } from './Dropdown.styles'
 
-export default function Dropdown({ chooseSortOption, mobile }) {
+export default function Dropdown({ chooseSortOption }) {
+  const { layout } = useSelector(layoutSelector)
   const { t } = useTranslation(['rooms']);
   const theme = useTheme()
   const [isOpen, setIsOpen] = useState(false);
@@ -56,7 +59,7 @@ export default function Dropdown({ chooseSortOption, mobile }) {
         <InfoModal
           onClick={() => { setIsOpen(false) }}
           customModal={
-            <ul className={mobile ? styles.mobileList : styles.list}>
+            <ul className={layout.mobile ? styles.mobileList : styles.list}>
               {sortOptions.map(item => (
                 <button
                   key={item.id}

@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 import { currentUserSelector, fetchCurrentUser } from '../../slices/currentUser';
 
-export default function Settings({ classes, mobile }) {
+export default function Settings({ classes }) {
   const dispatch = useDispatch()
   const { currentUser, currentUserLoading } = useSelector(currentUserSelector)
   const { t, i18n } = useTranslation(['settings', 'buttons', 'inputLabels']);
@@ -246,8 +246,7 @@ export default function Settings({ classes, mobile }) {
             <InputImage
               hasAvatar={currentUser.hasAvatar}
               saveAvatar={(avatar) => { saveAvatar(avatar) }}
-              deleteAvatar={deleteAvatar}
-              mobile={mobile} />
+              deleteAvatar={deleteAvatar} />
             {notification}
           </div>
         }

@@ -1,7 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react'
+import { useSelector } from 'react-redux';
+import { layoutSelector } from '../../slices/layout';
 import { classes } from './InfoModal.styles'
 
-export default function InfoModal({ text, mobile, onClick, customModal }) {
+export default function InfoModal({ text, onClick, customModal }) {
+  const { layout } = useSelector(layoutSelector)
   const [isOpen, setIsOpen] = useState(true);
   const node = useRef();
   const styles = classes();
@@ -33,7 +36,7 @@ export default function InfoModal({ text, mobile, onClick, customModal }) {
       )
     } else {
       return (
-        <div className={mobile ? styles.containerMobile : styles.containerDesktop} ref={node}>
+        <div className={layout.mobile ? styles.containerMobile : styles.containerDesktop} ref={node}>
           {text}
         </div>
       )

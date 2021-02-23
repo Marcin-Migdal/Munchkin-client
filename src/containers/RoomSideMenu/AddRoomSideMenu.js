@@ -6,10 +6,13 @@ import { mobileClasses } from './RoomSideMenuMobile.styles';
 import roomsService from '../../api/rooms.api';
 import { Button } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
+import { layoutSelector } from '../../slices/layout';
 
-export default function AddRoomSideMenu({ mobile }) {
+export default function AddRoomSideMenu() {
+  const { layout } = useSelector(layoutSelector)
   const { t } = useTranslation(['inputLabels']);
-  const styles = mobile ? mobileClasses() : classes()
+  const styles = layout.mobile ? mobileClasses() : classes()
 
   const [roomNameInput, roomName, setRoomName] = useInput({
     inputType: "text",

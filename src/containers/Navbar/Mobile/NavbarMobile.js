@@ -5,8 +5,9 @@ import { links } from '../../../utils/linkUtils';
 import SearchBar from '../../SearchBar/SearchBar';
 import { classes } from './NavbarMobile.styles';
 
-export default function NavbarMobile({ toggleSideMenu, mobile, sideMenuActive }) {
+export default function NavbarMobile({ toggleSideMenu, sideMenuActive }) {
   const history = useHistory();
+
   const [searchIsVisible, setSearchIsVisible] = useState(false);
   const styles = classes();
 
@@ -19,7 +20,7 @@ export default function NavbarMobile({ toggleSideMenu, mobile, sideMenuActive })
       return (
         <div className={styles.navbarContainer}>
           <FaIcons.FaChevronLeft onClick={() => { setSearchIsVisible(false) }} className={styles.closeSearchIcon} />
-          <SearchBar mobile={mobile} disableSearchBar={() => { setSearchIsVisible(false) }} />
+          <SearchBar disableSearchBar={() => { setSearchIsVisible(false) }} />
         </div>
       )
     } else {

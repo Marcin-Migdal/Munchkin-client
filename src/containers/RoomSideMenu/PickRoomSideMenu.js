@@ -12,14 +12,19 @@ import ShortPlayerListItem from '../../components/ShortPlayerListItem/ShortPlaye
 import { links } from '../../utils/linkUtils';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import { currentUserSelector } from '../../slices/currentUser';
 
-export default function PickRoomSideMenu({ room, changeToEditRoom, mobile }) {
-  const { currentUser, currentUserLoading } = useSelector(currentUserSelector)
+export default function PickRoomSideMenu({ room, changeToEditRoom }) {
+  const { layout, currentUser, currentUserLoading } = useSelector((state) => {
+    return {
+      layout: state.layout.layout,
+      currentUser: state.currentUser.currentUser,
+      currentUserLoading: state.currentUser.currentUserLoading
+    }
+  })
   const { t } = useTranslation(['inputLabels', 'buttons']);
   const history = useHistory();
 
-  const styles = mobile ? mobileClasses() : classes()
+  const styles = layout.mobile ? mobileClasses() : classes()
 
   const [roomPasswordInput, roomPassword, setRoomPassword] = useInput({
     inputType: "password",
@@ -120,7 +125,7 @@ export default function PickRoomSideMenu({ room, changeToEditRoom, mobile }) {
             return (
               <ShortPlayerListItem
                 key={index}
-                mobile={mobile}
+                mobile={layout.mobile}
                 playerStatus={item}
                 isCreator={item.user.id === room.creatorId}
                 action={() => { goToUserPage(item.user) }} />

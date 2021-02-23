@@ -13,24 +13,26 @@ import ConfirmationModal from '../../components/ConfirmationModal/ConfirmationMo
 import playerStatusService from '../../api/playerStatus.api';
 import { links } from '../../utils/linkUtils';
 import { useTranslation } from 'react-i18next';
+import { layoutSelector } from '../../slices/layout';
+import { useSelector } from 'react-redux';
 
-export default function SideMenu({ closeSideMenu, mobile }) {
+export default function SideMenu({ closeSideMenu, style }) {
+  const { layout } = useSelector(layoutSelector)
   const { t } = useTranslation(['buttons']);
   const [modal, setModal] = useState(false);
   const location = useLocation();
   const history = useHistory();
 
-  const styles = mobile ? mobileClasses : classes;
+  const styles = layout.mobile ? mobileClasses : classes;
 
   const showExitModal = (path) => {
     setModal(
       <ConfirmationModal
         text={t('menu:sideMenu.modal.exitRoom')}
-        mobile={mobile}
         onClickYes={() => { leaveRoom(path) }}
         onClickNo={() => { setModal() }} />
     )
-    mobile && closeSideMenu()
+    layout.mobile && closeSideMenu()
   }
 
   const leaveRoom = (path) => {
@@ -45,11 +47,10 @@ export default function SideMenu({ closeSideMenu, mobile }) {
     setModal(
       <ConfirmationModal
         text={t('menu:sideMenu.modal.signOut')}
-        mobile={mobile}
         onClickYes={() => { signOut() }}
         onClickNo={() => { setModal() }} />
     )
-    mobile && closeSideMenu()
+    layout.mobile && closeSideMenu()
   }
 
   const signOut = () => {
@@ -76,7 +77,7 @@ export default function SideMenu({ closeSideMenu, mobile }) {
   }
 
   return (
-    <div>
+    <div className={style}>
       <MyHr />
       <ul>
         <ListComponent data={SideMenuData} mapFunction={(item, index) => {

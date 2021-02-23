@@ -13,11 +13,16 @@ import * as AiIcons from "react-icons/ai"
 import { links } from '../../utils/linkUtils';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import { currentUserSelector } from '../../slices/currentUser';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 
-export default function Game({ classes, mobile }) {
-  const { currentUser, currentUserLoading } = useSelector(currentUserSelector)
+export default function Game({ classes }) {
+  const { layout, currentUser, currentUserLoading } = useSelector((state) => {
+    return {
+      layout: state.layout.layout,
+      currentUser: state.currentUser.currentUser,
+      currentUserLoading: state.currentUser.currentUserLoading
+    }
+  })
   const { t } = useTranslation(['game']);
 
   const theme = useTheme()
@@ -62,7 +67,7 @@ export default function Game({ classes, mobile }) {
       }
       window.removeEventListener("beforeunload", handleEvent);
     }
-  }, [location, mobile, history]);
+  }, [location, layout.mobile, history]);
 
   useEffect(() => {
     let isMounted = true
@@ -150,7 +155,6 @@ export default function Game({ classes, mobile }) {
     return (
       <InfoModal
         text={t('game:game.modal.leaveRoom')}
-        mobile={mobile}
         onClick={() => {
           history.replace({
             pathname: links.room,
@@ -203,7 +207,6 @@ export default function Game({ classes, mobile }) {
   const setWinningConfirmationModal = (index, playerStatus) => {
     setNotyfication(
       <ConfirmationModal
-        mobile={mobile}
         text={t('game:game.modal.winning')}
         onClickYes={() => confirmWinning(index, playerStatus)}
         onClickNo={() => declineWinning(index, playerStatus)} />
@@ -245,7 +248,6 @@ export default function Game({ classes, mobile }) {
     setNotyfication(
       <InfoModal
         text={text}
-        mobile={mobile}
         onClick={() => {
           setNotyfication()
         }} />
@@ -319,7 +321,7 @@ export default function Game({ classes, mobile }) {
                           theme.palette.primary.main
                       }}>
                       <ExtendedPlayerListItem
-                        mobile={mobile}
+                        mobile={layout.mobile}
                         playerStatus={playerStatus}
                         isCurrentPlayer={currentUser.id === playerStatus.user.id}
                         creatorId={room.creatorId}
@@ -330,7 +332,7 @@ export default function Game({ classes, mobile }) {
                   )
                 }} /> :
                 <div className={styles.loaderContainer}>
-                  <CircularProgress size={mobile ? 50 : 40} color="primary" />
+                  <CircularProgress size={layout.mobile ? 50 : 40} color="primary" />
                 </div>
               }
             </div>

@@ -5,7 +5,7 @@ import { useTheme } from '@material-ui/core';
 import { links } from '../../../utils/linkUtils';
 import { homePageClasses } from '../../Home/HomeMobile.styles';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { fetchCurrentUser } from '../../../slices/currentUser';
 import NavbarMobile from '../../Navbar/Mobile/NavbarMobile';
 import SideMenu from '../../SideMenu/SideMenu';
@@ -28,49 +28,52 @@ import { SearchResultClasses } from '../../SearchResult/SearchResultMobile.style
 import { userPageClasses } from '../../UserPage/UserPageMobile.styles';
 import { gameClasses } from '../../Game/GameMobile.styles';
 import { gameSummaryClasses } from '../../GameSummary/GameSummaryMobile.styles';
+import { closeSideMenuOnClick, layoutSelector, setLayout, toogleSideMenu } from '../../../slices/layout';
 
 export default function MainLayoutMobile() {
   const dispatch = useDispatch()
+  const { layout, loaded } = useSelector(layoutSelector)
   const { t } = useTranslation(['menu']);
   const theme = useTheme();
 
-  const [sideMenuActive, setSideMenuActive] = useState(false);
-
   const styles = classes();
-  const mobile = true;
 
-  const toggleSideMenu = () => setSideMenuActive(!sideMenuActive);
-  const closeSideMenu = () => setSideMenuActive(false);
+  const toggleSideMenu = () => {
+    dispatch(toogleSideMenu())
+  };
+
+  const closeSideMenu = () => {
+    dispatch(closeSideMenuOnClick())
+  };
 
   useEffect(() => {
     dispatch(fetchCurrentUser())
+    dispatch(setLayout({ mobile: true, sideMenuActive: false }))
   }, [dispatch]);
 
   return (
     <IconContext.Provider value={{ color: theme.palette.secondary.main }}>
-      <div className={styles.container}>
+      {loaded && <div className={styles.container}>
         <div className={styles.topContainer}>
-          <NavbarMobile toggleSideMenu={toggleSideMenu} mobile={mobile} sideMenuActive={sideMenuActive} />
+          <NavbarMobile toggleSideMenu={toggleSideMenu} sideMenuActive={layout.sideMenuActive} />
         </div>
         <div className={styles.bottomContainer}>
-          <div className={sideMenuActive ? styles.sideMenuEnabled : styles.sideMenuDisabled}>
-            <SideMenu closeSideMenu={closeSideMenu} mobile={mobile} />
-          </div>
+          <SideMenu closeSideMenu={closeSideMenu} style={layout.sideMenuActive ? styles.sideMenuEnabled : styles.sideMenuDisabled} />
           <Suspense fallback={<FallbackLoading />}>
             <div className={styles.contentContainer}>
-              <Route path={links.home} render={(props) => <Home {...props} classes={homePageClasses} />} />
-              <Route path={links.rooms} render={(props) => <Rooms {...props} classes={roomsClasses} mobile={mobile} />} />
-              <Route path={links.settings} render={(props) => <Settings {...props} classes={settingsClasses} mobile={mobile} />} />
-              <Route path={links.room} render={(props) => <Room {...props} classes={roomClasses} mobile={mobile} />} />
-              <Route path={links.roomEdit} render={(props) => <RoomEdit {...props} classes={roomEditClasses} />} />
-              <Route path={links.searchResult} render={(props) => <SearchResult {...props} classes={SearchResultClasses} mobile={mobile} />} />
-              <Route path={links.userPage} render={(props) => <UserPage {...props} classes={userPageClasses} mobile={mobile} />} />
-              <Route path={links.game} render={(props) => <Game {...props} classes={gameClasses} mobile={mobile} />} />
-              <Route path={links.gameSummary} render={(props) => <GameSummary {...props} classes={gameSummaryClasses} mobile={mobile} />} />
+              <Route path={links.home} render={props => <Home {...props} classes={homePageClasses} />} />
+              <Route path={links.rooms} render={props => <Rooms {...props} classes={roomsClasses} />} />
+              <Route path={links.settings} render={props => <Settings {...props} classes={settingsClasses} />} />
+              <Route path={links.room} render={props => <Room {...props} classes={roomClasses} />} />
+              <Route path={links.roomEdit} render={props => <RoomEdit {...props} classes={roomEditClasses} />} />
+              <Route path={links.searchResult} render={props => <SearchResult {...props} classes={SearchResultClasses} />} />
+              <Route path={links.userPage} render={props => <UserPage {...props} classes={userPageClasses} />} />
+              <Route path={links.game} render={props => <Game {...props} classes={gameClasses} />} />
+              <Route path={links.gameSummary} render={props => <GameSummary {...props} classes={gameSummaryClasses} />} />
             </div>
           </Suspense>
         </div>
-      </div>
+      </div>}
     </IconContext.Provider>
   );
 }

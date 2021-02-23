@@ -1,16 +1,19 @@
 import { Button } from '@material-ui/core';
 import React, { useState, useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
+import { layoutSelector } from '../../slices/layout';
 import { classes } from './ConfirmationModal.styles'
 import { mobileClasses } from './ConfirmationModalMobile.styles '
 
-export default function ConfirmationModal({ text, mobile, onClickYes, onClickNo }) {
+export default function ConfirmationModal({ text, onClickYes, onClickNo }) {
+  const { layout } = useSelector(layoutSelector)
   const { t } = useTranslation();
   const node = useRef();
 
   const [isOpen, setIsOpen] = useState(true);
 
-  const styles = mobile ? mobileClasses() : classes();
+  const styles = layout.mobile ? mobileClasses() : classes();
 
   useEffect(() => {
     const handleClick = e => {
