@@ -57,33 +57,15 @@ export default function MainLayout() {
           </div>
           <Suspense fallback={<FallbackLoading />}>
             <div className={styles.contentContainer}>
-              <Route path={links.home}>
-                <Home classes={homePageClasses} />
-              </Route>
-              <Route path={links.rooms}>
-                <Rooms classes={roomsClasses} mobile={mobile} />
-              </Route>
-              <Route path={links.settings}>
-                <Settings classes={settingsClasses} mobile={mobile} />
-              </Route>
-              <Route path={links.room}>
-                <Room classes={roomClasses} mobile={mobile} />
-              </Route>
-              <Route path={links.roomEdit}>
-                <RoomEdit classes={roomEditClasses} />
-              </Route>
-              <Route path={links.searchResult}>
-                <SearchResult classes={SearchResultClasses} mobile={mobile} />
-              </Route>
-              <Route path={links.userPage}>
-                <UserPage classes={userPageClasses} sideMenuActive={sideMenuActive} mobile={mobile} />
-              </Route>
-              <Route path={links.game}>
-                <Game classes={gameClasses} mobile={mobile} />
-              </Route>
-              <Route path={links.gameSummary}>
-                <GameSummary classes={gameSummaryClasses} mobile={mobile} />
-              </Route>
+              <Route path={links.home} render={(props) => <Home {...props} classes={homePageClasses} />} />
+              <Route path={links.rooms} render={(props) => <Rooms  {...props} classes={roomsClasses} mobile={mobile} />} />
+              <Route path={links.settings} render={(props) => <Settings {...props} classes={settingsClasses} mobile={mobile} />} />
+              <Route path={links.room} render={(props) => <Room {...props} classes={roomClasses} mobile={mobile} />} />
+              <Route path={links.roomEdit} render={(props) => <RoomEdit {...props} classes={roomEditClasses} />} />
+              <Route path={links.searchResult} render={(props) => <SearchResult {...props} classes={SearchResultClasses} mobile={mobile} />} />
+              <Route path={links.userPage} render={(props) => <UserPage {...props} classes={userPageClasses} sideMenuActive={sideMenuActive} mobile={mobile} />} />
+              <Route path={links.game} render={(props) => <Game {...props} classes={gameClasses} mobile={mobile} />} />
+              <Route path={links.gameSummary} render={(props) => <GameSummary {...props} classes={gameSummaryClasses} mobile={mobile} />} />
             </div>
           </Suspense>
         </div>
