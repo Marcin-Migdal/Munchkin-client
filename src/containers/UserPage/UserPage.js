@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useHistory, useLocation } from 'react-router-dom';
 import { Button, useTheme } from '@material-ui/core';
 import MyHr from '../../components/MyHr/MyHr';
@@ -7,13 +7,12 @@ import { IconContext } from 'react-icons/lib';
 import MyAvatar from '../../components/MyAvatar/MyAvatar';
 import { links } from '../../utils/linkUtils';
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
-import { currentUserSelector, fetchCurrentUser } from '../../slices/currentUser';
+import { useSelector } from 'react-redux';
+import { currentUserSelector } from '../../slices/currentUser';
 
 export default function UserPage({ classes, sideMenuActive, mobile }) {
-  const dispatch = useDispatch()
-  const { currentUser, loading, hasErrors } = useSelector(currentUserSelector)
-  const { t } = useTranslation(['translation', 'buttons']);
+  const { currentUser, loading } = useSelector(currentUserSelector)
+  const { t } = useTranslation(['rooms', 'buttons']);
   const location = useLocation();
   const history = useHistory();
   const theme = useTheme();
@@ -21,10 +20,6 @@ export default function UserPage({ classes, sideMenuActive, mobile }) {
   const styles = classes();
 
   const user = location.state ? location.state.user : history.replace(links.home);
-
-  useEffect(() => {
-    dispatch(fetchCurrentUser())
-  }, [dispatch]);
 
   const EditButton = () => {
     if (currentUser.id === user.id) {

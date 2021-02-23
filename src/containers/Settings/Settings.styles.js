@@ -64,10 +64,6 @@ export const settingsClasses = makeStyles(theme => ({
     width: '100%',
   },
 
-  rowContainer: {
-    marginLeft: '28vw',
-  },
-
   button: {
     width: 'fit-content',
     height: '37px',
@@ -77,7 +73,7 @@ export const settingsClasses = makeStyles(theme => ({
     '&.MuiButton-root:hover': {
       backgroundColor: theme.palette.secondary.main,
     },
-    '&#languageButton':{
+    '&#languageButton': {
       marginRight: '1vh',
     }
   },
@@ -86,6 +82,15 @@ export const settingsClasses = makeStyles(theme => ({
     marginTop: '1vh',
     fontSize: '2.5vh',
     color: theme.palette.primary.main,
+  },
+
+
+  avatarContainer: {
+    marginLeft: '28vw',
+  },
+
+  languageContainer: {
+    marginLeft: '28vw',
   },
 }));
 

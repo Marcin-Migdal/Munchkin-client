@@ -1,14 +1,15 @@
 import React, { useState } from 'react'
-import { classes } from './InputImage.styles'
+import { desktopClasses } from './InputImage.styles'
+import { mobileClasses } from './InputImageMobile.styles'
 import * as AiIcons from 'react-icons/ai'
 import { Avatar, Button } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
-export default function InputImage({ hasAvatar, saveAvatar, deleteAvatar }) {
+export default function InputImage({ hasAvatar, saveAvatar, deleteAvatar, mobile }) {
   const { t } = useTranslation(['buttons']);
 
   const [avatar, setAvatar] = useState();
-  const styles = classes();
+  const styles = mobile ? mobileClasses() : desktopClasses();
 
   const selectAvatar = (e) => {
     if (e) {
@@ -32,15 +33,17 @@ export default function InputImage({ hasAvatar, saveAvatar, deleteAvatar }) {
         onClick={(e) => { e.target.value = '' }}
       />
 
-      <label htmlFor="contained-button-file">
-        <Button
-          variant="outlined"
-          color="primary"
-          component="span"
-          className={styles.button}
-          startIcon={<AiIcons.AiFillFileAdd className={styles.buttonIcon} />}>
-          {t('buttons:chooseAvatar')}
+      <div  className={styles.buttonContainer}>
+        <label htmlFor="contained-button-file">
+          <Button
+            variant="outlined"
+            color="primary"
+            component="span"
+            className={styles.button}
+            startIcon={<AiIcons.AiFillFileAdd className={styles.buttonIcon} />}>
+            {t('buttons:chooseAvatar')}
           </Button>
+        </label>
         {(hasAvatar && !avatar) &&
           <Button
             variant="outlined"
@@ -49,21 +52,22 @@ export default function InputImage({ hasAvatar, saveAvatar, deleteAvatar }) {
             startIcon={<AiIcons.AiFillDelete className={styles.buttonIcon} />}
             onClick={() => { deleteAvatar() }}>
             {t('buttons:delete')}
-        </Button>
+          </Button>
         }
-      </label>
-
-      {avatar &&
-        <div className={styles.fileNameContainer} >
+        {avatar &&
           <Button
             variant="outlined"
             color="primary"
-            component="span"
             className={styles.button}
             startIcon={<AiIcons.AiOutlineUpload className={styles.buttonIcon} />}
             onClick={handleSave}>
             {t('buttons:save')}
-            </Button>
+          </Button>
+        }
+      </div>
+
+      {avatar &&
+        <div className={styles.fileNameContainer} >
           <p className={styles.fileNameText} onClick={() => setAvatar()} >
             {avatar.name}
           </p>

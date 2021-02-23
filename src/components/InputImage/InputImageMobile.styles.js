@@ -1,9 +1,14 @@
 import { makeStyles } from "@material-ui/core";
 
-export const desktopClasses = makeStyles(theme => ({
+export const mobileClasses = makeStyles(theme => ({
   container: {
     display: 'flex',
-    flexDirection: 'row',
+    flexDirection: 'column',
+  },
+
+  buttonContainer: {
+    display: 'flex',
+    justifyContent:'center'
   },
 
   button: {
@@ -19,12 +24,14 @@ export const desktopClasses = makeStyles(theme => ({
 
   fileNameContainer: {
     display: 'flex',
+    justifyContent: 'center',
     alignItems: 'center',
+    marginTop: '0.5vh'
   },
 
   fileNameText: {
     width: 'fit-content',
-    maxWidth: '15vh',
+    maxWidth: '25vh',
     marginRight: '0.3vh',
     whiteSpace: 'nowrap',
     overflow: 'hidden',

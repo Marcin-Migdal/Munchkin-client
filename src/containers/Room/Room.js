@@ -9,15 +9,18 @@ import { IconContext } from 'react-icons/lib';
 import PlayerListItem from '../../components/PlayerListItem/PlayerListItem';
 import { links } from '../../utils/linkUtils';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
+import { currentUserSelector } from '../../slices/currentUser';
 
 export default function Room({ classes, mobile }) {
+  const { currentUser, currentUserLoading } = useSelector(currentUserSelector)
   const { t } = useTranslation(['buttons', 'inputLabels', 'rooms']);
   const theme = useTheme();
   const location = useLocation();
   const history = useHistory();
 
   const styles = classes()
-
+  
   const [roomPasswordInput, roomPassword, setRoomPassword] = useInput({
     inputType: "password",
     inputLabel: t('inputLabels:password'),
@@ -27,12 +30,11 @@ export default function Room({ classes, mobile }) {
   });
 
   const [room, setRoom] = useState();
-  const [notification, setNotification] = useState();
-
-  const [userData] = useFetchGet({ url: '/api/auth/user' });
   const [playersInRoom, setPlayersInRoomData] = useFetchGet({
     url: '/api/playerStatus/getGameSummary/' + (location.state ? location.state.roomId : history.replace(links.home))
   });
+  
+  const [notification, setNotification] = useState();
 
   useEffect(() => {
     const cleanUp = () => {
@@ -102,22 +104,6 @@ export default function Room({ classes, mobile }) {
     });
   }
 
-  const EditButton = () => {
-    if (userData.id === room.creatorId) {
-      return (
-        <Button
-          variant="outlined"
-          color="primary"
-          onClick={() => { changeToEditRoomMenu() }}
-          className={styles.button}>
-          {t('buttons:editRoom')}
-        </Button>
-      )
-    } else {
-      return <></>
-    }
-  }
-
   const goToUserPage = (user) => {
     history.push({
       pathname: links.userPage,
@@ -129,7 +115,7 @@ export default function Room({ classes, mobile }) {
 
   return (
     <div className={styles.roomMenuContainer}>
-      {room &&
+      {(room && !currentUserLoading) &&
         <div className={styles.topContainer}>
           <p className={styles.roomNameText}>{t('rooms:pickRoom.title')} {room.roomName}</p>
           <p className={styles.text}>{t('rooms:pickRoom.slots')} {room.usersInRoom}/{room.slots}</p>
@@ -143,13 +129,21 @@ export default function Room({ classes, mobile }) {
               className={styles.button}>
               {t('buttons:joinRoom')}
             </Button>
-            {(userData && room) && <EditButton />}
+            {(currentUser && currentUser.id === room.creatorId) &&
+              <Button
+                variant="outlined"
+                color="primary"
+                onClick={() => { changeToEditRoomMenu() }}
+                className={styles.button}>
+                {t('buttons:editRoom')}
+              </Button>
+            }
           </div>
         </div>
       }
       <div className={styles.bottomContainer}>
         {notification && notification}
-        {(playersInRoom && room && userData) &&
+        {(!currentUserLoading && currentUser && playersInRoom && room) &&
           <div className={styles.playersContainer}>
             <ListComponent data={playersInRoom} mapFunction={(playerStatus, index) => {
               return (
@@ -157,7 +151,7 @@ export default function Room({ classes, mobile }) {
                   <PlayerListItem
                     mobile={mobile}
                     playerStatus={playerStatus}
-                    currentUser={userData}
+                    currentUser={currentUser}
                     creatorId={room.creatorId}
                     isInRoom={playerStatus.playerInRoom}
                     action={() => { goToUserPage(playerStatus.user) }} />

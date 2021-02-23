@@ -9,7 +9,7 @@ import { Button } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
 export default function EditRoomSideMenu({ room, changeToPickRoom, mobile }) {
-  const { t } = useTranslation(['translation', 'inputLabels', 'buttons']);
+  const { t } = useTranslation(['inputLabels', 'buttons']);
   const styles = mobile ? mobileClasses() : classes()
 
   const [roomNameInput, roomName, setRoomName] = useInput({
@@ -74,7 +74,7 @@ export default function EditRoomSideMenu({ room, changeToPickRoom, mobile }) {
           color="primary"
           onClick={deleteRoom}
           className={styles.button}>
-          {t('Global.confirmationYes')}
+          {t('menu:confirmationModal.yes')}
         </Button>
         <Button
           variant="outlined"
@@ -84,7 +84,7 @@ export default function EditRoomSideMenu({ room, changeToPickRoom, mobile }) {
             setNotification()
             setDeleteButtons()
           }}>
-          {t('Global.confirmationNo')}
+          {t('menu:confirmationModal.no')}
         </Button>
 
       </div>

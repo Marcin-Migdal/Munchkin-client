@@ -11,8 +11,11 @@ import { useHistory } from 'react-router-dom';
 import ShortPlayerListItem from '../../components/ShortPlayerListItem/ShortPlayerListItem';
 import { links } from '../../utils/linkUtils';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
+import { currentUserSelector } from '../../slices/currentUser';
 
 export default function PickRoomSideMenu({ room, changeToEditRoom, mobile }) {
+  const { currentUser, currentUserLoading } = useSelector(currentUserSelector)
   const { t } = useTranslation(['inputLabels', 'buttons']);
   const history = useHistory();
 
@@ -27,7 +30,6 @@ export default function PickRoomSideMenu({ room, changeToEditRoom, mobile }) {
   });
 
   const [notification, setNotification] = useState();
-  const [userData] = useFetchGet({ url: '/api/auth/user' });
   const [playersInRoom, setPlayersInRoomData] = useFetchGet({ url: '/api/playerStatus/allPlayersStatusesInRoom/' + room.id });
 
   useEffect(() => {
@@ -76,22 +78,6 @@ export default function PickRoomSideMenu({ room, changeToEditRoom, mobile }) {
     )
   }
 
-  const EditButton = () => {
-    if (userData.id === room.creatorId) {
-      return (
-        <Button
-          variant="outlined"
-          color="primary"
-          onClick={() => { changeToEditRoom(room) }}
-          className={styles.button}>
-          {t('buttons:editRoom')}
-        </Button>
-      )
-    } else {
-      return <></>
-    }
-  }
-
   const goToUserPage = (user) => {
     history.push({
       pathname: links.userPage,
@@ -116,7 +102,15 @@ export default function PickRoomSideMenu({ room, changeToEditRoom, mobile }) {
           className={styles.button}>
           {t('buttons:joinRoom')}
         </Button>
-        {userData && <EditButton />}
+        {(!currentUserLoading && currentUser && currentUser.id === room.creatorId) &&
+          <Button
+            variant="outlined"
+            color="primary"
+            onClick={() => { changeToEditRoom(room) }}
+            className={styles.button}>
+            {t('buttons:editRoom')}
+          </Button>
+        }
       </div>
       {notification && notification}
       <MyHr />

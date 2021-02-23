@@ -5,24 +5,25 @@ import { IconContext } from 'react-icons/lib';
 import playerStatusService from '../../api/playerStatus.api';
 import InfoModal from '../../components/InfoModal/InfoModal';
 import ListComponent from '../../components/ListComponent/ListComponent';
-import useFetchGet from '../../hooks/useFetchGet';
 import ExtendedPlayerListItem from '../../components/ExtendedPlayerListItem/ExtendedPlayerListItem';
 import ConfirmationModal from '../../components/ConfirmationModal/ConfirmationModal';
 import roomsService from '../../api/rooms.api';
 import PerfectScrollbar from 'react-perfect-scrollbar'
 import * as AiIcons from "react-icons/ai"
 import { links } from '../../utils/linkUtils';
-import 'react-perfect-scrollbar/dist/css/styles.css';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
+import { currentUserSelector } from '../../slices/currentUser';
+import 'react-perfect-scrollbar/dist/css/styles.css';
 
 export default function Game({ classes, mobile }) {
+  const { currentUser, currentUserLoading } = useSelector(currentUserSelector)
   const { t } = useTranslation(['game']);
 
   const theme = useTheme()
   const location = useLocation();
   const history = useHistory();
 
-  const [currentUser] = useFetchGet({ url: '/api/auth/user' });
   const [playerStatuses, setPlayerStatuses] = useState();
   const [playerStatusRefreshFlag, setPlayerStatusRefreshFlag] = useState(0);
   const [room, setRoom] = useState();
@@ -118,7 +119,7 @@ export default function Game({ classes, mobile }) {
         })
     }
 
-    if (location.state && isMounted && currentUser) {
+    if (location.state && isMounted) {
       fetchRoom()
     }
 
@@ -131,8 +132,7 @@ export default function Game({ classes, mobile }) {
     history.replace({
       pathname: links.gameSummary,
       state: {
-        room: room,
-        user: currentUser
+        room: room
       }
     });
   }
@@ -305,84 +305,86 @@ export default function Game({ classes, mobile }) {
   return (
     <div className={styles.scrollContainer}>
       <PerfectScrollbar>
-        <div className={styles.scrollContentContainer}>
-          <div className={styles.topContainer}>
-            {room && <p className={styles.roomNameText}>{t('game:game.titleLabel')}{room.roomName}</p>}
-            {(playerStatuses && currentUser && isExtended.isInMemory) ?
-              <ListComponent data={playerStatuses} mapFunction={(playerStatus, index) => {
-                return (
-                  <IconContext.Provider key={index}
-                    value={{
-                      color: currentUser.id === playerStatus.user.id ?
-                        theme.palette.current.main :
-                        theme.palette.primary.main
-                    }}>
-                    <ExtendedPlayerListItem
-                      mobile={mobile}
-                      playerStatus={playerStatus}
-                      isCurrentPlayer={currentUser.id === playerStatus.user.id}
-                      creatorId={room.creatorId}
-                      isExtended={isExtended.isExtendedArray[index].isExtended}
-                      action={() => { showExtendedPlayerStatus(index) }}
-                      refreshFlag={refreshPlayerStatuses}/>
-                  </IconContext.Provider>
-                )
-              }} /> :
-              <div className={styles.loaderContainer}>
-                <CircularProgress size={mobile ? 50 : 40} color="primary" />
+        {!currentUserLoading &&
+          <div className={styles.scrollContentContainer}>
+            <div className={styles.topContainer}>
+              {room && <p className={styles.roomNameText}>{t('game:game.titleLabel')}{room.roomName}</p>}
+              {(playerStatuses && currentUser && isExtended.isInMemory) ?
+                <ListComponent data={playerStatuses} mapFunction={(playerStatus, index) => {
+                  return (
+                    <IconContext.Provider key={index}
+                      value={{
+                        color: currentUser.id === playerStatus.user.id ?
+                          theme.palette.current.main :
+                          theme.palette.primary.main
+                      }}>
+                      <ExtendedPlayerListItem
+                        mobile={mobile}
+                        playerStatus={playerStatus}
+                        isCurrentPlayer={currentUser.id === playerStatus.user.id}
+                        creatorId={room.creatorId}
+                        isExtended={isExtended.isExtendedArray[index].isExtended}
+                        action={() => { showExtendedPlayerStatus(index) }}
+                        refreshFlag={refreshPlayerStatuses} />
+                    </IconContext.Provider>
+                  )
+                }} /> :
+                <div className={styles.loaderContainer}>
+                  <CircularProgress size={mobile ? 50 : 40} color="primary" />
+                </div>
+              }
+            </div>
+            <div className={styles.bottomContainer}>
+              <div className={styles.bottomTextContainer}>
+                <p className={styles.text}>{t('game:playerStatistics.title.level')}</p>
+                <p className={styles.text}>{t('game:playerStatistics.title.bonus')}</p>
               </div>
-            }
-          </div>
-          <div className={styles.bottomContainer}>
-            <div className={styles.bottomTextContainer}>
-              <p className={styles.text}>{t('game:playerStatistics.title.level')}</p>
-              <p className={styles.text}>{t('game:playerStatistics.title.bonus')}</p>
-            </div>
-            <div className={styles.playerStatusButtonContainer}>
-              <IconContext.Provider value={{ color: theme.palette.primary.main }}>
-                <MyButton
-                  id='leftButton'
-                  onClick={() => { setLevel(-1) }}
-                  icon={<AiIcons.AiOutlineMinus />} />
-                <MyButton
-                  id='middleButton'
-                  onClick={() => { setLevel(1) }}
-                  icon={<AiIcons.AiOutlinePlus />}
-                  type='levelUp' />
-                <MyButton
-                  id='middleButton'
-                  onClick={() => { setBonus(-1) }}
-                  icon={<AiIcons.AiOutlineMinus />} />
-                <MyButton
-                  id='rightButton'
-                  onClick={() => { setBonus(1) }}
-                  icon={<AiIcons.AiOutlinePlus />} />
-              </IconContext.Provider>
-            </div>
-            <div className={styles.bottomButtonContainer}>
-              {isModified &&
+              <div className={styles.playerStatusButtonContainer}>
+                <IconContext.Provider value={{ color: theme.palette.primary.main }}>
+                  <MyButton
+                    id='leftButton'
+                    onClick={() => { setLevel(-1) }}
+                    icon={<AiIcons.AiOutlineMinus />} />
+                  <MyButton
+                    id='middleButton'
+                    onClick={() => { setLevel(1) }}
+                    icon={<AiIcons.AiOutlinePlus />}
+                    type='levelUp' />
+                  <MyButton
+                    id='middleButton'
+                    onClick={() => { setBonus(-1) }}
+                    icon={<AiIcons.AiOutlineMinus />} />
+                  <MyButton
+                    id='rightButton'
+                    onClick={() => { setBonus(1) }}
+                    icon={<AiIcons.AiOutlinePlus />} />
+                </IconContext.Provider>
+              </div>
+              <div className={styles.bottomButtonContainer}>
+                {isModified &&
+                  <Button
+                    id='save'
+                    disabled={saveButtonDisabled}
+                    className={styles.playerStatusButton}
+                    variant={"contained"}
+                    color="primary"
+                    onClick={savePlayerStatus}>
+                    {t('game:game.saveStatus')}
+                  </Button>
+                }
                 <Button
-                  id='save'
-                  disabled={saveButtonDisabled}
+                  id='reload'
                   className={styles.playerStatusButton}
                   variant={"contained"}
                   color="primary"
-                  onClick={savePlayerStatus}>
-                  {t('game:game.saveStatus')}
+                  onClick={refreshPlayerStatuses}>
+                  <AiIcons.AiOutlineReload />
                 </Button>
-              }
-              <Button
-                id='reload'
-                className={styles.playerStatusButton}
-                variant={"contained"}
-                color="primary"
-                onClick={refreshPlayerStatuses}>
-                <AiIcons.AiOutlineReload />
-              </Button>
+              </div>
             </div>
+            {notyfication}
           </div>
-          {notyfication}
-        </div>
+        }
       </PerfectScrollbar>
     </div>
   )

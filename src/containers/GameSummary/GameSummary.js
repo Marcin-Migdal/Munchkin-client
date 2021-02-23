@@ -7,10 +7,13 @@ import ListComponent from '../../components/ListComponent/ListComponent';
 import ExtendedPlayerListItem from '../../components/ExtendedPlayerListItem/ExtendedPlayerListItem';
 import PerfectScrollbar from 'react-perfect-scrollbar'
 import { links } from '../../utils/linkUtils';
-import 'react-perfect-scrollbar/dist/css/styles.css';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
+import { currentUserSelector } from '../../slices/currentUser';
+import 'react-perfect-scrollbar/dist/css/styles.css';
 
 export default function GameSummary({ classes, mobile }) {
+  const { currentUser, currentUserLoading } = useSelector(currentUserSelector)
   const { t } = useTranslation(['game']);
 
   const theme = useTheme()
@@ -66,12 +69,12 @@ export default function GameSummary({ classes, mobile }) {
         {location.state &&
           <div className={styles.scrollContentContainer}>
             <p className={styles.roomNameText}>Pokój: {location.state.room.roomName}</p>
-            {(playerStatuses) ?
+            {(playerStatuses && !currentUserLoading && currentUser) ?
               <ListComponent data={playerStatuses} mapFunction={(playerStatus, index) => {
                 return (
                   <IconContext.Provider key={index}
                     value={{
-                      color: location.state.user.id === playerStatus.user.id ?
+                      color: currentUser.id === playerStatus.user.id ?
                         theme.palette.current.main :
                         theme.palette.primary.main
                     }}>
@@ -84,7 +87,7 @@ export default function GameSummary({ classes, mobile }) {
                       <ExtendedPlayerListItem
                         mobile={mobile}
                         playerStatus={playerStatus}
-                        isCurrentPlayer={location.state.user.id === playerStatus.user.id}
+                        isCurrentPlayer={currentUser.id === playerStatus.user.id}
                         creatorId={location.state.room.creatorId}
                         isExtended={isExtended[index].isExtended}
                         action={() => { showExtendedPlayerStatus(index) }}

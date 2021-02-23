@@ -8,7 +8,7 @@ import { links } from '../../utils/linkUtils';
 import { useTranslation } from 'react-i18next';
 
 export default function RoomEdit({ classes }) {
-  const { t } = useTranslation(['translation', 'buttons', 'inputLabels', 'rooms']);
+  const { t } = useTranslation(['buttons', 'inputLabels', 'rooms']);
   const location = useLocation();
   const history = useHistory();
 

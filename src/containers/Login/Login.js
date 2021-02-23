@@ -7,6 +7,7 @@ import val from '../../utils/ValidationUtil';
 import { classes } from './Login.styles'
 import { links } from '../../utils/linkUtils';
 import { useTranslation } from 'react-i18next';
+import playerStatusService from '../../api/playerStatus.api';
 
 export default function Login() {
   const { t } = useTranslation(['auth', 'inputLabels']);
@@ -34,7 +35,10 @@ export default function Login() {
     if (val.signIn(userName.value, setNserName, password.value, setPassword, t)) {
       const authorization = { usernameOrEmail: `${userName.value}`, userPassword: `${password.value}` };
       authService.signIn(authorization)
-        .then(resp => history.replace(links.home))
+        .then(resp => {
+          playerStatusService.leaveRoomOnLogIn()
+          history.replace(links.home)
+        })
         .catch(e => setError(
           <div className={styles.errorBadCredentials}>
             {t('auth:signIn.errorPart1')}

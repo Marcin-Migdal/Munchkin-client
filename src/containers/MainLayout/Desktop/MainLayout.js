@@ -1,4 +1,4 @@
-import React, { useState, Suspense  } from 'react';
+import React, { useState, Suspense, useEffect } from 'react';
 import { Route } from 'react-router-dom';
 import { IconContext } from 'react-icons';
 import Navbar from '../../Navbar/Desktop/Navbar';
@@ -26,8 +26,11 @@ import { links } from '../../../utils/linkUtils';
 import { homePageClasses } from '../../Home/Home.styles';
 import FallbackLoading from '../../../components/FallbackLoading/FallbackLoading';
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
+import { fetchCurrentUser } from '../../../slices/currentUser';
 
 export default function MainLayout() {
+  const dispatch = useDispatch()
   const { t } = useTranslation(['menu']);
   const theme = useTheme();
 
@@ -37,6 +40,10 @@ export default function MainLayout() {
   const mobile = false;
 
   const toggleSideMenu = () => setSideMenuActive(!sideMenuActive);
+
+  useEffect(() => {
+    dispatch(fetchCurrentUser())
+  }, [dispatch]);
 
   return (
     <IconContext.Provider value={{ color: theme.palette.secondary.main }}>
@@ -57,7 +64,7 @@ export default function MainLayout() {
                 <Rooms classes={roomsClasses} mobile={mobile} />
               </Route>
               <Route path={links.settings}>
-                <Settings classes={settingsClasses} />
+                <Settings classes={settingsClasses} mobile={mobile} />
               </Route>
               <Route path={links.room}>
                 <Room classes={roomClasses} mobile={mobile} />

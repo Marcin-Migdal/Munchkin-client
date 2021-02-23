@@ -62,12 +62,6 @@ export const settingsClasses = makeStyles(theme => ({
     width: '100%',
   },
 
-  avatarContainer: {
-    display: 'flex',
-    justifyContent: 'center',
-    marginTop: '0.5vh',
-  },
-
   button: {
     width: 'fit-content',
     height: '37px',
@@ -76,6 +70,9 @@ export const settingsClasses = makeStyles(theme => ({
     fontWeight: 600,
     '&.MuiButton-root:hover': {
       backgroundColor: theme.palette.secondary.main,
+    },
+    '&#languageButton': {
+      marginRight: '1vh',
     }
   },
 
@@ -84,6 +81,18 @@ export const settingsClasses = makeStyles(theme => ({
     marginTop: '1vh',
     fontSize: '1.5vh',
     color: theme.palette.primary.main,
+  },
+
+  avatarContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'column',
+    marginTop: '0.5vh',
+  },
+
+  languageContainer: {
+    display: 'flex',
+    margin: '0.5vh 0 0 21vw',
   },
 }));
 

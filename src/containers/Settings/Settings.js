@@ -7,16 +7,16 @@ import { IconContext } from 'react-icons/lib';
 import * as IoIcons from "react-icons/io"
 import userService from '../../api/user.api';
 import val from '../../utils/ValidationUtil';
-import useFetchGet from '../../hooks/useFetchGet';
 import { useTranslation } from 'react-i18next';
+import { useSelector, useDispatch } from 'react-redux';
+import { currentUserSelector, fetchCurrentUser } from '../../slices/currentUser';
 
-export default function Settings({ classes }) {
+export default function Settings({ classes, mobile }) {
+  const dispatch = useDispatch()
+  const { currentUser, currentUserLoading } = useSelector(currentUserSelector)
   const { t, i18n } = useTranslation(['settings', 'buttons', 'inputLabels']);
   const theme = useTheme();
   const styles = classes();
-
-  const [userRefreshFlag, setUserRefreshFlag] = useState(0);
-  const [userData] = useFetchGet({ url: '/api/auth/user', reloadFlag: userRefreshFlag });
 
   const [userNameInput, userName, setUserName] = useInput({
     inputType: "text",
@@ -103,7 +103,7 @@ export default function Settings({ classes }) {
     setStateCleanUp()
 
     const editUserPasswordRequest = {
-      username: userData.username,
+      username: currentUser.username,
       oldPassword: oldPassword.value,
       newPassword: newPassword.value,
       newRePassword: newRePassword.value,
@@ -169,7 +169,7 @@ export default function Settings({ classes }) {
   }
 
   const refreshUser = () => {
-    setUserRefreshFlag(prevState => prevState + 1)
+    dispatch(fetchCurrentUser())
   }
 
   const handleLanguageChange = (language) => {
@@ -216,7 +216,7 @@ export default function Settings({ classes }) {
           <IoIcons.IoIosArrowDown />
         </Button>
 
-        {segment === 'EditPassword' &&
+        {(segment === 'EditPassword' && !currentUserLoading) &&
           <div className={styles.inputContainer}>
             {oldPasswordInput}
             {newPasswordInput}
@@ -241,12 +241,13 @@ export default function Settings({ classes }) {
           <IoIcons.IoIosArrowDown />
         </Button>
 
-        {segment === 'EditAvatar' &&
-          <div className={styles.rowContainer}>
+        {(segment === 'EditAvatar' && !currentUserLoading) &&
+          <div className={styles.avatarContainer}>
             <InputImage
-              hasAvatar={userData.hasAvatar}
+              hasAvatar={currentUser.hasAvatar}
               saveAvatar={(avatar) => { saveAvatar(avatar) }}
-              deleteAvatar={deleteAvatar} />
+              deleteAvatar={deleteAvatar}
+              mobile={mobile} />
             {notification}
           </div>
         }
@@ -261,7 +262,7 @@ export default function Settings({ classes }) {
         </Button>
 
         {segment === 'ChangeLanguage' &&
-          <div className={styles.rowContainer}>
+          <div className={styles.languageContainer}>
             <Button
               id='languageButton'
               color='primary'
