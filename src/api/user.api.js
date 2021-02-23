@@ -1,6 +1,10 @@
 import api from './api.js';
 
 class UserService {
+  getCurrentUser() {
+    return api.httpGET('/api/auth/user')
+  }
+
   getAvatar(id) {
     return api.httpGETAvatar('/api/auth/getAvatar/' + id);
   }

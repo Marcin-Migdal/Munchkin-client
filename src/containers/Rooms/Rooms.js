@@ -14,6 +14,7 @@ import Dropdown from '../../components/DropDownComponent/Dropdown';
 import * as AiIcons from "react-icons/ai"
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import { useTranslation } from 'react-i18next';
+import { Suspense } from 'react';
 
 const pageSize = 12;
 export default function Rooms({ classes, mobile }) {
@@ -62,63 +63,65 @@ export default function Rooms({ classes, mobile }) {
   }
 
   return (
-    <div className={styles.scrollContainer}>
-      <PerfectScrollbar onYReachEnd={() => { if (!lastPage && data && status === 'fetched') loadMoreRooms() }}>
-        <div className={styles.scrollContentContainer}>
-          <div className={styles.topScrollContainer}>
-            <Button
-              variant="outlined"
-              color="primary"
-              className={styles.topButton}
-              onClick={addRoom}>
-              {t('rooms:rooms.buttons.addRoom')}
-            </Button>
-            <Dropdown
-              mobile={mobile}
-              chooseSortOption={(sortBy) => {
-                setRoomSortType(sortBy)
-              }} />
-          </div>
-
-          {(data) &&
-            <div className={styles.roomListContainer}>
-              <ListComponent data={data} mapFunction={(item, index) => {
-                return (
-                  <RoomListItem
-                    key={index}
-                    room={item}
-                    mobile={mobile}
-                    action={() => { pickRoom(item) }} />
-                )
-              }} />
+    <Suspense fallback={<div>loading ...</div>}>
+      <div className={styles.scrollContainer}>
+        <PerfectScrollbar onYReachEnd={() => { if (!lastPage && data && status === 'fetched') loadMoreRooms() }}>
+          <div className={styles.scrollContentContainer}>
+            <div className={styles.topScrollContainer}>
+              <Button
+                variant="outlined"
+                color="primary"
+                className={styles.topButton}
+                onClick={addRoom}>
+                {t('rooms:rooms.buttons.addRoom')}
+              </Button>
+              <Dropdown
+                mobile={mobile}
+                chooseSortOption={(sortBy) => {
+                  setRoomSortType(sortBy)
+                }} />
             </div>
-          }
 
-          <div className={styles.bottomScrollContainer}>
-            {(status === 'error') &&
-              <div className={styles.errorContainer}>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  className={styles.button}
-                  onClick={loadRoomsAfterError}>
-                  {t('rooms:rooms.buttons.loadRooms')}
-                </Button>
-                <InfoModal text={t('rooms:rooms.error')} mobile={mobile} />
-              </div>}
-            <LoadingComponent condition={(status === 'fetching')} />
+            {(data) &&
+              <div className={styles.roomListContainer}>
+                <ListComponent data={data} mapFunction={(item, index) => {
+                  return (
+                    <RoomListItem
+                      key={index}
+                      room={item}
+                      mobile={mobile}
+                      action={() => { pickRoom(item) }} />
+                  )
+                }} />
+              </div>
+            }
+
+            <div className={styles.bottomScrollContainer}>
+              {(status === 'error') &&
+                <div className={styles.errorContainer}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    className={styles.button}
+                    onClick={loadRoomsAfterError}>
+                    {t('rooms:rooms.buttons.loadRooms')}
+                  </Button>
+                  <InfoModal text={t('rooms:rooms.error')} mobile={mobile} />
+                </div>}
+              <LoadingComponent condition={(status === 'fetching')} />
+            </div>
           </div>
-        </div>
-      </PerfectScrollbar>
+        </PerfectScrollbar>
 
-      <div className={roomSideMenu ? styles.roomSideMenuEnabled : styles.roomSideMenuDisabled}>
-        <MyHr />
-        <div className={styles.iconContainer} onClick={() => setRoomSideMenu()}>
-          <AiIcons.AiOutlineClose />
+        <div className={roomSideMenu ? styles.roomSideMenuEnabled : styles.roomSideMenuDisabled}>
+          <MyHr />
+          <div className={styles.iconContainer} onClick={() => setRoomSideMenu()}>
+            <AiIcons.AiOutlineClose />
+          </div>
+          {roomSideMenu && roomSideMenu}
         </div>
-        {roomSideMenu && roomSideMenu}
       </div>
-    </div>
+    </Suspense>
   )
 }
 

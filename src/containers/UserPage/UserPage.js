@@ -1,28 +1,33 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useHistory, useLocation } from 'react-router-dom';
 import { Button, useTheme } from '@material-ui/core';
 import MyHr from '../../components/MyHr/MyHr';
 import * as IoIcons from "react-icons/io"
 import { IconContext } from 'react-icons/lib';
-import useFetchGet from '../../hooks/useFetchGet';
 import MyAvatar from '../../components/MyAvatar/MyAvatar';
 import { links } from '../../utils/linkUtils';
 import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
+import { currentUserSelector, fetchCurrentUser } from '../../slices/currentUser';
 
 export default function UserPage({ classes, sideMenuActive, mobile }) {
+  const dispatch = useDispatch()
+  const { currentUser, loading, hasErrors } = useSelector(currentUserSelector)
   const { t } = useTranslation(['translation', 'buttons']);
   const location = useLocation();
   const history = useHistory();
   const theme = useTheme();
 
-  const [userData] = useFetchGet({ url: '/api/auth/user' });
-
   const styles = classes();
-  
+
   const user = location.state ? location.state.user : history.replace(links.home);
 
+  useEffect(() => {
+    dispatch(fetchCurrentUser())
+  }, [dispatch]);
+
   const EditButton = () => {
-    if (userData.id === user.id) {
+    if (currentUser.id === user.id) {
       return (
         <Button
           variant="outlined"
@@ -53,7 +58,7 @@ export default function UserPage({ classes, sideMenuActive, mobile }) {
                   <IoIcons.IoMdFemale className={styles.gender} />}
               </IconContext.Provider>
             </p>
-            {userData &&
+            {(!loading && currentUser) &&
               <EditButton />}
           </div>
         }
