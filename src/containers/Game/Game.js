@@ -7,31 +7,33 @@ import InfoModal from '../../components/InfoModal/InfoModal';
 import ListComponent from '../../components/ListComponent/ListComponent';
 import ExtendedPlayerListItem from '../../components/ExtendedPlayerListItem/ExtendedPlayerListItem';
 import ConfirmationModal from '../../components/ConfirmationModal/ConfirmationModal';
-import roomsService from '../../api/rooms.api';
 import PerfectScrollbar from 'react-perfect-scrollbar'
 import * as AiIcons from "react-icons/ai"
 import { links } from '../../utils/linkUtils';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import 'react-perfect-scrollbar/dist/css/styles.css';
+import { deleteRoomInStore } from '../../slices/room';
 
 export default function Game({ classes }) {
-  const { layout, currentUser, currentUserLoading } = useSelector((state) => {
+  const dispatch = useDispatch()
+  const { t } = useTranslation(['game']);
+  const theme = useTheme()
+  const location = useLocation();
+  const history = useHistory();
+
+
+  const { room, layout, currentUser, currentUserLoading } = useSelector((state) => {
     return {
+      room: state.room.room,
       layout: state.layout.layout,
       currentUser: state.currentUser.currentUser,
       currentUserLoading: state.currentUser.currentUserLoading
     }
   })
-  const { t } = useTranslation(['game']);
-
-  const theme = useTheme()
-  const location = useLocation();
-  const history = useHistory();
 
   const [playerStatuses, setPlayerStatuses] = useState();
   const [playerStatusRefreshFlag, setPlayerStatusRefreshFlag] = useState(0);
-  const [room, setRoom] = useState();
 
   const [notyfication, setNotyfication] = useState();
 
@@ -62,11 +64,11 @@ export default function Game({ classes }) {
     window.addEventListener("beforeunload", handleEvent);
     return () => {
       isMounted = false
-      if (history.location.pathname !== links.game) {
-        playerStatusService.leaveRoom(location.state.roomId)
-      }
+      room && dispatch(deleteRoomInStore())
+      location.state && playerStatusService.leaveRoom(location.state.roomId)
       window.removeEventListener("beforeunload", handleEvent);
     }
+
   }, [location, layout.mobile, history]);
 
   useEffect(() => {
@@ -84,14 +86,6 @@ export default function Game({ classes }) {
       }
     }
 
-    const createIsExtendedArray = (length) => {
-      let tempIsExtended = new Array(length)
-      for (let i = 0; i < length; i++) {
-        tempIsExtended[i] = { isExtended: false };
-      }
-      setIsExtended({ isExtendedArray: tempIsExtended, isInMemory: true })
-    }
-
     const fetchPlayerStatuses = () => {
       playerStatusService.getAllPlayersStatusesInRoom(location.state.roomId)
         .then(playerStatuses => {
@@ -106,27 +100,28 @@ export default function Game({ classes }) {
         })
     }
 
-    const fetchRoom = () => {
-      roomsService.getRoom(location.state.roomId)
-        .then(room => {
-          setRoom(room.body)
-          if (!isExtended.isInMemory) {
-            createIsExtendedArray(room.body.slots)
-          }
-          if (room.body.complete) {
-            goToGameSummary()
-          } else {
-            fetchPlayerStatuses()
-          }
-        })
-        .catch((e) => {
-          console.log(e)
-        })
+    const createIsExtendedArray = (length) => {
+      if (!isExtended.isInMemory) {
+        let tempIsExtended = new Array(length)
+        for (let i = 0; i < length; i++) {
+          tempIsExtended[i] = { isExtended: false };
+        }
+        setIsExtended({ isExtendedArray: tempIsExtended, isInMemory: true })
+      }
     }
 
-    if (location.state && isMounted) {
-      fetchRoom()
+    const setUpRoom = () => {
+      if (isMounted) {
+        if (room.complete) {
+          goToGameSummary()
+        } else {
+          createIsExtendedArray(room.slots)
+          fetchPlayerStatuses()
+        }
+      }
     }
+
+    setUpRoom()
 
     return () => {
       isMounted = false
@@ -134,10 +129,13 @@ export default function Game({ classes }) {
   }, [playerStatusRefreshFlag, location, history, currentUser]);
 
   const goToGameSummary = () => {
+    console.log(room)
     history.replace({
       pathname: links.gameSummary,
       state: {
-        room: room
+        roomId: room.id,
+        creatorId: room.creatorId,
+        roomName: room.roomName
       }
     });
   }

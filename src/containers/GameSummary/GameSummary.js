@@ -12,6 +12,13 @@ import { useSelector } from 'react-redux';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 
 export default function GameSummary({ classes }) {
+  const { t } = useTranslation(['game']);
+  const theme = useTheme()
+  const location = useLocation();
+  const history = useHistory();
+
+  const [playerStatuses, setPlayerStatuses] = useState();
+  const [isExtended, setIsExtended] = useState();
   const { layout, currentUser, currentUserLoading } = useSelector((state) => {
     return {
       layout: state.layout.layout,
@@ -19,16 +26,12 @@ export default function GameSummary({ classes }) {
       currentUserLoading: state.currentUser.currentUserLoading
     }
   })
-  const { t } = useTranslation(['game']);
 
-  const theme = useTheme()
-  const location = useLocation();
-  const history = useHistory();
-
-  const [playerStatuses, setPlayerStatuses] = useState();
-  const [isExtended, setIsExtended] = useState();
-
-  const placementArray = [t('game:gameSummary.firstPlace'), t('game:gameSummary.secondPlace'), t('game:gameSummary.thirdPlace')];
+  const placementArray = [
+    t('game:gameSummary.firstPlace'),
+    t('game:gameSummary.secondPlace'),
+    t('game:gameSummary.thirdPlace')
+  ];
 
   const styles = classes();
 
@@ -48,7 +51,7 @@ export default function GameSummary({ classes }) {
     }
 
     const fetchPlayerStatuses = () => {
-      playerStatusService.getAllSortedPlayersStatusesInRoom(location.state.room.id)
+      playerStatusService.getAllSortedPlayersStatusesInRoom(location.state.roomId)
         .then(playerStatuses => {
           createIsExtendedArray(playerStatuses.body.length)
           setPlayerStatuses(playerStatuses.body)
@@ -73,7 +76,7 @@ export default function GameSummary({ classes }) {
       <PerfectScrollbar>
         {location.state &&
           <div className={styles.scrollContentContainer}>
-            <p className={styles.roomNameText}>Pokój: {location.state.room.roomName}</p>
+            <p className={styles.roomNameText}>Pokój: {location.state.roomName}</p>
             {(playerStatuses && !currentUserLoading && currentUser) ?
               <ListComponent data={playerStatuses} mapFunction={(playerStatus, index) => {
                 return (
@@ -93,7 +96,7 @@ export default function GameSummary({ classes }) {
                         mobile={layout.mobile}
                         playerStatus={playerStatus}
                         isCurrentPlayer={currentUser.id === playerStatus.user.id}
-                        creatorId={location.state.room.creatorId}
+                        creatorId={location.state.creatorId}
                         isExtended={isExtended[index].isExtended}
                         action={() => { showExtendedPlayerStatus(index) }}
                         onlyRead={true} />

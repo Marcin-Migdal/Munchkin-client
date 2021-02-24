@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import roomsService from '../../api/rooms.api';
-import useFetchGet from '../../hooks/useFetchGet';
 import useInput from '../../hooks/UseInput/useInput';
 import ListComponent from '../../components/ListComponent/ListComponent';
 import { Button, useTheme } from '@material-ui/core';
@@ -9,23 +8,26 @@ import { IconContext } from 'react-icons/lib';
 import PlayerListItem from '../../components/PlayerListItem/PlayerListItem';
 import { links } from '../../utils/linkUtils';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import playerStatusService from '../../api/playerStatus.api';
+import { deleteRoomInStore, fetchRoom } from '../../slices/room';
 
 export default function Room({ classes }) {
-  const { layout, currentUser, currentUserLoading } = useSelector((state) => {
+  const dispatch = useDispatch()
+  const { t } = useTranslation(['buttons', 'inputLabels', 'rooms']);
+  const theme = useTheme();
+  const location = useLocation();
+  const history = useHistory();
+  const styles = classes()
+
+  const { room, layout, currentUser, currentUserLoading } = useSelector((state) => {
     return {
+      room: state.room.room,
       layout: state.layout.layout,
       currentUser: state.currentUser.currentUser,
       currentUserLoading: state.currentUser.currentUserLoading
     }
   })
-
-  const { t } = useTranslation(['buttons', 'inputLabels', 'rooms']);
-  const theme = useTheme();
-  const location = useLocation();
-  const history = useHistory();
-
-  const styles = classes()
 
   const [roomPasswordInput, roomPassword, setRoomPassword] = useInput({
     inputType: "password",
@@ -35,23 +37,14 @@ export default function Room({ classes }) {
     customClasses: styles.input
   });
 
-  const [room, setRoom] = useState();
-  const [playersInRoom, setPlayersInRoomData] = useFetchGet({
-    url: '/api/playerStatus/getGameSummary/' + (location.state ? location.state.roomId : history.replace(links.home))
-  });
-
+  const [playersInRoom, setPlayersInRoom] = useState();
   const [notification, setNotification] = useState();
 
   useEffect(() => {
-    const cleanUp = () => {
-      setPlayersInRoomData()
-      setNotification()
-    }
-
-    const fetchRoom = () => {
-      roomsService.getRoom(location.state.roomId)
+    const fetchPlayersInRoom = () => {
+      playerStatusService.getAllSortedPlayersStatusesInRoom(location.state.roomId)
         .then(res => {
-          setRoom(res.body)
+          setPlayersInRoom(res.body)
         })
         .catch((e) => {
           console.log(e)
@@ -59,10 +52,21 @@ export default function Room({ classes }) {
     }
 
     if (location.state) {
-      fetchRoom()
-      cleanUp()
+      !room && dispatch(fetchRoom(location.state.roomId))
+      console.log(room)
+      !playersInRoom && fetchPlayersInRoom()
+    } else {
+      history.replace(links.home)
     }
-  }, [location, setPlayersInRoomData]);
+
+    return history.listen((location) => {
+      const conditionArray = [links.roomEdit, links.userPage, links.game]
+      if (!conditionArray.includes(location.pathname)) {
+        dispatch(deleteRoomInStore())
+      }
+    })
+
+  }, [location, setPlayersInRoom, room]);
 
   const joinRoom = () => {
     const joinRoomRequest = {
@@ -75,17 +79,15 @@ export default function Room({ classes }) {
         history.push({
           pathname: links.game,
           state: {
-            roomId: room.id,
+            roomId: location.state.roomId,
           }
         });
       })
       .catch(e => {
+        const conditionArray = [400, 401, 404]
         console.log(e)
         setRoomPassword('')
-        if (e.response && (
-          e.response.status === 404 ||
-          e.response.status === 401 ||
-          e.response.status === 400)) {
+        if (e.response && conditionArray.includes(e.response.status)) {
           setNotyficationText(e.response.data.message)
         } else {
           setNotyficationText(t('rooms:pickRoom.error'))
@@ -105,7 +107,7 @@ export default function Room({ classes }) {
     history.push({
       pathname: links.roomEdit,
       state: {
-        room: room,
+        roomId: room.id,
       },
     });
   }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useHistory, useLocation } from 'react-router-dom';
 import { Button, useTheme } from '@material-ui/core';
 import * as IoIcons from "react-icons/io"
@@ -6,16 +6,11 @@ import { IconContext } from 'react-icons/lib';
 import MyAvatar from '../../components/MyAvatar/MyAvatar';
 import { links } from '../../utils/linkUtils';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteRoomInStore } from '../../slices/room';
 
 export default function UserPage({ classes }) {
-  const { layout, currentUser, currentUserLoading } = useSelector((state) => {
-    return {
-      layout: state.layout.layout,
-      currentUser: state.currentUser.currentUser,
-      currentUserLoading: state.currentUser.currentUserLoading
-    }
-  })
+  const dispatch = useDispatch()
   const { t } = useTranslation(['rooms', 'buttons']);
   const location = useLocation();
   const history = useHistory();
@@ -23,7 +18,29 @@ export default function UserPage({ classes }) {
 
   const styles = classes();
 
-  const user = location.state ? location.state.user : history.replace(links.home);
+  const { layout, currentUser, currentUserLoading } = useSelector((state) => {
+    return {
+      layout: state.layout.layout,
+      currentUser: state.currentUser.currentUser,
+      currentUserLoading: state.currentUser.currentUserLoading
+    }
+  })
+
+  const [user, setUser] = useState();
+
+  useEffect(() => {
+    if (location.state) {
+      setUser(location.state.user)
+    } else {
+      history.replace(links.home)
+    }
+
+    return history.listen((location) => {
+      if (location.pathname !== links.room) {
+        dispatch(deleteRoomInStore())
+      }
+    })
+  }, [location]);
 
   const EditButton = () => {
     if (currentUser.id === user.id) {

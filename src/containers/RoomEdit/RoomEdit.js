@@ -1,18 +1,21 @@
 import { Button } from '@material-ui/core';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import useInput from '../../hooks/UseInput/useInput';
 import val from '../../utils/ValidationUtil';
 import roomsService from '../../api/rooms.api';
 import { links } from '../../utils/linkUtils';
 import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteRoomInStore, fetchRoom, roomSelector } from '../../slices/room';
 
 export default function RoomEdit({ classes }) {
+  const dispatch = useDispatch()
   const { t } = useTranslation(['buttons', 'inputLabels', 'rooms']);
   const location = useLocation();
   const history = useHistory();
 
-  const [room] = useState((location.state ? location.state.room : history.replace(links.home)));
+  const { room } = useSelector(roomSelector)
   const [notification, setNotification] = useState();
   const [deleteButtons, setDeleteButtons] = useState();
 
@@ -42,6 +45,27 @@ export default function RoomEdit({ classes }) {
     customClasses: styles.input
   });
 
+  useEffect(() => {
+    if (location.state) {
+      if (!room) {
+        dispatch(fetchRoom(location.state.roomId))
+      }
+    } else {
+      history.replace(links.home)
+    }
+
+    return history.listen((location) => {
+      if (location.pathname !== links.room) {
+        dispatch(deleteRoomInStore())
+      }
+    })
+  }, [location]);
+
+  const capitalize = (inGameName) => {
+    if (typeof inGameName !== 'string') return ''
+    return inGameName.charAt(0).toUpperCase() + inGameName.slice(1)
+  }
+
   const editRoom = () => {
     const editRoomRequest = {
       id: room.id,
@@ -62,10 +86,27 @@ export default function RoomEdit({ classes }) {
         });
     }
   }
+  
+  const deleteRoom = () => {
+    roomsService.deleteRoom(room.id)
+      .then(resp => {
+        setNotyficationText(t('rooms:editRoom.roomDeleteResponse'))
+        history.push({
+          pathname: links.rooms
+        });
+      })
+      .catch(e => {
+        setNotyficationText(e.response.data.message)
+        console.log(e)
+      });
+  }
 
-  const capitalize = (inGameName) => {
-    if (typeof inGameName !== 'string') return ''
-    return inGameName.charAt(0).toUpperCase() + inGameName.slice(1)
+  const setNotyficationText = (text) => {
+    setNotification(
+      <div className={styles.notificationText}>
+        {text}
+      </div>
+    )
   }
 
   const showDeleteButtons = () => {
@@ -93,33 +134,11 @@ export default function RoomEdit({ classes }) {
     setNotyficationText(t('rooms:editRoom.deleteRoomConfirmation'))
   }
 
-  const deleteRoom = () => {
-    roomsService.deleteRoom(room.id)
-      .then(resp => {
-        setNotyficationText(t('rooms:editRoom.roomDeleteResponse'))
-        history.push({
-          pathname: links.rooms
-        });
-      })
-      .catch(e => {
-        setNotyficationText(e.response.data.message)
-        console.log(e)
-      });
-  }
-
-  const setNotyficationText = (text) => {
-    setNotification(
-      <div className={styles.notificationText}>
-        {text}
-      </div>
-    )
-  }
-
   const changeToPickRoom = () => {
     history.push({
       pathname: links.room,
       state: {
-        roomId: room.id,
+        roomId: location.state.roomId,
       },
     });
   }

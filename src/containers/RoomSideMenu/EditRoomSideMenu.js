@@ -8,13 +8,21 @@ import * as IoIcons from "react-icons/io"
 import { Button } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import { layoutSelector } from '../../slices/layout';
 
-export default function EditRoomSideMenu({ room, changeToPickRoom }) {
-  const { layout } = useSelector(layoutSelector)
+export default function EditRoomSideMenu({ changeToPickRoom }) {
   const { t } = useTranslation(['inputLabels', 'buttons']);
-  const styles = layout.mobile ? mobileClasses() : classes()
 
+  const { room, layout } = useSelector((state) => {
+    return {
+      room: state.room.room,
+      layout: state.layout.layout,
+    }
+  })
+
+  const [notification, setNotification] = useState('');
+  const [deleteButtons, setDeleteButtons] = useState();
+  const styles = layout.mobile ? mobileClasses() : classes()
+  
   const [roomNameInput, roomName, setRoomName] = useInput({
     inputType: "text",
     inputLabel: t('inputLabels:roomName'),
@@ -36,9 +44,6 @@ export default function EditRoomSideMenu({ room, changeToPickRoom }) {
     color: 'secondary',
     customClasses: styles.input
   });
-
-  const [notification, setNotification] = useState('');
-  const [deleteButtons, setDeleteButtons] = useState();
 
   const editRoom = () => {
     const editRoomRequest = {

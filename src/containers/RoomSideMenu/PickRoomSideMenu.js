@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { classes } from './RoomSideMenu.styles';
 import { mobileClasses } from './RoomSideMenuMobile.styles';
 import roomsService from '../../api/rooms.api';
-import useFetchGet from '../../hooks/useFetchGet';
 import useInput from '../../hooks/UseInput/useInput';
 import MyHr from '../../components/MyHr/MyHr';
 import ListComponent from '../../components/ListComponent/ListComponent';
@@ -12,18 +11,23 @@ import ShortPlayerListItem from '../../components/ShortPlayerListItem/ShortPlaye
 import { links } from '../../utils/linkUtils';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
+import playerStatusService from '../../api/playerStatus.api';
 
-export default function PickRoomSideMenu({ room, changeToEditRoom }) {
-  const { layout, currentUser, currentUserLoading } = useSelector((state) => {
+export default function PickRoomSideMenu({ changeToEditRoom }) {
+  const { t } = useTranslation(['inputLabels', 'buttons']);
+  const history = useHistory();
+
+  const { room, layout, currentUser, currentUserLoading } = useSelector((state) => {
     return {
+      room: state.room.room,
       layout: state.layout.layout,
       currentUser: state.currentUser.currentUser,
       currentUserLoading: state.currentUser.currentUserLoading
     }
   })
-  const { t } = useTranslation(['inputLabels', 'buttons']);
-  const history = useHistory();
 
+  const [notification, setNotification] = useState();
+  const [playersInRoom, setPlayersInRoom] = useState();
   const styles = layout.mobile ? mobileClasses() : classes()
 
   const [roomPasswordInput, roomPassword, setRoomPassword] = useInput({
@@ -34,17 +38,16 @@ export default function PickRoomSideMenu({ room, changeToEditRoom }) {
     customClasses: styles.input
   });
 
-  const [notification, setNotification] = useState();
-  const [playersInRoom, setPlayersInRoomData] = useFetchGet({ url: '/api/playerStatus/allPlayersStatusesInRoom/' + room.id });
-
   useEffect(() => {
-    const cleanUp = () => {
-      setPlayersInRoomData()
-      setNotification()
+    const fetchPlayerStatuses = () => {
+      setPlayersInRoom()
+      playerStatusService.getAllSortedPlayersStatusesInRoom(room.id)
+        .then((res) => setPlayersInRoom(res.body))
+        .catch((e) => console.log(e))
     }
 
-    cleanUp()
-  }, [room, setPlayersInRoomData]);
+    fetchPlayerStatuses()
+  }, [room]);
 
   const joinRoom = () => {
     const joinRoomRequest = {
@@ -63,11 +66,9 @@ export default function PickRoomSideMenu({ room, changeToEditRoom }) {
       })
       .catch(e => {
         console.log(e)
+        const conditionArray = [400, 401, 404]
         setRoomPassword('')
-        if (e.response && (
-          e.response.status === 404 ||
-          e.response.status === 401 ||
-          e.response.status === 400)) {
+        if (e.response && conditionArray.includes(conditionArray)) {
           setNotyficationText(e.response.data.message)
         } else {
           setNotyficationText(t('rooms:pickRoom.error'))
@@ -111,7 +112,7 @@ export default function PickRoomSideMenu({ room, changeToEditRoom }) {
           <Button
             variant="outlined"
             color="primary"
-            onClick={() => { changeToEditRoom(room) }}
+            onClick={() => changeToEditRoom()}
             className={styles.button}>
             {t('buttons:editRoom')}
           </Button>
@@ -128,7 +129,7 @@ export default function PickRoomSideMenu({ room, changeToEditRoom }) {
                 mobile={layout.mobile}
                 playerStatus={item}
                 isCreator={item.user.id === room.creatorId}
-                action={() => { goToUserPage(item.user) }} />
+                action={() => goToUserPage(item.user)} />
             )
           }} />
         </div>
