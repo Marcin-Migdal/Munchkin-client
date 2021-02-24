@@ -16,16 +16,16 @@ import { layoutSelector } from '../../slices/layout';
 import { useSelector } from 'react-redux';
 
 export default function SearchBar({ disableSearchBar }) {
-  const { layout } = useSelector(layoutSelector)
   const { t } = useTranslation();
   const theme = useTheme();
   const history = useHistory();
   const node = useRef();
 
+  const { layout } = useSelector(layoutSelector)
   const [searchResult, setSearchResult] = useState();
+  const [searchInput, setSearchInput] = useState();
   const [error, setError] = useState();
   const [isOpen, setIsOpen] = useState(false);
-  const [searchInput, setSearchInput] = useState();
 
   const styles = layout.mobile ? mobileClasses() : desktopClasses();
 
@@ -101,7 +101,7 @@ export default function SearchBar({ disableSearchBar }) {
   return (
     <div className={styles.container} ref={node}>
       <div className={styles.searchBarContainer}>
-        <input placeholder={t('menu:searchBar.inputPlaceHolder')} className={styles.searchInput} type="text" onChange={(e) => { handleSearchInput(e) }} />
+        <input placeholder={t('menu:searchBar.inputPlaceHolder')} className={styles.searchInput} type="text" onChange={handleSearchInput} />
         <Button
           disabled={searchInput ? false : true}
           variant="outlined"
@@ -116,7 +116,7 @@ export default function SearchBar({ disableSearchBar }) {
       {(searchResult) &&
         <div className={styles.searchContent}>
           <InfoModal
-            onClick={() => clearSearchResult()}
+            onClick={clearSearchResult}
             customModal={
               <ListComponent data={searchResult} mapFunction={(room, index) => {
                 return (
@@ -124,7 +124,7 @@ export default function SearchBar({ disableSearchBar }) {
                     key={index}
                     room={room}
                     mobile={false}
-                    action={() => { pickRoom(room) }}
+                    action={() => pickRoom(room)}
                     classes={roomSearchListItemClasses} />
                 )
               }} />

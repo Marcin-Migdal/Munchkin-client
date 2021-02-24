@@ -32,9 +32,10 @@ import { closeSideMenuOnClick, layoutSelector, setLayout, toogleSideMenu } from 
 
 export default function MainLayoutMobile() {
   const dispatch = useDispatch()
-  const { layout, loaded } = useSelector(layoutSelector)
   const { t } = useTranslation(['menu']);
   const theme = useTheme();
+
+  const { layout, loaded } = useSelector(layoutSelector)
 
   const styles = classes();
 

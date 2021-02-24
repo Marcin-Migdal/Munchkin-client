@@ -18,15 +18,13 @@ export default function UserPage({ classes }) {
 
   const styles = classes();
 
-  const { layout, currentUser, currentUserLoading } = useSelector((state) => {
+  const [user, setUser] = useState();
+  const { layout, currentUser } = useSelector((state) => {
     return {
       layout: state.layout.layout,
-      currentUser: state.currentUser.currentUser,
-      currentUserLoading: state.currentUser.currentUserLoading
+      currentUser: state.currentUser.currentUser
     }
   })
-
-  const [user, setUser] = useState();
 
   useEffect(() => {
     if (location.state) {
@@ -41,21 +39,6 @@ export default function UserPage({ classes }) {
       }
     })
   }, [location]);
-
-  const EditButton = () => {
-    if (currentUser.id === user.id) {
-      return (
-        <Button
-          variant="outlined"
-          color="primary"
-          className={styles.editButton}
-          onClick={goToEditUserPage}>
-          {t('buttons:editRoom')}
-        </Button>
-      )
-    }
-    return <> </>
-  }
 
   const goToEditUserPage = () => {
     history.push(links.settings)
@@ -74,8 +57,15 @@ export default function UserPage({ classes }) {
                   <IoIcons.IoMdFemale className={styles.gender} />}
               </IconContext.Provider>
             </p>
-            {(!currentUserLoading && currentUser) &&
-              <EditButton />}
+            {(currentUser && currentUser.id === user.id) &&
+              <Button
+                variant="outlined"
+                color="primary"
+                className={styles.editButton}
+                onClick={goToEditUserPage}>
+                {t('buttons:editRoom')}
+              </Button>
+            }
           </div>
         }
       </div>

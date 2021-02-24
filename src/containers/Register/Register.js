@@ -12,6 +12,9 @@ export default function Register() {
   const { t } = useTranslation(['auth', 'inputLabels']);
   const history = useHistory();
 
+  const [gender, setGender] = useState('male');
+  const [error, setError] = useState('');
+
   const [inGameNameInput, inGameName, setInGameName] = useInput({
     inputType: "text",
     inputLabel: t('inputLabels:inGameName'),
@@ -43,11 +46,7 @@ export default function Register() {
     color: 'secondary'
   });
 
-  const [gender, setGender] = useState('male');
-  const [error, setError] = useState('');
-
   const styles = classes();
-
   const mobile = useMediaQuery('(max-width:620px)');;
 
   const handleChange = (event) => {
@@ -68,7 +67,7 @@ export default function Register() {
       };
 
       authService.signUp(signUpRequest)
-        .then(resp => history.replace(links.login))
+        .then(res => history.replace(links.login))
         .catch(e => setError(
           <div className={styles.errorBadCredentials}>
             {e.response.data.message}

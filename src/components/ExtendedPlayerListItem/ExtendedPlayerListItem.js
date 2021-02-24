@@ -23,11 +23,10 @@ export default function ExtendedPlayerListItem({ mobile, playerStatus, creatorId
     isInMemory: false
   });
 
-  const styles = classes(isCurrentPlayer ? theme.palette.current : theme.palette.primary)()
-
   const { playerBonus, playerLevel, gender } = playerStatus;
   const { inGameName, id } = playerStatus.user;
 
+  const styles = classes(isCurrentPlayer ? theme.palette.current : theme.palette.primary)()
 
   useEffect(() => {
     const getRacesAndClasses = () => {

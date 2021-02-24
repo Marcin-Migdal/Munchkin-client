@@ -32,9 +32,10 @@ import { layoutSelector, setLayout, toogleSideMenu } from '../../../slices/layou
 
 export default function MainLayout() {
   const dispatch = useDispatch()
-  const { layout, loaded } = useSelector(layoutSelector)
   const { t } = useTranslation(['menu']);
   const theme = useTheme();
+
+  const { layout, loaded } = useSelector(layoutSelector)
 
   const styles = classes();
 

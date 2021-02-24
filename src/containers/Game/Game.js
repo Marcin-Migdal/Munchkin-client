@@ -324,7 +324,7 @@ export default function Game({ classes }) {
                         isCurrentPlayer={currentUser.id === playerStatus.user.id}
                         creatorId={room.creatorId}
                         isExtended={isExtended.isExtendedArray[index].isExtended}
-                        action={() => { showExtendedPlayerStatus(index) }}
+                        action={() => showExtendedPlayerStatus(index)}
                         refreshFlag={refreshPlayerStatuses} />
                     </IconContext.Provider>
                   )
@@ -343,20 +343,20 @@ export default function Game({ classes }) {
                 <IconContext.Provider value={{ color: theme.palette.primary.main }}>
                   <MyButton
                     id='leftButton'
-                    onClick={() => { setLevel(-1) }}
+                    onClick={() => setLevel(-1)}
                     icon={<AiIcons.AiOutlineMinus />} />
                   <MyButton
                     id='middleButton'
-                    onClick={() => { setLevel(1) }}
+                    onClick={() => setLevel(1)}
                     icon={<AiIcons.AiOutlinePlus />}
                     type='levelUp' />
                   <MyButton
                     id='middleButton'
-                    onClick={() => { setBonus(-1) }}
+                    onClick={() => setBonus(-1)}
                     icon={<AiIcons.AiOutlineMinus />} />
                   <MyButton
                     id='rightButton'
-                    onClick={() => { setBonus(1) }}
+                    onClick={() => setBonus(1)}
                     icon={<AiIcons.AiOutlinePlus />} />
                 </IconContext.Provider>
               </div>

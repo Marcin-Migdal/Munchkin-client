@@ -10,10 +10,12 @@ import { useSelector } from 'react-redux';
 import { layoutSelector } from '../../slices/layout';
 
 export default function AddRoomSideMenu() {
-  const { layout } = useSelector(layoutSelector)
   const { t } = useTranslation(['inputLabels']);
   const styles = layout.mobile ? mobileClasses() : classes()
 
+  const { layout } = useSelector(layoutSelector)
+  const [notification, setNotification] = useState('');
+  
   const [roomNameInput, roomName, setRoomName] = useInput({
     inputType: "text",
     inputLabel: t('inputLabels:roomName'),
@@ -35,8 +37,6 @@ export default function AddRoomSideMenu() {
     color: 'secondary',
     customClasses: styles.input
   });
-
-  const [notification, setNotification] = useState('');
 
   const addRoom = () => {
     const addRoomRequest = {

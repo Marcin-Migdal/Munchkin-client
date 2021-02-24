@@ -22,7 +22,7 @@ export default function EditRoomSideMenu({ changeToPickRoom }) {
   const [notification, setNotification] = useState('');
   const [deleteButtons, setDeleteButtons] = useState();
   const styles = layout.mobile ? mobileClasses() : classes()
-  
+
   const [roomNameInput, roomName, setRoomName] = useInput({
     inputType: "text",
     inputLabel: t('inputLabels:roomName'),
@@ -121,7 +121,7 @@ export default function EditRoomSideMenu({ changeToPickRoom }) {
 
   return (
     <div className={styles.roomSideMenuContainer}>
-      <div className={styles.iconContainer} onClick={() => changeToPickRoom()}>
+      <div className={styles.iconContainer} onClick={changeToPickRoom}>
         <IoIcons.IoIosArrowBack />
       </div>
       <div className={styles.textContainer}>

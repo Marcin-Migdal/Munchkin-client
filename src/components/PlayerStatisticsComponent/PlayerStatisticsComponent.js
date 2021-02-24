@@ -62,7 +62,7 @@ export default function PlayerStatisticsComponent({ style, content, type, mobile
   }
 
   return (
-    <div className={style} onClick={(e) => { handleClick(e) }}>
+    <div className={style} onClick={handleClick}>
       <p>{content}</p>
       {playerStatisticsModal && <PlayerStatisticsModal />}
     </div>

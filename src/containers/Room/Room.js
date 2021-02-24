@@ -53,7 +53,6 @@ export default function Room({ classes }) {
 
     if (location.state) {
       !room && dispatch(fetchRoom(location.state.roomId))
-      console.log(room)
       !playersInRoom && fetchPlayersInRoom()
     } else {
       history.replace(links.home)
@@ -141,7 +140,7 @@ export default function Room({ classes }) {
               <Button
                 variant="outlined"
                 color="primary"
-                onClick={() => { changeToEditRoomMenu() }}
+                onClick={changeToEditRoomMenu}
                 className={styles.button}>
                 {t('buttons:editRoom')}
               </Button>
@@ -162,7 +161,7 @@ export default function Room({ classes }) {
                     currentUser={currentUser}
                     creatorId={room.creatorId}
                     isInRoom={playerStatus.playerInRoom}
-                    action={() => { goToUserPage(playerStatus.user) }} />
+                    action={() => goToUserPage(playerStatus.user)} />
                 </IconContext.Provider>
               )
             }} />

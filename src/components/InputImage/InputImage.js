@@ -8,10 +8,11 @@ import { useSelector } from 'react-redux';
 import { layoutSelector } from '../../slices/layout';
 
 export default function InputImage({ hasAvatar, saveAvatar, deleteAvatar }) {
-  const { layout } = useSelector(layoutSelector)
   const { t } = useTranslation(['buttons']);
 
+  const { layout } = useSelector(layoutSelector)
   const [avatar, setAvatar] = useState();
+
   const styles = layout.mobile ? mobileClasses() : desktopClasses();
 
   const selectAvatar = (e) => {
@@ -53,7 +54,7 @@ export default function InputImage({ hasAvatar, saveAvatar, deleteAvatar }) {
             color="primary"
             className={styles.button}
             startIcon={<AiIcons.AiFillDelete className={styles.buttonIcon} />}
-            onClick={() => { deleteAvatar() }}>
+            onClick={() => deleteAvatar()}>
             {t('buttons:delete')}
           </Button>
         }

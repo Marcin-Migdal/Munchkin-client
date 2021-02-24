@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import PerfectScrollbar from 'react-perfect-scrollbar'
 import useFetchGetPagebale from '../../hooks/useFetchGetPageable';
 import LoadingComponent from '../../components/LoadingComponent/LoadingComponent';
@@ -11,18 +11,22 @@ import PickRoomSideMenu from '../RoomSideMenu/PickRoomSideMenu';
 import { Button } from '@material-ui/core';
 import * as AiIcons from "react-icons/ai"
 import RoomSearchListItem from '../../components/RoomSearchListItem/RoomSearchListItem';
-import 'react-perfect-scrollbar/dist/css/styles.css';
 import { roomSearchListItemClasses } from '../../components/RoomSearchListItem/RoomSearchListItemLong.styles';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
 import { layoutSelector } from '../../slices/layout';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteRoomInStore, fetchRoom } from '../../slices/room';
+import { links } from '../../utils/linkUtils';
+import 'react-perfect-scrollbar/dist/css/styles.css';
 
 const pageSize = 11;
 export default function SearchResult({ classes }) {
-  const { layout } = useSelector(layoutSelector)
+  const history = useHistory()
+  const dispatch = useDispatch()
   const { t } = useTranslation(['inputLabels', 'rooms']);
   const location = useLocation();
 
+  const { layout } = useSelector(layoutSelector)
   const [query, setQuery] = useState();
   const [errorFlag, setErrorFlag] = useState(0);
   const [status, data, page, lastPage, restart] = useFetchGetPagebale({ query: query, errorFlag });
@@ -37,33 +41,45 @@ export default function SearchResult({ classes }) {
       setQuery('/searchPageable/' + searchInput + '/' + page + '/' + pageSize)
     }
 
+    return history.listen((location) => {
+      if (location.pathname !== links.game) {
+        dispatch(deleteRoomInStore())
+      }
+    })
+
   }, [searchInput]);
 
   const loadMoreRooms = () => {
-    setQuery('/searchPageable/' + searchInput + '/' + page + '/' + pageSize)
+    if (!lastPage && data && status === 'fetched') {
+      setQuery('/searchPageable/' + searchInput + '/' + page + '/' + pageSize)
+    }
   }
 
   const loadRoomsAfterError = () => {
     setErrorFlag(errorFlag + 1)
   }
 
-  const pickRoom = (room) => {
-    if (!room.complete) {
-      setRoomSideMenu(
-        <PickRoomSideMenu room={room} changeToEditRoom={() => { editRoom(room) }} />
-      )
-    }
+  const pickRoom = (roomId) => {
+    roomId && dispatch(fetchRoom(roomId))
+    setRoomSideMenu(
+      <PickRoomSideMenu changeToEditRoom={editRoom} />
+    )
   }
 
-  const editRoom = (room) => {
+  const editRoom = () => {
     setRoomSideMenu(
-      <EditRoomSideMenu room={room} changeToPickRoom={() => { pickRoom(room) }} />
+      <EditRoomSideMenu changeToPickRoom={pickRoom} />
     )
+  }
+
+  const closeRoomSideMenu = () => {
+    dispatch(deleteRoomInStore())
+    setRoomSideMenu()
   }
 
   return (
     <div className={styles.scrollContainer}>
-      <PerfectScrollbar onYReachEnd={() => { if (!lastPage && data && status === 'fetched') loadMoreRooms() }}>
+      <PerfectScrollbar onYReachEnd={loadMoreRooms}>
         <div className={styles.scrollContentContainer}>
           {(data) &&
             <div className={styles.roomListContainer}>
@@ -73,7 +89,7 @@ export default function SearchResult({ classes }) {
                     key={index}
                     room={room}
                     mobile={layout.mobile}
-                    action={() => { pickRoom(room) }}
+                    action={() => pickRoom(room.id)}
                     classes={roomSearchListItemClasses} />
                 )
               }} />
@@ -103,7 +119,7 @@ export default function SearchResult({ classes }) {
 
       <div className={roomSideMenu ? styles.roomSideMenuEnabled : styles.roomSideMenuDisabled}>
         <MyHr />
-        <div className={styles.iconContainer} onClick={() => setRoomSideMenu()}>
+        <div className={styles.iconContainer} onClick={closeRoomSideMenu}>
           <AiIcons.AiOutlineClose />
         </div>
         {roomSideMenu && roomSideMenu}

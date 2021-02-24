@@ -44,7 +44,9 @@ export default function Rooms({ classes }) {
   }, []);
 
   const loadMoreRooms = () => {
-    setQuery('/getAll/' + page + '/' + pageSize + '/' + sortType);
+    if (!lastPage && data && status === 'fetched') {
+      setQuery('/getAll/' + page + '/' + pageSize + '/' + sortType);
+    }
   }
 
   const loadRoomsAfterError = () => {
@@ -85,7 +87,7 @@ export default function Rooms({ classes }) {
 
   return (
     <div className={styles.scrollContainer}>
-      <PerfectScrollbar onYReachEnd={() => { if (!lastPage && data && status === 'fetched') loadMoreRooms() }}>
+      <PerfectScrollbar onYReachEnd={loadMoreRooms}>
         <div className={styles.scrollContentContainer}>
           <div className={styles.topScrollContainer}>
             <Button
@@ -95,10 +97,7 @@ export default function Rooms({ classes }) {
               onClick={addRoom}>
               {t('rooms:rooms.buttons.addRoom')}
             </Button>
-            <Dropdown
-              chooseSortOption={(sortBy) => {
-                setRoomSortType(sortBy)
-              }} />
+            <Dropdown chooseSortOption={sortBy => setRoomSortType(sortBy)} />
           </div>
 
           {(data) &&
@@ -109,7 +108,7 @@ export default function Rooms({ classes }) {
                     key={index}
                     room={item}
                     mobile={layout.mobile}
-                    action={() => { pickRoom(item.id) }} />
+                    action={() => pickRoom(item.id)} />
                 )
               }} />
             </div>
@@ -134,12 +133,12 @@ export default function Rooms({ classes }) {
 
       <div className={roomSideMenu ? styles.roomSideMenuEnabled : styles.roomSideMenuDisabled}>
         <MyHr />
-        <div className={styles.iconContainer} onClick={() => closeRoomSideMenu()}>
+        <div className={styles.iconContainer} onClick={closeRoomSideMenu}>
           <AiIcons.AiOutlineClose />
         </div>
         {roomSideMenu && roomSideMenu}
       </div>
-    </div>
+    </div >
   )
 }
 

@@ -19,8 +19,8 @@ export default function NavbarMobile({ toggleSideMenu, sideMenuActive }) {
     if (searchIsVisible) {
       return (
         <div className={styles.navbarContainer}>
-          <FaIcons.FaChevronLeft onClick={() => { setSearchIsVisible(false) }} className={styles.closeSearchIcon} />
-          <SearchBar disableSearchBar={() => { setSearchIsVisible(false) }} />
+          <FaIcons.FaChevronLeft onClick={() => setSearchIsVisible(false)} className={styles.closeSearchIcon} />
+          <SearchBar disableSearchBar={() => setSearchIsVisible(false)} />
         </div>
       )
     } else {
@@ -28,7 +28,7 @@ export default function NavbarMobile({ toggleSideMenu, sideMenuActive }) {
         <div className={styles.navbarContainer}>
           <FaIcons.FaBars onClick={toggleSideMenu} className={styles.menuIcon} />
           <p className={styles.text} onClick={goToHomePage}>Munchkin</p>
-          {!sideMenuActive && <FaIcons.FaSearch onClick={() => { setSearchIsVisible(true) }} className={styles.searchIcon} />}
+          {!sideMenuActive && <FaIcons.FaSearch onClick={() => setSearchIsVisible(true)} className={styles.searchIcon} />}
         </div>
       )
     }

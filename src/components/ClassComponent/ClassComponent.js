@@ -7,11 +7,13 @@ import MyAvatar from '../MyAvatar/MyAvatar';
 import InfoModal from '../InfoModal/InfoModal';
 import { useTranslation } from 'react-i18next';
 
-export default function ClassComponent({ mobile, isCurrentPlayer, playerStatus, refreshFlag, isSecondClass, selectContent, onlyRead}) {
+export default function ClassComponent({ mobile, isCurrentPlayer, playerStatus, refreshFlag, isSecondClass, selectContent, onlyRead }) {
   const { t } = useTranslation();
+
   const [classId, setClassId] = useState();
   const [classInfoModal, setClassInfoModal] = useState();
   const [showClassInput, setShowClassInput] = useState(false);
+
   const playerClass = isSecondClass ? playerStatus.secondPlayerClassDto : playerStatus.playerClassDto;
 
   const styles = classes()
@@ -86,7 +88,7 @@ export default function ClassComponent({ mobile, isCurrentPlayer, playerStatus, 
   const setPlayerInfoModal = () => {
     setClassInfoModal(
       <InfoModal
-        onClick={() => { setClassInfoModal() }}
+        onClick={() => setClassInfoModal()}
         customModal={
           <div className={mobile ? styles.infoModalMobile : styles.infoModal}>
             <div className={styles.modalSubContainer}>
@@ -107,16 +109,16 @@ export default function ClassComponent({ mobile, isCurrentPlayer, playerStatus, 
           <button
             id='modalButton'
             className={mobile ? styles.buttonStyleMobile : styles.buttonStyle}
-            onClick={() => { setPlayerInfoModal() }}>
+            onClick={() => setPlayerInfoModal()}>
             {playerClass.name}
           </button>
           {(isCurrentPlayer && !onlyRead) &&
             <button
               id='saveButton'
               className={mobile ? styles.buttonStyleMobile : styles.buttonStyle}
-              onClick={() => { setShowClassInput(true) }}>
+              onClick={() => setShowClassInput(true)}>
               {t('buttons:change')}
-          </button>
+            </button>
           }
         </div> :
         <div className={styles.selectContainer}>

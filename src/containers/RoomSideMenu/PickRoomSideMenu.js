@@ -17,12 +17,11 @@ export default function PickRoomSideMenu({ changeToEditRoom }) {
   const { t } = useTranslation(['inputLabels', 'buttons']);
   const history = useHistory();
 
-  const { room, layout, currentUser, currentUserLoading } = useSelector((state) => {
+  const { room, layout, currentUser } = useSelector((state) => {
     return {
       room: state.room.room,
       layout: state.layout.layout,
-      currentUser: state.currentUser.currentUser,
-      currentUserLoading: state.currentUser.currentUserLoading
+      currentUser: state.currentUser.currentUser
     }
   })
 
@@ -56,7 +55,7 @@ export default function PickRoomSideMenu({ changeToEditRoom }) {
     };
 
     roomsService.joinRoom(joinRoomRequest)
-      .then(resp => {
+      .then(res => {
         history.push({
           pathname: links.game,
           state: {
@@ -108,11 +107,11 @@ export default function PickRoomSideMenu({ changeToEditRoom }) {
           className={styles.button}>
           {t('buttons:joinRoom')}
         </Button>
-        {(!currentUserLoading && currentUser && currentUser.id === room.creatorId) &&
+        {(currentUser && currentUser.id === room.creatorId) &&
           <Button
             variant="outlined"
             color="primary"
-            onClick={() => changeToEditRoom()}
+            onClick={changeToEditRoom}
             className={styles.button}>
             {t('buttons:editRoom')}
           </Button>

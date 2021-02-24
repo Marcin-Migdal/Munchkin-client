@@ -11,8 +11,9 @@ import playerStatusService from '../../api/playerStatus.api';
 
 export default function Login() {
   const { t } = useTranslation(['auth', 'inputLabels']);
-  const mobile = useMediaQuery('(max-width:620px)');;
   const history = useHistory();
+
+  const [error, setError] = useState('');
 
   const [userNameInput, userName, setNserName] = useInput({
     inputType: 'text',
@@ -27,9 +28,8 @@ export default function Login() {
     color: 'secondary'
   });
 
-  const [error, setError] = useState('');
-
   const styles = classes();
+  const mobile = useMediaQuery('(max-width:620px)');;
 
   const signIn = () => {
     if (val.signIn(userName.value, setNserName, password.value, setPassword, t)) {

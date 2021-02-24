@@ -17,11 +17,12 @@ import { layoutSelector } from '../../slices/layout';
 import { useSelector } from 'react-redux';
 
 export default function SideMenu({ closeSideMenu, style }) {
-  const { layout } = useSelector(layoutSelector)
   const { t } = useTranslation(['buttons']);
-  const [modal, setModal] = useState(false);
   const location = useLocation();
   const history = useHistory();
+
+  const { layout } = useSelector(layoutSelector)
+  const [modal, setModal] = useState(false);
 
   const styles = layout.mobile ? mobileClasses : classes;
 
@@ -29,8 +30,8 @@ export default function SideMenu({ closeSideMenu, style }) {
     setModal(
       <ConfirmationModal
         text={t('menu:sideMenu.modal.exitRoom')}
-        onClickYes={() => { leaveRoom(path) }}
-        onClickNo={() => { setModal() }} />
+        onClickYes={() => leaveRoom(path)}
+        onClickNo={() => setModal()} />
     )
     layout.mobile && closeSideMenu()
   }
@@ -47,8 +48,8 @@ export default function SideMenu({ closeSideMenu, style }) {
     setModal(
       <ConfirmationModal
         text={t('menu:sideMenu.modal.signOut')}
-        onClickYes={() => { signOut() }}
-        onClickNo={() => { setModal() }} />
+        onClickYes={() => signOut()}
+        onClickNo={() => setModal()} />
     )
     layout.mobile && closeSideMenu()
   }
@@ -66,13 +67,13 @@ export default function SideMenu({ closeSideMenu, style }) {
           icon={<BiIcons.BiArrowBack />}
           text={t('buttons:back')}
           classes={styles}
-          onClick={(path) => { showExitModal(path) }}
+          onClick={path => showExitModal(path)}
         /> :
         <SideMenuButton
           icon={<AiIcons.AiOutlineLogout />}
           text={t('menu:sideMenu.button.signOut')}
           classes={styles}
-          onClick={() => { showSignOutModal() }} />
+          onClick={showSignOutModal} />
     )
   }
 
@@ -88,7 +89,7 @@ export default function SideMenu({ closeSideMenu, style }) {
                 icon={item.icon}
                 text={t('menu:sideMenu.button.' + item.page)}
                 classes={styles}
-                onClick={(path) => { showExitModal(path) }} />
+                onClick={path => showExitModal(path)} />
             </li>
           )
         }} />

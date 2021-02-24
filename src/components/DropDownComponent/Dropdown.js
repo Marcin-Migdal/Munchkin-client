@@ -9,9 +9,10 @@ import InfoModal from '../InfoModal/InfoModal';
 import { classes } from './Dropdown.styles'
 
 export default function Dropdown({ chooseSortOption }) {
-  const { layout } = useSelector(layoutSelector)
   const { t } = useTranslation(['rooms']);
   const theme = useTheme()
+
+  const { layout } = useSelector(layoutSelector)
   const [isOpen, setIsOpen] = useState(false);
 
   const styles = classes()

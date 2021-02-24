@@ -4,9 +4,11 @@ import { layoutSelector } from '../../slices/layout';
 import { classes } from './InfoModal.styles'
 
 export default function InfoModal({ text, onClick, customModal }) {
+  const node = useRef();
+
   const { layout } = useSelector(layoutSelector)
   const [isOpen, setIsOpen] = useState(true);
-  const node = useRef();
+
   const styles = classes();
 
   useEffect(() => {

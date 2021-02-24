@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 
 export default function RaceComponent({ mobile, isCurrentPlayer, playerStatus, refreshFlag, isSecondRace, selectContent, onlyRead }) {
   const { t } = useTranslation();
+
   const [raceId, setRaceId] = useState();
   const [raceInfoModalIsVisible, serRaceInfoModalIsVisible] = useState(false);
   const [showRaceInput, setShowRaceInput] = useState(false);
@@ -56,7 +57,6 @@ export default function RaceComponent({ mobile, isCurrentPlayer, playerStatus, r
   };
 
   const SelectComponent = () => {
-    console.log(selectContent)
     const menuItemsContent = getMenuItemsContent()
     let menuItems = []
 
@@ -87,7 +87,7 @@ export default function RaceComponent({ mobile, isCurrentPlayer, playerStatus, r
   const PlayerInfoModal = () => {
     return (
       <InfoModal
-        onClick={() => { serRaceInfoModalIsVisible() }}
+        onClick={() => serRaceInfoModalIsVisible(false)}
         customModal={
           <div className={mobile ? styles.infoModalMobile : styles.infoModal}>
             <div className={styles.modalSubContainer}>
@@ -108,14 +108,14 @@ export default function RaceComponent({ mobile, isCurrentPlayer, playerStatus, r
           <button
             id='modalButton'
             className={mobile ? styles.buttonStyleMobile : styles.buttonStyle}
-            onClick={() => { serRaceInfoModalIsVisible(true) }}>
+            onClick={() => serRaceInfoModalIsVisible(true)}>
             {playerRace.name}
           </button>
           {(isCurrentPlayer && !onlyRead) &&
             <button
               id='saveButton'
               className={mobile ? styles.buttonStyleMobile : styles.buttonStyle}
-              onClick={() => { setShowRaceInput(true) }}>
+              onClick={() => setShowRaceInput(true)}>
               {t('buttons:change')}
           </button>
           }

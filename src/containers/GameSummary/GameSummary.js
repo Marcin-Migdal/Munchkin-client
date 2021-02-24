@@ -98,7 +98,7 @@ export default function GameSummary({ classes }) {
                         isCurrentPlayer={currentUser.id === playerStatus.user.id}
                         creatorId={location.state.creatorId}
                         isExtended={isExtended[index].isExtended}
-                        action={() => { showExtendedPlayerStatus(index) }}
+                        action={() => showExtendedPlayerStatus(index)}
                         onlyRead={true} />
                     </div>
                   </IconContext.Provider>

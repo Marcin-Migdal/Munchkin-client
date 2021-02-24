@@ -76,7 +76,7 @@ export default function RoomEdit({ classes }) {
 
     if (val.roomRequest(editRoomRequest, setRoomName, setSlots, setRoomPassword, t)) {
       roomsService.editRoom(editRoomRequest)
-        .then(resp => {
+        .then(res => {
           setNotyficationText(t('rooms:editRoom.roomEditButton'))
           changeToPickRoom()
         })
@@ -89,7 +89,7 @@ export default function RoomEdit({ classes }) {
   
   const deleteRoom = () => {
     roomsService.deleteRoom(room.id)
-      .then(resp => {
+      .then(res => {
         setNotyficationText(t('rooms:editRoom.roomDeleteResponse'))
         history.push({
           pathname: links.rooms

@@ -13,10 +13,14 @@ import { currentUserSelector, fetchCurrentUser } from '../../slices/currentUser'
 
 export default function Settings({ classes }) {
   const dispatch = useDispatch()
-  const { currentUser, currentUserLoading } = useSelector(currentUserSelector)
   const { t, i18n } = useTranslation(['settings', 'buttons', 'inputLabels']);
   const theme = useTheme();
   const styles = classes();
+
+  const { currentUser, currentUserLoading } = useSelector(currentUserSelector)
+  const [gender, setGender] = useState('male');
+  const [notification, setNotification] = useState();
+  const [segment, setSegment] = useState();
 
   const [userNameInput, userName, setUserName] = useInput({
     inputType: "text",
@@ -53,11 +57,6 @@ export default function Settings({ classes }) {
     color: 'primary',
     customClasses: styles.input
   });
-
-  const [gender, setGender] = useState('male');
-
-  const [notification, setNotification] = useState();
-  const [segment, setSegment] = useState();
 
   const handleChange = (event) => {
     setGender(event.target.value);
@@ -182,7 +181,7 @@ export default function Settings({ classes }) {
         <p className={styles.title}>{t('settings:title')}</p>
 
         <Button
-          onClick={() => { changeSegment('EditUser') }}
+          onClick={() => changeSegment('EditUser')}
           className={styles.showSegmentButton}>
           {t('settings:button.userSettings')}
           <IoIcons.IoIosArrowDown />
@@ -210,7 +209,7 @@ export default function Settings({ classes }) {
         <MyHr customClass={styles.customHr} />
 
         <Button
-          onClick={() => { changeSegment('EditPassword') }}
+          onClick={() => changeSegment('EditPassword')}
           className={styles.showSegmentButton}>
           {t('settings:button.passwordSettings')}
           <IoIcons.IoIosArrowDown />
@@ -235,7 +234,7 @@ export default function Settings({ classes }) {
         <MyHr customClass={styles.customHr} />
 
         <Button
-          onClick={() => { changeSegment('EditAvatar') }}
+          onClick={() => changeSegment('EditAvatar')}
           className={styles.showSegmentButton}>
           {t('settings:button.avatarSettings')}
           <IoIcons.IoIosArrowDown />
@@ -245,7 +244,7 @@ export default function Settings({ classes }) {
           <div className={styles.avatarContainer}>
             <InputImage
               hasAvatar={currentUser.hasAvatar}
-              saveAvatar={(avatar) => { saveAvatar(avatar) }}
+              saveAvatar={avatar => saveAvatar(avatar)}
               deleteAvatar={deleteAvatar} />
             {notification}
           </div>
@@ -254,7 +253,7 @@ export default function Settings({ classes }) {
         <MyHr customClass={styles.customHr} />
 
         <Button
-          onClick={() => { changeSegment('ChangeLanguage') }}
+          onClick={() => changeSegment('ChangeLanguage')}
           className={styles.showSegmentButton}>
           {t('settings:button.languageSettings')}
           <IoIcons.IoIosArrowDown />
