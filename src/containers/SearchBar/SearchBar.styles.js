@@ -63,7 +63,7 @@ export const desktopClasses = makeStyles(theme => ({
     left: 0,
     zIndex: 3,
 
-    borderColor: theme.palette.background.default,
+    borderColor: theme.palette.background.main,
     backgroundColor: theme.palette.secondary.main
   },
 
@@ -86,7 +86,7 @@ export const desktopClasses = makeStyles(theme => ({
     fontSize: '2.5vh',
     color: theme.palette.primary.main,
 
-    borderColor: theme.palette.background.default,
+    borderColor: theme.palette.background.main,
     backgroundColor: theme.palette.secondary.main
   },
 }))

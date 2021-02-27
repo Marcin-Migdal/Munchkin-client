@@ -15,7 +15,7 @@ export const classes = makeStyles( theme => ({
     top:0,
     
     zIndex: 2,
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: theme.palette.background.main,
   },
 
   bottomContainer: {
@@ -31,7 +31,7 @@ export const classes = makeStyles( theme => ({
     transition: '100ms',
     left: 0,
     zIndex: 2,
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: theme.palette.background.main,
   },
 
   sideMenuDisabled:{
@@ -41,7 +41,7 @@ export const classes = makeStyles( theme => ({
     transition: '200ms',
     left: '-100%',
     zIndex: 2,
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: theme.palette.background.main,
   },
 
   contentContainer: {

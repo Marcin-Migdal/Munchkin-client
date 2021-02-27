@@ -51,7 +51,7 @@ export const SearchResultClasses = makeStyles(theme => ({
     right: 0,
     top: '8vh',
     zIndex: 2,
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: theme.palette.background.main,
   },
 
   roomSideMenuDisabled: {
@@ -62,7 +62,7 @@ export const SearchResultClasses = makeStyles(theme => ({
     right: '-100%',
     top: '8vh',
     zIndex: 2,
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: theme.palette.background.main,
   },
 
   iconContainer: {

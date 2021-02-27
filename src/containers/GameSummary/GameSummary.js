@@ -36,6 +36,8 @@ export default function GameSummary({ classes }) {
   const styles = classes();
 
   useEffect(() => {
+    let isMounted = true
+
     const checkIfEnteredCorrectly = () => {
       if (!location.state) {
         history.replace(links.rooms);
@@ -61,8 +63,14 @@ export default function GameSummary({ classes }) {
         })
     }
 
-    checkIfEnteredCorrectly()
-    location.state && fetchPlayerStatuses()
+    if (isMounted) {
+      checkIfEnteredCorrectly()
+      location.state && fetchPlayerStatuses()
+    }
+
+    return () => {
+      isMounted = false
+    }
   }, [location, history]);
 
   const showExtendedPlayerStatus = (index) => {

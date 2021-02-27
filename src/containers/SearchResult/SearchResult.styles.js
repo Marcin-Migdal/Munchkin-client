@@ -50,7 +50,7 @@ export const SearchResultClasses = makeStyles(theme => ({
     transition: '300ms',
     top: '6vh',
     right: 0,
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: theme.palette.background.main,
   },
 
   roomSideMenuDisabled: {
@@ -60,7 +60,7 @@ export const SearchResultClasses = makeStyles(theme => ({
     transition: '600ms',
     top: '6vh',
     right: '-100%',
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: theme.palette.background.main,
   },
 
   iconContainer: {

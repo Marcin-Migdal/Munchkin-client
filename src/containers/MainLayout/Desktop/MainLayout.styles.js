@@ -10,7 +10,7 @@ export const classes = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'center',
     height: '6vh',
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: theme.palette.background.main,
   },
 
   bottomContainerSideMenu: {
@@ -27,7 +27,7 @@ export const classes = makeStyles(theme => ({
     transition: '300ms',
     left: 0,
     zIndex: 2,
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: theme.palette.background.main,
   },
 
   sideMenuContainerDisabled: {
@@ -37,7 +37,7 @@ export const classes = makeStyles(theme => ({
     transition: '600ms',
     left: '-100%',
     zIndex: 2,
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: theme.palette.background.main,
   },
 
   contentContainer: {

@@ -63,7 +63,7 @@ export const mobileClasses = makeStyles(theme => ({
     left: '14vw',
     zIndex: 3,
 
-    borderColor: theme.palette.background.default,
+    borderColor: theme.palette.background.main,
     backgroundColor: theme.palette.secondary.main
   },
 
@@ -86,7 +86,7 @@ export const mobileClasses = makeStyles(theme => ({
     fontSize: '4.5vw',
     color: theme.palette.primary.main,
   
-    borderColor: theme.palette.background.default,
+    borderColor: theme.palette.background.main,
     backgroundColor: theme.palette.secondary.main
   },
 }))

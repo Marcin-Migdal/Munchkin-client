@@ -6,7 +6,7 @@ export const classes = makeStyles(theme => ({
     width: '100%',
     border: 0,
     borderColor: theme.palette.secondary.main,
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: theme.palette.background.main,
   },
 
   hrSecondaryColor: {

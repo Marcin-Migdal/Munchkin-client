@@ -27,13 +27,16 @@ export default function UserPage({ classes }) {
   })
 
   useEffect(() => {
-    if (location.state) {
+    let isMounted = true
+
+    if (isMounted && location.state) {
       setUser(location.state.user)
     } else {
       history.replace(links.home)
     }
 
     return history.listen((location) => {
+      isMounted = false
       if (location.pathname !== links.room) {
         dispatch(deleteRoomInStore())
       }

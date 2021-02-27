@@ -8,13 +8,18 @@ export default function MyAvatar({ customStyles, inGameName, id }) {
   const styles = classes();
 
   useEffect(() => {
+    let isMounted = true
     const getAvatar = () => {
       userService.getAvatar(id)
         .then(res => setAvatar(URL.createObjectURL(res)))
         .catch(e => console.log(e))
     }
 
-    getAvatar();
+    isMounted && getAvatar();
+
+    return () => {
+      isMounted = false
+    }
   }, [id]);
 
   return (

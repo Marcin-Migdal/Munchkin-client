@@ -41,6 +41,8 @@ export default function Room({ classes }) {
   const [notification, setNotification] = useState();
 
   useEffect(() => {
+    let isMounted = true
+
     const fetchPlayersInRoom = () => {
       playerStatusService.getAllSortedPlayersStatusesInRoom(location.state.roomId)
         .then(res => {
@@ -51,7 +53,7 @@ export default function Room({ classes }) {
         })
     }
 
-    if (location.state) {
+    if (isMounted && location.state) {
       !room && dispatch(fetchRoom(location.state.roomId))
       !playersInRoom && fetchPlayersInRoom()
     } else {
@@ -59,6 +61,7 @@ export default function Room({ classes }) {
     }
 
     return history.listen((location) => {
+      isMounted = false
       const conditionArray = [links.roomEdit, links.userPage, links.game]
       if (!conditionArray.includes(location.pathname)) {
         dispatch(deleteRoomInStore())
@@ -122,7 +125,7 @@ export default function Room({ classes }) {
 
   return (
     <div className={styles.roomMenuContainer}>
-      {(room && !currentUserLoading) &&
+      {(room && !currentUserLoading && currentUser) &&
         <div className={styles.topContainer}>
           <p className={styles.roomNameText}>{t('rooms:pickRoom.title')} {room.roomName}</p>
           <p className={styles.text}>{t('rooms:pickRoom.slots')} {room.usersInRoom}/{room.slots}</p>
@@ -136,7 +139,7 @@ export default function Room({ classes }) {
               className={styles.button}>
               {t('buttons:joinRoom')}
             </Button>
-            {(currentUser && currentUser.id === room.creatorId) &&
+            {(currentUser.id === room.creatorId) &&
               <Button
                 variant="outlined"
                 color="primary"
@@ -160,7 +163,6 @@ export default function Room({ classes }) {
                     playerStatus={playerStatus}
                     currentUser={currentUser}
                     creatorId={room.creatorId}
-                    isInRoom={playerStatus.playerInRoom}
                     action={() => goToUserPage(playerStatus.user)} />
                 </IconContext.Provider>
               )

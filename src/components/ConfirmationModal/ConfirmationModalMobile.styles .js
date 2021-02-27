@@ -12,7 +12,7 @@ export const mobileClasses = makeStyles(theme => ({
     bottom: '50%',
     zIndex: 4,
     color: theme.palette.secondary.main,
-    backgroundColor: theme.palette.background.default
+    backgroundColor: theme.palette.background.main
   },
 
   buttonContainer: {

@@ -10,14 +10,12 @@ export default function WelcomePage({ classes }) {
   const styles = classes();
 
   useEffect(() => {
-    return function cleanUp() {
-      localStorage.removeItem('tokenExpired')
-    }
+    return () => localStorage.removeItem('tokenExpired')
   }, []);
 
   return (
     <div className={styles.backgroundLayer}>
-      <p className={styles.title}>Munchkin</p>
+      <p className={styles.title}>Munchtrack</p>
       <div className={styles.container}>
         <span className={styles.description}>{t('auth:welcomePage.description')}</span>
         <div className={styles.buttonContainer}>

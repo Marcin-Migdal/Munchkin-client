@@ -4,17 +4,20 @@ import * as AiIcons from "react-icons/ai"
 import { classes } from './ShortPlayerListItem.styles'
 import PlayerStatisticsComponent from '../PlayerStatisticsComponent/PlayerStatisticsComponent';
 import MyAvatar from '../MyAvatar/MyAvatar';
+import { useTheme } from '@material-ui/core';
 
 export default function ShortPlayerListItem({ mobile, playerStatus, isCreator, action }) {
-  const { playerLevel, gender } = playerStatus;
-  const { inGameName, userId } = playerStatus.user;
-  
-  const styles = classes();
+  const theme = useTheme();
+
+  const { playerLevel, gender, playerInRoom } = playerStatus;
+  const { inGameName, id } = playerStatus.user;
+
+  const styles = classes(playerInRoom ? theme.palette.background : theme.palette.inActive)()
 
   return (
     <div className={mobile ? styles.playerContainerMobile : styles.playerContainerDesktop} onClick={action} >
       <div className={styles.leftContainer}>
-        <MyAvatar inGameName={inGameName} id={userId} />
+        <MyAvatar inGameName={inGameName} id={id} />
         {isCreator &&
           <AiIcons.AiOutlineCrown className={styles.creatorIcon} />
         }

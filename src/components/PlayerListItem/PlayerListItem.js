@@ -6,12 +6,13 @@ import PlayerStatisticsComponent from '../PlayerStatisticsComponent/PlayerStatis
 import MyAvatar from '../MyAvatar/MyAvatar'
 import { useTheme } from '@material-ui/core'
 
-export default function PlayerListItem({ mobile, playerStatus, creatorId, action, isInRoom }) {
+export default function PlayerListItem({ mobile, playerStatus, creatorId, action }) {
   const theme = useTheme();
-  const styles = classes(isInRoom ? theme.palette.primary : theme.palette.inActive)();
 
-  const { playerBonus, playerLevel, gender } = playerStatus;
+  const { playerBonus, playerLevel, gender, playerInRoom } = playerStatus;
   const { inGameName, id } = playerStatus.user
+
+  const styles = classes(playerInRoom ? theme.palette.primary : theme.palette.inActive)();
 
   return (
     <div className={mobile ? styles.containerMobile : styles.containerDesktop} onClick={action} >

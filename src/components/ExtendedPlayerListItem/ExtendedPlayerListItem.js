@@ -29,6 +29,8 @@ export default function ExtendedPlayerListItem({ mobile, playerStatus, creatorId
   const styles = classes(isCurrentPlayer ? theme.palette.current : theme.palette.primary)()
 
   useEffect(() => {
+    let isMounted = true
+
     const getRacesAndClasses = () => {
       playerStatusService.getAllRacesAndClasses()
         .then((res) => {
@@ -36,7 +38,13 @@ export default function ExtendedPlayerListItem({ mobile, playerStatus, creatorId
         })
     }
 
-    (isCurrentPlayer && !selectContent.isInMemory) && getRacesAndClasses();
+    if (isCurrentPlayer && !selectContent.isInMemory && isMounted) {
+      getRacesAndClasses();
+    }
+
+    return () => {
+      isMounted = false
+    }
   }, []);
 
   const showGenderModal = (e) => {
@@ -122,7 +130,7 @@ export default function ExtendedPlayerListItem({ mobile, playerStatus, creatorId
               selectContent={selectContent.raceArray}
               onlyRead={onlyRead} />
           }
-          
+
           <MyHr customClass={styles.shortCustomHrStyle} />
 
           <ClassComponent

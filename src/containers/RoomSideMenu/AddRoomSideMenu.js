@@ -11,10 +11,11 @@ import { layoutSelector } from '../../slices/layout';
 
 export default function AddRoomSideMenu() {
   const { t } = useTranslation(['inputLabels']);
-  const styles = layout.mobile ? mobileClasses() : classes()
 
   const { layout } = useSelector(layoutSelector)
   const [notification, setNotification] = useState('');
+
+  const styles = layout.mobile ? mobileClasses() : classes()
   
   const [roomNameInput, roomName, setRoomName] = useInput({
     inputType: "text",

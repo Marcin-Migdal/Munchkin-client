@@ -101,27 +101,23 @@ export default function Game({ classes }) {
     }
 
     const createIsExtendedArray = (length) => {
-      if (!isExtended.isInMemory) {
-        let tempIsExtended = new Array(length)
-        for (let i = 0; i < length; i++) {
-          tempIsExtended[i] = { isExtended: false };
-        }
-        setIsExtended({ isExtendedArray: tempIsExtended, isInMemory: true })
+      let tempIsExtended = new Array(length)
+      for (let i = 0; i < length; i++) {
+        tempIsExtended[i] = { isExtended: false };
       }
+      setIsExtended({ isExtendedArray: tempIsExtended, isInMemory: true })
     }
 
     const setUpRoom = () => {
-      if (isMounted) {
-        if (room.complete) {
-          goToGameSummary()
-        } else {
-          createIsExtendedArray(room.slots)
-          fetchPlayerStatuses()
-        }
+      if (room.complete) {
+        goToGameSummary()
+      } else {
+        !isExtended.isInMemory && createIsExtendedArray(room.slots)
+        fetchPlayerStatuses()
       }
     }
 
-    setUpRoom()
+    isMounted && setUpRoom()
 
     return () => {
       isMounted = false
@@ -164,11 +160,11 @@ export default function Game({ classes }) {
     )
   }
 
-  const findCurrentPlayerStatus = (playerStatuses, userId) => {
+  const findCurrentPlayerStatus = (playerStatuses) => {
     let playerStatusData = {};
 
     playerStatuses.map((playerStatus, index) => {
-      if (playerStatus.user.id === userId) {
+      if (playerStatus.user.id === currentUser.id) {
         playerStatusData = {
           index: index,
           playerStatus: playerStatus,
@@ -253,10 +249,7 @@ export default function Game({ classes }) {
   }
 
   const savePlayerStatus = () => {
-    refreshPlayerStatuses()
-    changeLevelButtonDisabled && setChangeLevelButtonDisabled(false)
-
-    const { playerStatus } = findCurrentPlayerStatus(playerStatuses, currentUser.id);
+    const { playerStatus } = findCurrentPlayerStatus(playerStatuses);
     const playerStatusEditRequest = {
       playerStatusId: playerStatus.id,
       levelValue: playerStatus.playerLevel,
@@ -266,6 +259,7 @@ export default function Game({ classes }) {
     playerStatusService.savePlayerStatus(playerStatusEditRequest)
       .then((res) => {
         setIsModified(false)
+        refreshPlayerStatuses()
         if (playerStatusEditRequest.levelValue === 10) {
           goToGameSummary()
         }
@@ -305,11 +299,11 @@ export default function Game({ classes }) {
   return (
     <div className={styles.scrollContainer}>
       <PerfectScrollbar>
-        {!currentUserLoading &&
+        {(!currentUserLoading && currentUser && room) &&
           <div className={styles.scrollContentContainer}>
             <div className={styles.topContainer}>
-              {room && <p className={styles.roomNameText}>{t('game:game.titleLabel')}{room.roomName}</p>}
-              {(playerStatuses && currentUser && isExtended.isInMemory) ?
+              <p className={styles.roomNameText}>{t('game:game.titleLabel')}{room.roomName}</p>
+              {(playerStatuses && isExtended.isInMemory) ?
                 <ListComponent data={playerStatuses} mapFunction={(playerStatus, index) => {
                   return (
                     <IconContext.Provider key={index}

@@ -15,7 +15,7 @@ export const mobileClasses = makeStyles( theme => ({
     alignItems: 'center',
     height: '100vh',
     width: '100%',
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: theme.palette.background.main,
   },
 
   title: {

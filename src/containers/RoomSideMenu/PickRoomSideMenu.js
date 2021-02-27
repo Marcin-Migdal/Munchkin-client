@@ -38,6 +38,8 @@ export default function PickRoomSideMenu({ changeToEditRoom }) {
   });
 
   useEffect(() => {
+    let isMounted = true
+
     const fetchPlayerStatuses = () => {
       setPlayersInRoom()
       playerStatusService.getAllSortedPlayersStatusesInRoom(room.id)
@@ -45,7 +47,11 @@ export default function PickRoomSideMenu({ changeToEditRoom }) {
         .catch((e) => console.log(e))
     }
 
-    fetchPlayerStatuses()
+    isMounted && fetchPlayerStatuses()
+
+    return () => {
+      isMounted = false
+    }
   }, [room]);
 
   const joinRoom = () => {
@@ -93,46 +99,50 @@ export default function PickRoomSideMenu({ changeToEditRoom }) {
   }
 
   return (
-    <div className={styles.roomSideMenuContainer}>
-      <div className={styles.textContainer}>
-        <p className={styles.roomNameText}>{t('rooms:pickRoom.title')} {room.roomName}</p>
-        <p className={styles.text}>{t('rooms:pickRoom.slots')} {room.usersInRoom}/{room.slots}</p>
-        {roomPasswordInput}
-      </div>
-      <div className={styles.buttonContainer}>
-        <Button
-          variant="outlined"
-          color="primary"
-          onClick={joinRoom}
-          className={styles.button}>
-          {t('buttons:joinRoom')}
-        </Button>
-        {(currentUser && currentUser.id === room.creatorId) &&
-          <Button
-            variant="outlined"
-            color="primary"
-            onClick={changeToEditRoom}
-            className={styles.button}>
-            {t('buttons:editRoom')}
-          </Button>
-        }
-      </div>
-      {notification && notification}
-      <MyHr />
-      {playersInRoom &&
-        <div className={styles.playersContainer}>
-          <ListComponent data={playersInRoom} mapFunction={(item, index) => {
-            return (
-              <ShortPlayerListItem
-                key={index}
-                mobile={layout.mobile}
-                playerStatus={item}
-                isCreator={item.user.id === room.creatorId}
-                action={() => goToUserPage(item.user)} />
-            )
-          }} />
+    <>
+      {(room && currentUser) &&
+        <div className={styles.roomSideMenuContainer}>
+          <div className={styles.textContainer}>
+            <p className={styles.roomNameText}>{t('rooms:pickRoom.title')} {room.roomName}</p>
+            <p className={styles.text}>{t('rooms:pickRoom.slots')} {room.usersInRoom}/{room.slots}</p>
+            {roomPasswordInput}
+          </div>
+          <div className={styles.buttonContainer}>
+            <Button
+              variant="outlined"
+              color="primary"
+              onClick={joinRoom}
+              className={styles.button}>
+              {t('buttons:joinRoom')}
+            </Button>
+            {currentUser.id === room.creatorId &&
+              <Button
+                variant="outlined"
+                color="primary"
+                onClick={changeToEditRoom}
+                className={styles.button}>
+                {t('buttons:editRoom')}
+              </Button>
+            }
+          </div>
+          {notification && notification}
+          <MyHr />
+          {playersInRoom &&
+            <div className={styles.playersContainer}>
+              <ListComponent data={playersInRoom} mapFunction={(playerStatus, index) => {
+                return (
+                  <ShortPlayerListItem
+                    key={index}
+                    mobile={layout.mobile}
+                    playerStatus={playerStatus}
+                    isCreator={playerStatus.user.id === room.creatorId}
+                    action={() => goToUserPage(playerStatus.user)} />
+                )
+              }} />
+            </div>
+          }
         </div>
       }
-    </div>
+    </>
   )
 }

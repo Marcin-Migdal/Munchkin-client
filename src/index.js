@@ -5,7 +5,7 @@ import App from './App';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 import './i18next';
 import { Provider } from 'react-redux';
-import {configureStore} from '@reduxjs/toolkit'
+import { configureStore } from '@reduxjs/toolkit'
 import rootReducer from './slices'
 
 const theme = createMuiTheme({
@@ -20,7 +20,8 @@ const theme = createMuiTheme({
       main: '#ffffff',
     },
     background: {
-      default: '#ffd966',
+      main: '#ffd966',
+      hover: '#ffd11a',
       paper: '#ffe699',
     },
     current: {
@@ -36,7 +37,7 @@ const theme = createMuiTheme({
   }
 })
 
-const store = configureStore({reducer: rootReducer})
+const store = configureStore({ reducer: rootReducer })
 
 ReactDOM.render(
   <ThemeProvider theme={theme}>

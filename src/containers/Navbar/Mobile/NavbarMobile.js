@@ -27,7 +27,7 @@ export default function NavbarMobile({ toggleSideMenu, sideMenuActive }) {
       return (
         <div className={styles.navbarContainer}>
           <FaIcons.FaBars onClick={toggleSideMenu} className={styles.menuIcon} />
-          <p className={styles.text} onClick={goToHomePage}>Munchkin</p>
+          <p className={styles.text} onClick={goToHomePage}>Munchtrack</p>
           {!sideMenuActive && <FaIcons.FaSearch onClick={() => setSearchIsVisible(true)} className={styles.searchIcon} />}
         </div>
       )

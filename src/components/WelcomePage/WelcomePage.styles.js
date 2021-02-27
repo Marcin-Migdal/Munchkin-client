@@ -15,7 +15,7 @@ export const desktopClasses = makeStyles(theme => ({
     alignItems: 'center',
     height: '84vh',
     width: '100%',
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: theme.palette.background.main,
   },
 
   title: {

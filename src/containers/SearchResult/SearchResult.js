@@ -36,17 +36,19 @@ export default function SearchResult({ classes }) {
   const styles = classes();
 
   useEffect(() => {
-    if (data) restart()
-    if (searchInput) {
+    let isMounted = true
+
+    if (isMounted && data) restart()
+    if (isMounted && searchInput) {
       setQuery('/searchPageable/' + searchInput + '/' + page + '/' + pageSize)
     }
 
     return history.listen((location) => {
+      isMounted = false
       if (location.pathname !== links.game) {
         dispatch(deleteRoomInStore())
       }
     })
-
   }, [searchInput]);
 
   const loadMoreRooms = () => {

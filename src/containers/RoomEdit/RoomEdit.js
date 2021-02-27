@@ -46,7 +46,9 @@ export default function RoomEdit({ classes }) {
   });
 
   useEffect(() => {
-    if (location.state) {
+    let isMounted = true
+
+    if (isMounted && location.state) {
       if (!room) {
         dispatch(fetchRoom(location.state.roomId))
       }
@@ -55,6 +57,7 @@ export default function RoomEdit({ classes }) {
     }
 
     return history.listen((location) => {
+      isMounted = false
       if (location.pathname !== links.room) {
         dispatch(deleteRoomInStore())
       }
@@ -86,7 +89,7 @@ export default function RoomEdit({ classes }) {
         });
     }
   }
-  
+
   const deleteRoom = () => {
     roomsService.deleteRoom(room.id)
       .then(res => {

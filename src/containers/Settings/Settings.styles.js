@@ -22,7 +22,7 @@ export const settingsClasses = makeStyles(theme => ({
     margin: '1vh 0 1vh 28vw',
     borderRadius: '8px',
     fontSize: '1.25vw',
-    color: theme.palette.background.default,
+    color: theme.palette.background.main,
     '&.MuiButton-text': {
       padding: '3px 8px',
     }
@@ -34,7 +34,7 @@ export const settingsClasses = makeStyles(theme => ({
     margin: '1vh 22vw 1vh 22vw',
     border: 0,
     borderColor: theme.palette.secondary.main,
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: theme.palette.background.main,
   },
 
   inputContainer: {
