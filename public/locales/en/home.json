@@ -1,0 +1,30 @@
+{
+  "mainTitle": "Service Munchtrack was created with a though to allow muncking card game be easier to follow, service makes it possible to create a room in which you can save your character progress and follow your opponents progress.",
+  "title": {
+    "rooms": "Rooms",
+    "sortRooms": "Sorting rooms",
+    "room": "Room",
+    "editRoom": "Edit room",
+    "game": "Game",
+    "extendedGame": "Character details",
+    "SwitchClassGame": "Race and class change",
+    "gameSummary": "Game Summary",
+    "searchBar": "Search",
+    "searchResult": "Search result",
+    "settings": "Settings"
+  },
+  "description": {
+    "rooms": "In the 'Rooms' tab you can browse and join rooms created by all users, you can also edit and delete rooms created by you.",
+    "sortRooms": "Rooms can be sorted by their creation order or by their name, also you can choose to only show rooms created by you.",
+    "room": "In the 'Room' tab presented are all details regarding room and players that has joined it, thanks to this tab, you will be albe to join room and go to 'Edit room' tab, you can go to the 'Room' tab by clicking on a room in the search bar result.",
+    "editRoom": "In the 'Edit room' tab you can edit and delete room created by you, it is possible to edit room name, the amount of available slots and room password.",
+    "game": "In the 'Game' tab whole game takes place, in here you will change statistics of your character and you will also follow progress of your opponents characters.",
+    "extendedGame": "Through clicking on character you can expand it, this will allow you to learn more details about it.",
+    "SwitchClassGame": "While your character is expanded you can change his race and class.",
+    "gameSummary": "In the 'Game Summary' tab presented are information about the place that players have gained as well as characters details, you can go to this tab only from game tab after game is over or you can search for this room in search engine.",
+    "extendedSummary": "In the 'Game Summary' tab you are also able to check all characters detail.",
+    "searchBar": "You can search for a room by its name in the search engine, after clicking search button you will go to 'Search result' tab in which all rooms that match you search phrase will be displayed.",
+    "searchResult": "In the 'Search result' tab all rooms that match your search phrase will be displayed, in this tab there are rooms to whom you can join and play and rooms in which game is already over, you can join those rooms and go to 'Game summary' tab.",
+    "settings": "In the 'Settings' tab you can edit your profile, it is possible to edit username, in game name as well as account password. In this tab you can also change your avatar."
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "mainTitle": "Serwis Munchtrack został stworzony z myślą aby umożliwić łatwiejsze śledzenie postępu rozgrywki w grze karcianej munchkin, serwis umożliwia tworzenie pokoi w których można zapisywać postęp swojej postaci oraz śledzić postęp postaci swoich przeciwników.",
+  "title": {
+    "rooms": "Pokoje",
+    "sortRooms":"Sortowanie pokoi",
+    "room": "Pokój",
+    "editRoom": "Edycja pokoju",
+    "game": "Rozgrywka",
+    "extendedGame": "Szczegóły postaci",
+    "SwitchClassGame": "Zmiana Rasy i Klasy",
+    "gameSummary": "Podsumowanie gry",
+    "searchBar": "Wyszukiwarka",
+    "searchResult": "Wynik Wyszukiwania",
+    "settings": "Ustawienia"
+  },
+  "description": {
+    "rooms": "W zakładce 'Pokoje' możesz przeglądać oraz dołączać do pokoi utworzonych przez wszystkich użytkowników serwisu, możesz również edytować lub usuwać pokoje stworzone przez siebie.",
+    "sortRooms":"Pokoje można sortować względem ich daty utworzenia lub nazwy pokoi, można również wybrać opcje wyszukania pokoi stworzonych tylko przez ciebie.",
+    "room": "W zakładce 'Pokój' przedstawione są wszystkie informacje odnośnie pokoju jak i graczy którzy do niego dołączyli, dzięki tej zakładce, dołączysz do pokoju oraz przejdziesz do zakładki 'Edycja pokoju', do zakładki 'Pokój' przejdziesz klikając w pokój w wyszukiwarce pokoi.",
+    "editRoom": "W zakładce 'Edycja pokoju' możesz edytować stworzony przez siebie pokój, do edycji możliwa jest edycja nazwa pokoju ilość dostęnych miejsc jak i hasło dostępu do pokoju.",
+    "game": "W zakładce 'Rozgrywka' odbywa sie cała rozgrywka, właśnie tu będziesz zmieniał statystki swojej postaci jak i śledził postęp swoich przeciwników.",
+    "extendedGame": "Poprzez kliknięcie na postać możesz ją rozwinąć aby dowiedzieć się o niej więcej szczegółów.",
+    "SwitchClassGame": "Po rozwinięciu swojej postaci możesz również zmienić jej rase lub klase.",
+    "gameSummary": "W zakładce 'Podsumowanie gry' przedstawione są informacje odnośnie miejsca jakie zdobyli gracze jak i informacje o ich postaciach, do podsumowania gry można wejść tylko po zakończeniu rozgrywki, zaraz po zakończeniu rozgrywki lub poprzez wyszukanie pokoju w którym rozgrywka już się zakończyła.",
+    "extendedSummary": "W zakładce 'Podsumowanie gry' również można sprawdzić szczegóły wszystkich postaci.",
+    "searchBar": "W wyszukiwarce możesz wyszukać pokój po jego nazwie, po kliknięciu przycisku wyszukiwania zostaniesz przeniesiony do zakładki 'Wynik wyszukiwania' w której wyświetlane są wszystkie wyniki wyszukiwania.",
+    "searchResult": "W zakładce 'Wynik wyszukiwania' wyświetlane są wszystkie pokoje które pasują do wyszukiwanej frazy, są to pokoje w których rozgrywka nadal trwa i można do nich dołaczyć lub już się skończyła i można sprawdzić ich podsumowanie.",
+    "settings": "W zakładce 'Ustawienia' możesz edytować swój profil, do edycji możliwa jest nazwa użytkownika, ksywka jak i hasło. W tej zakładce możesz także ustawić swój awatar."
+  }
+}
