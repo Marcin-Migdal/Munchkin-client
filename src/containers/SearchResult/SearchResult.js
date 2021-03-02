@@ -17,9 +17,9 @@ import { layoutSelector } from '../../slices/layout';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteRoomInStore, fetchRoom } from '../../slices/room';
 import { links } from '../../utils/linkUtils';
+import Dropdown from '../../components/DropDownComponent/Dropdown';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 
-const pageSize = 11;
 export default function SearchResult({ classes }) {
   const history = useHistory()
   const dispatch = useDispatch()
@@ -27,12 +27,15 @@ export default function SearchResult({ classes }) {
   const location = useLocation();
 
   const { layout } = useSelector(layoutSelector)
+  const [sortType, setSortType] = useState('id');
   const [query, setQuery] = useState();
   const [errorFlag, setErrorFlag] = useState(0);
   const [status, data, page, lastPage, restart] = useFetchGetPagebale({ query: query, errorFlag });
   const [roomSideMenu, setRoomSideMenu] = useState();
 
   const searchInput = location.state ? location.state.searchInput : ''
+  const pageSize = layout.mobile ? 20 : 12;
+
   const styles = classes();
 
   useEffect(() => {
@@ -40,7 +43,7 @@ export default function SearchResult({ classes }) {
 
     if (isMounted && data) restart()
     if (isMounted && searchInput) {
-      setQuery('/searchPageable/' + searchInput + '/' + page + '/' + pageSize)
+      setQuery('/searchPageable/' + searchInput + '/' + 0 + '/' + pageSize + '/' + sortType)
     }
 
     return history.listen((location) => {
@@ -53,7 +56,7 @@ export default function SearchResult({ classes }) {
 
   const loadMoreRooms = () => {
     if (!lastPage && data && status === 'fetched') {
-      setQuery('/searchPageable/' + searchInput + '/' + page + '/' + pageSize)
+      setQuery('/searchPageable/' + searchInput + '/' + page + '/' + pageSize + '/' + sortType)
     }
   }
 
@@ -79,23 +82,33 @@ export default function SearchResult({ classes }) {
     setRoomSideMenu()
   }
 
+  const setRoomSortType = (sortBy) => {
+    if (sortBy !== sortType) {
+      restart()
+      setSortType(sortBy)
+      setQuery('/searchPageable/' + searchInput + '/' + 0 + '/' + pageSize + '/' + sortBy);
+    }
+  }
+
   return (
-    <div className={styles.scrollContainer}>
+    <>
       <PerfectScrollbar onYReachEnd={loadMoreRooms}>
         <div className={styles.scrollContentContainer}>
-          {(data) &&
-            <div className={styles.roomListContainer}>
-              <ListComponent data={data} mapFunction={(room, index) => {
-                return (
-                  <RoomSearchListItem
-                    key={index}
-                    room={room}
-                    mobile={layout.mobile}
-                    action={() => pickRoom(room.id)}
-                    classes={roomSearchListItemClasses} />
-                )
-              }} />
-            </div>
+          <p className={styles.title}>{t('rooms:searchResult.title')} "{searchInput}"</p>
+          <div className={styles.topScrollContainer}>
+            <Dropdown chooseSortOption={sortBy => setRoomSortType(sortBy)} />
+          </div>
+          {data &&
+            <ListComponent data={data} mapFunction={(room, index) => {
+              return (
+                <RoomSearchListItem
+                  key={index}
+                  room={room}
+                  mobile={layout.mobile}
+                  action={() => pickRoom(room.id)}
+                  classes={roomSearchListItemClasses} />
+              )
+            }} />
           }
           <div className={styles.bottomScrollContainer}>
             {(status === 'error') &&
@@ -126,7 +139,7 @@ export default function SearchResult({ classes }) {
         </div>
         {roomSideMenu && roomSideMenu}
       </div>
-    </div>
+    </>
   )
 }
 

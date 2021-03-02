@@ -5,7 +5,6 @@ export const roomEditClasses = makeStyles(theme => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    width: '52vw',
     marginTop: '10vh',
   },
 

@@ -12,8 +12,8 @@ import * as AiIcons from "react-icons/ai"
 import { links } from '../../utils/linkUtils';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import 'react-perfect-scrollbar/dist/css/styles.css';
 import { deleteRoomInStore } from '../../slices/room';
+import 'react-perfect-scrollbar/dist/css/styles.css';
 
 export default function Game({ classes }) {
   const dispatch = useDispatch()

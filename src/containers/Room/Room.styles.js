@@ -3,8 +3,8 @@ import { makeStyles } from "@material-ui/core";
 export const roomClasses = makeStyles(theme => ({
   roomMenuContainer: {
     display: 'flex',
+    alignItems:'center',
     flexDirection: 'column',
-    width: '52vw',
   },
 
   topContainer: {
@@ -34,8 +34,6 @@ export const roomClasses = makeStyles(theme => ({
   bottomContainer: {
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
-    width: '100%',
     marginTop: '0.85vh',
   },
 

@@ -16,9 +16,11 @@
       "addRoom": "Add room",
       "loadRooms": "Load rooms"
     },
+    "slots": "Slots:",
     "error": "Something went wrong, error occurred while loading rooms, try to load rooms again or refresh page"
   },
   "searchResult": {
+    "title":"Search result:",
     "loadRooms": "Load rooms",
     "notFound": "No room was found with phrase ",
     "error": "Something went wrong, error occurred while loading rooms, try to load rooms again or refresh page"

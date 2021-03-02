@@ -1,26 +1,30 @@
 import { makeStyles } from "@material-ui/core";
 
 export const SearchResultClasses = makeStyles(theme => ({
-  scrollContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    width: '100%',
-    height: '92vh',
-    zIndex: 1,
-  },
-  
-  scrollContentContainer:{
+  scrollContentContainer: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     width: '100vw',
-    marginTop : '10vh',
+    height: '91vh',
+    zIndex: 1,
+  },
+
+  title: {
+    maxWidth:'90vw',
+    margin: '8vh 0 1vh',
+    fontSize: '3vh',
+    whiteSpace:'nowrap',
+    overflow:'hidden',
+    textOverflow:'ellipsis',
+    color: theme.palette.primary.main,
+
   },
 
   topScrollContainer: {
-    marginTop: '13vh',
-    width: '90vw'
+    display: 'flex',
+    justifyContent: 'flex-end',
+    width: '90vw',
   },
 
   bottomScrollContainer: {

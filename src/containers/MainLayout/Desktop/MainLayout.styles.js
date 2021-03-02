@@ -43,7 +43,6 @@ export const classes = makeStyles(theme => ({
   contentContainer: {
     display: 'flex',
     justifyContent: 'center',
-    height: '100%',
     width: '100%',
   }
 }));

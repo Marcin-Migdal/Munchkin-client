@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core";
 export const gameClasses = makeStyles(theme => ({
   scrollContainer: {
     zIndex: 1,
+    height: '100%',
   },
 
   scrollContentContainer: {

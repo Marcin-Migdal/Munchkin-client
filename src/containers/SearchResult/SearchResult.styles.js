@@ -1,26 +1,26 @@
 import { makeStyles } from "@material-ui/core";
 
 export const SearchResultClasses = makeStyles(theme => ({
-  scrollContainer: {
-    height: '92vh',
-    zIndex: 1,
-  },
-
   scrollContentContainer: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     width: '100vw',
-    marginTop:'15vh',
+    height: '92vh',
+    zIndex: 1,
+  },
+
+  title: { 
+    margin: '8vh 0 1vh',
+    fontSize: '5vh',
+    color: theme.palette.primary.main,
   },
 
   topScrollContainer: {
-    margin: '10vh 0 0.5vh 0',
-    width: '52vw'
-  },
-
-  roomListContainer: {
-    width: '52vw'
+    display: 'flex',
+    justifyContent: 'flex-end',
+    margin: '0 0 0.5vh 0',
+    width: '52vw',
   },
 
   bottomScrollContainer: {

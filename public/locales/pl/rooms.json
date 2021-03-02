@@ -20,6 +20,7 @@
     "error": "Coś poszło nie tak, wystąpił błąd podczas wczytywania pokoi, spróbuj wczytać pokoje jeszcze raz lub odśwież strone"
   },
   "searchResult": {
+    "title":"Wynik wyszukiwania:",
     "loadRooms": "Wczytaj Pokoje",
     "notFound": "Nie znaleziono pokoi za pomocą frazy ",
     "error": "Coś poszło nie tak, wystąpił błąd podczas wczytywania pokoi, spróbuj wczytać pokoje jeszcze raz lub odśwież strone"

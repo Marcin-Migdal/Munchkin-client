@@ -6,7 +6,7 @@ export const roomSearchListItemClasses = (color) => {
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
-      width: '100%',
+      width: '52vw',
       marginTop: '1.25vh',
       padding: '0.5vh 1vh',
       border: '1px solid',

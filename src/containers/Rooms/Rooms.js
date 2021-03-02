@@ -12,21 +12,22 @@ import PickRoomSideMenu from '../RoomSideMenu/PickRoomSideMenu';
 import { Button } from '@material-ui/core';
 import Dropdown from '../../components/DropDownComponent/Dropdown';
 import * as AiIcons from "react-icons/ai"
-import 'react-perfect-scrollbar/dist/css/styles.css';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { layoutSelector } from '../../slices/layout';
 import { deleteRoomInStore, fetchRoom } from '../../slices/room';
 import { links } from '../../utils/linkUtils';
 import { useHistory } from 'react-router-dom';
+import 'react-perfect-scrollbar/dist/css/styles.css';
 
-const pageSize = 12;
 export default function Rooms({ classes }) {
   const dispatch = useDispatch()
   const { t } = useTranslation(['inputLabels', 'rooms']);
   const history = useHistory()
-
   const { layout } = useSelector(layoutSelector)
+  
+  const pageSize = layout.mobile ? 20 : 12;
+
   const [sortType, setSortType] = useState('id');
   const [query, setQuery] = useState('/getAll/' + 0 + '/' + pageSize + '/' + sortType);
   const [errorFlag, setErrorFlag] = useState(0);
@@ -86,7 +87,7 @@ export default function Rooms({ classes }) {
   }
 
   return (
-    <div className={styles.scrollContainer}>
+    <>
       <PerfectScrollbar onYReachEnd={loadMoreRooms}>
         <div className={styles.scrollContentContainer}>
           <div className={styles.topScrollContainer}>
@@ -101,17 +102,15 @@ export default function Rooms({ classes }) {
           </div>
 
           {(data) &&
-            <div className={styles.roomListContainer}>
-              <ListComponent data={data} mapFunction={(item, index) => {
-                return (
-                  <RoomListItem
-                    key={index}
-                    room={item}
-                    mobile={layout.mobile}
-                    action={() => pickRoom(item.id)} />
-                )
-              }} />
-            </div>
+            <ListComponent data={data} mapFunction={(item, index) => {
+              return (
+                <RoomListItem
+                  key={index}
+                  room={item}
+                  mobile={layout.mobile}
+                  action={() => pickRoom(item.id)} />
+              )
+            }} />
           }
 
           <div className={styles.bottomScrollContainer}>
@@ -138,7 +137,7 @@ export default function Rooms({ classes }) {
         </div>
         {roomSideMenu && roomSideMenu}
       </div>
-    </div >
+    </>
   )
 }
 
