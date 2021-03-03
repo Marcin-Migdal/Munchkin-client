@@ -1,16 +1,16 @@
 import React, { Suspense } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import ResponsiveComponent from './components/ResponsiveComponent/ResponsiveComponent';
-import WelcomePage from './components/WelcomePage/WelcomePage';
+import WelcomePage from './containers/WelcomePage/WelcomePage';
 import Login from './containers/Login/Login';
 import Register from './containers/Register/Register';
 import MainLayout from './containers/MainLayout/Desktop/MainLayout';
 import MainLayoutMobile from './containers/MainLayout/Mobile/MainLayoutMobile';
-import { desktopClasses } from './components/WelcomePage/WelcomePage.styles'
-import { mobileClasses } from './components/WelcomePage/WelcomePageMobile.styles'
-import api from './api/api';
+import { desktopClasses } from './containers/WelcomePage/WelcomePage.styles'
+import { mobileClasses } from './containers/WelcomePage/WelcomePageMobile.styles'
 import { links } from './utils/linkUtils';
 import FallbackLoading from './components/FallbackLoading/FallbackLoading';
+import api from './api/api';
 import './App.css'
 
 export default function App() {
