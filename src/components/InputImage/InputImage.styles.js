@@ -1,12 +1,12 @@
 import { makeStyles } from "@material-ui/core";
 
-export const classes = makeStyles(theme => ({
+export const desktopClasses = makeStyles(theme => ({
   container: {
     display: 'flex',
     flexDirection: 'row',
   },
 
-  addAvatarButton: {
+  button: {
     marginRight: '1vh',
     borderRadius: '8px',
     fontWeight: 600,
@@ -24,12 +24,12 @@ export const classes = makeStyles(theme => ({
 
   fileNameText: {
     width: 'fit-content',
-    maxWidth: '20vh',
+    maxWidth: '15vh',
     marginRight: '0.3vh',
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-    color:theme.palette.primary.main,
+    color: theme.palette.primary.main,
   },
 }));
 

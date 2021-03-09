@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar'
-import useFetchGetPagebale from '../../hooks/useFetchGetPagebale';
-import ButtonComponent from '../../components/ButtonComponent/ButtonComponent';
+import useFetchGetPagebale from '../../hooks/useFetchGetPageable';
 import LoadingComponent from '../../components/LoadingComponent/LoadingComponent';
 import ListComponent from '../../components/ListComponent/ListComponent';
 import RoomListItem from '../../components/RoomListItem/RoomListItem';
@@ -10,25 +9,45 @@ import MyHr from '../../components/MyHr/MyHr';
 import AddRoomSideMenu from '../RoomSideMenu/AddRoomSideMenu';
 import EditRoomSideMenu from '../RoomSideMenu/EditRoomSideMenu';
 import PickRoomSideMenu from '../RoomSideMenu/PickRoomSideMenu';
+import { Button } from '@material-ui/core';
+import Dropdown from '../../components/DropDownComponent/Dropdown';
 import * as AiIcons from "react-icons/ai"
+import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
+import { layoutSelector } from '../../slices/layout';
+import { deleteRoomInStore, fetchRoom } from '../../slices/room';
+import { links } from '../../utils/linkUtils';
+import { useHistory } from 'react-router-dom';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 
-export default function Rooms({ roomClasses, mobile }) {
-  const pageSize = 15;
-  const [page, setPage] = useState(0);
-  const [query, setQuery] = useState('/getAll/' + page + '/' + pageSize);
-  const [errorFlag, setErrorFlag] = useState(0);
-  const [roomSideMenu, setRoomSideMenu] = useState();
-  const [status, data, lastPage] = useFetchGetPagebale({
-    query: query,
-    errorFlag,
-    incrementPage: () => { setPage(page + 1) }
-  });
+export default function Rooms({ classes }) {
+  const dispatch = useDispatch()
+  const { t } = useTranslation(['inputLabels', 'rooms']);
+  const history = useHistory()
+  const { layout } = useSelector(layoutSelector)
+  
+  const pageSize = layout.mobile ? 20 : 12;
 
-  const styles = roomClasses();
+  const [sortType, setSortType] = useState('id');
+  const [query, setQuery] = useState('/getAll/' + 0 + '/' + pageSize + '/' + sortType);
+  const [errorFlag, setErrorFlag] = useState(0);
+  const [status, data, page, lastPage, restart] = useFetchGetPagebale({ query: query, errorFlag });
+  const [roomSideMenu, setRoomSideMenu] = useState();
+
+  const styles = classes();
+
+  useEffect(() => {
+    return history.listen((location) => {
+      if (location.pathname !== links.game) {
+        dispatch(deleteRoomInStore())
+      }
+    })
+  }, []);
 
   const loadMoreRooms = () => {
-    setQuery('/getAll/' + (page) + '/' + pageSize);
+    if (!lastPage && data && status === 'fetched') {
+      setQuery('/getAll/' + page + '/' + pageSize + '/' + sortType);
+    }
   }
 
   const loadRoomsAfterError = () => {
@@ -37,33 +56,49 @@ export default function Rooms({ roomClasses, mobile }) {
 
   const addRoom = () => {
     setRoomSideMenu(
-      <AddRoomSideMenu mobile={mobile} />
+      <AddRoomSideMenu />
     )
   }
 
-  const pickRoom = (room) => {
+  const pickRoom = (roomId) => {
+    roomId && dispatch(fetchRoom(roomId))
     setRoomSideMenu(
-      <PickRoomSideMenu room={room} changeToEditRoom={() => { editRoom(room) }} mobile={mobile} />
+      <PickRoomSideMenu changeToEditRoom={editRoom} />
     )
   }
 
-  const editRoom = (room) => {
+  const editRoom = () => {
     setRoomSideMenu(
-      <EditRoomSideMenu room={room} changeToPickRoom ={() => { pickRoom(room) }} mobile={mobile} />
+      <EditRoomSideMenu changeToPickRoom={pickRoom} />
     )
+  }
+
+  const setRoomSortType = (sortBy) => {
+    if (sortBy !== sortType) {
+      restart()
+      setSortType(sortBy)
+      setQuery('/getAll/' + 0 + '/' + pageSize + '/' + sortBy);
+    }
+  }
+
+  const closeRoomSideMenu = () => {
+    dispatch(deleteRoomInStore())
+    setRoomSideMenu()
   }
 
   return (
-    <div className={styles.scrollContainer}>
-      <PerfectScrollbar onYReachEnd={() => { if (!lastPage && data && status === 'fetched') loadMoreRooms() }}>
+    <>
+      <PerfectScrollbar onYReachEnd={loadMoreRooms}>
         <div className={styles.scrollContentContainer}>
           <div className={styles.topScrollContainer}>
-            <ButtonComponent
-              text='Dodaj Pokój'
-              btnStyle={styles.addRoomButton}
-              variantStyle='outlined'
-              paletteColor='primary'
-              action={() => { addRoom() }} />
+            <Button
+              variant="outlined"
+              color="primary"
+              className={styles.topButton}
+              onClick={addRoom}>
+              {t('rooms:rooms.buttons.addRoom')}
+            </Button>
+            <Dropdown chooseSortOption={sortBy => setRoomSortType(sortBy)} />
           </div>
 
           {(data) &&
@@ -71,25 +106,24 @@ export default function Rooms({ roomClasses, mobile }) {
               return (
                 <RoomListItem
                   key={index}
-                  roomName={item.roomName}
-                  slots={item.slots}
-                  usersInRoom={item.usersInRoom}
-                  mobile={mobile}
-                  action={() => { pickRoom(item) }} />)
-            }} />}
+                  room={item}
+                  mobile={layout.mobile}
+                  action={() => pickRoom(item.id)} />
+              )
+            }} />
+          }
 
           <div className={styles.bottomScrollContainer}>
             {(status === 'error') &&
               <div className={styles.errorContainer}>
-                <ButtonComponent
-                  text='Wczytaj Pokoje'
-                  btnStyle={styles.button}
-                  variantStyle='contained'
-                  paletteColor='primary'
-                  action={() => { loadRoomsAfterError() }} />
-
-                <InfoModal
-                  text='Coś poszło nie tak, wystąpił błąd podczas wczytywania pokoi, spróbuj wczytać pokoje jeszcze raz lub odśwież strone' mobile={mobile} />
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={styles.button}
+                  onClick={loadRoomsAfterError}>
+                  {t('rooms:rooms.buttons.loadRooms')}
+                </Button>
+                <InfoModal text={t('rooms:rooms.error')} />
               </div>}
             <LoadingComponent condition={(status === 'fetching')} />
           </div>
@@ -98,12 +132,12 @@ export default function Rooms({ roomClasses, mobile }) {
 
       <div className={roomSideMenu ? styles.roomSideMenuEnabled : styles.roomSideMenuDisabled}>
         <MyHr />
-        <div className={styles.iconContainer} onClick={() => setRoomSideMenu()}>
+        <div className={styles.iconContainer} onClick={closeRoomSideMenu}>
           <AiIcons.AiOutlineClose />
         </div>
         {roomSideMenu && roomSideMenu}
       </div>
-    </div>
+    </>
   )
 }
 

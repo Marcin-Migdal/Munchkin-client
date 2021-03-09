@@ -1,0 +1,67 @@
+{
+  "editRoom": {
+    "title": "Edit room",
+    "roomEdit": "Room was edited",
+    "deleteRoomConfirmation": "Are you sure you want to delete this room ?",
+    "roomDeleteResponse": "Room was deleted"
+  },
+  "rooms": {
+    "sortOptions": {
+      "byDate": "By date",
+      "byName": "By name",
+      "createdByMe": "My rooms"
+    },
+    "buttons": {
+      "sort": "Sort",
+      "addRoom": "Add room",
+      "loadRooms": "Load rooms"
+    },
+    "slots": "Slots:",
+    "error": "Something went wrong, error occurred while loading rooms, try to load rooms again or refresh page"
+  },
+  "searchResult": {
+    "title":"Search result:",
+    "loadRooms": "Load rooms",
+    "notFound": "No room was found with phrase ",
+    "error": "Something went wrong, error occurred while loading rooms, try to load rooms again or refresh page"
+  },
+  "roomValidation": {
+    "empty": {
+      "roomName": "Enter room name",
+      "slots": "Slots can't be empty",
+      "roomPassword": "Enter room password"
+    },
+    "tooShort": {
+      "roomName": "Room name is too short",
+      "slots": "Minimal amount of slots is 3",
+      "roomPassword": "Password is too short"
+    },
+    "tooLong": {
+      "roomName": "Room name is to long",
+      "slots": "Maximal amount of slots is 8",
+      "roomPassword": "Password is too long"
+    }
+  },
+  "roomSideMenu": {
+    "add": {
+      "title": "Add room",
+      "error": "Error occurred while creating room",
+      "addRoomButton": "Create room"
+    },
+    "edit": {
+      "title": "Edit room",
+      "deleteConfiramtion": "Are you sure you want to delete this room ?",
+      "editError": "Error occurred while editing room",
+      "deleteError": "Error occurred while deleting room"
+    },
+    "roomNameError": "Room with this name already exist"
+  },
+  "pickRoom": {
+    "title": "Room:",
+    "slots": "Players in room:",
+    "error": "Error occurred while joining room"
+  },
+  "userPage": {
+    "inGameName": "In game name: "
+  }
+}

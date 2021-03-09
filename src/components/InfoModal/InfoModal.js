@@ -1,23 +1,49 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+import { useSelector } from 'react-redux';
+import { layoutSelector } from '../../slices/layout';
 import { classes } from './InfoModal.styles'
 
-export default function InfoModal({ text, mobile }) {
-  const [visible, setVisible] = useState(true);;
+export default function InfoModal({ text, onClick, customModal }) {
+  const node = useRef();
+
+  const { layout } = useSelector(layoutSelector)
+  const [isOpen, setIsOpen] = useState(true);
+
   const styles = classes();
 
   useEffect(() => {
-    let mounted = true;
-
-    window.addEventListener("click", () => mounted && setVisible(false))
-    return () => {
-      mounted = false;
-      window.removeEventListener("click", () => mounted && setVisible(false))
+    if (isOpen) {
+      document.addEventListener("click", handleClick);
+    } else {
+      document.removeEventListener("click", handleClick);
     }
-  }, []);
 
-  return visible &&
-    <div className={mobile ? styles.containerMobile : styles.containerDesktop}>
-      {text}
-    </div>
+    return () => {
+      document.removeEventListener("click", handleClick);
+    }
+  })
 
+  const handleClick = e => {
+    if (node.current.contains(e.target)) return
+    setIsOpen(false)
+    onClick && onClick()
+  };
+
+  const Modal = () => {
+    if (customModal) {
+      return (
+        <div ref={node}>
+          {customModal}
+        </div>
+      )
+    } else {
+      return (
+        <div className={layout.mobile ? styles.containerMobile : styles.containerDesktop} ref={node}>
+          {text}
+        </div>
+      )
+    }
+  }
+
+  return isOpen && <Modal />
 }

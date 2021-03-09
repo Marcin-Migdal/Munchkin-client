@@ -2,30 +2,48 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import authService from '../../api/authentication.api';
 import useInput from '../../hooks/UseInput/useInput';
-import ButtonComponent from '../../components/ButtonComponent/ButtonComponent';
-import { useMediaQuery } from '@material-ui/core';
+import { Button, useMediaQuery } from '@material-ui/core';
 import val from '../../utils/ValidationUtil';
 import { classes } from './Login.styles'
+import { links } from '../../utils/linkUtils';
+import { useTranslation } from 'react-i18next';
+import playerStatusService from '../../api/playerStatus.api';
 
 export default function Login() {
-  const [loginInput, login, setLogin] = useInput({ inputType: 'text', inputLabel: "Login lub Email" });
-  const [passwordInput, password, setPassword] = useInput({ inputType: 'password', inputLabel: "Hasło" });
-  const [error, setError] = useState('');
+  const { t } = useTranslation(['auth', 'inputLabels']);
   const history = useHistory();
-  const styles = classes();
 
+  const [error, setError] = useState('');
+
+  const [userNameInput, userName, setNserName] = useInput({
+    inputType: 'text',
+    inputLabel: t('auth:signIn.inputLabelUsername'),
+    size: 'medium',
+    color: 'secondary'
+  });
+  const [passwordInput, password, setPassword] = useInput({
+    inputType: 'password',
+    inputLabel: t('inputLabels:password'),
+    size: 'medium',
+    color: 'secondary'
+  });
+
+  const styles = classes();
   const mobile = useMediaQuery('(max-width:620px)');;
 
   const signIn = () => {
-    if (val.signIn(login.value, setLogin, password.value, setPassword)) {
-      const authorization = { usernameOrEmail: `${login.value}`, userPassword: `${password.value}` };
+    if (val.signIn(userName.value, setNserName, password.value, setPassword, t)) {
+      const authorization = { usernameOrEmail: `${userName.value}`, userPassword: `${password.value}` };
       authService.signIn(authorization)
-        .then(resp => history.replace('/home'))
+        .then(resp => {
+          playerStatusService.leaveRoomOnLogIn()
+          history.replace(links.home)
+        })
         .catch(e => setError(
           <div className={styles.errorBadCredentials}>
-            Niepowodzenie podczas logowania!
+            {t('auth:signIn.errorPart1')}
             <br />
-            Sprawdź poprawność loginu i hasła.
+            {t('auth:signIn.errorPart2')}
           </div>,
         ));
     }
@@ -33,15 +51,16 @@ export default function Login() {
 
   return (
     <div className={mobile ? styles.containerMobile : styles.containerDesktop}>
-      <span className={styles.title}>Logowanie</span>
-      {loginInput}
+      <span className={styles.title}>{t('auth:signIn.title')}</span>
+      {userNameInput}
       {passwordInput}
-      <ButtonComponent
-        text='Zaloguj się'
-        btnStyle={styles.button}
-        variantStyle='contained'
-        paletteColor='secondary'
-        action={signIn} />
+      <Button
+        variant="contained"
+        color="secondary"
+        className={styles.button}
+        onClick={signIn}>
+        {t('auth:buttons.signIn')}
+      </Button>
       {error && error}
     </div>
   );

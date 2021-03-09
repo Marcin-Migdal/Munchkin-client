@@ -1,7 +1,7 @@
 import { makeStyles } from "@material-ui/core";
 
 export const classes = makeStyles(theme => ({
-  root: {
+  input: {
     '& .MuiTextField-root': {
       margin: '1vh 0',
       width: '27ch',

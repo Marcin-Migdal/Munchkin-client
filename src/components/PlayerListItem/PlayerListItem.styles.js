@@ -1,105 +1,119 @@
 import { makeStyles } from "@material-ui/core";
 
-export const classes = makeStyles(theme => ({
-  roomContainerDesktop: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    margin: '0 1vh 1vh 1vh',
-    padding: '0 0.75vh',
-    height: '5vh',
-    border: '1px solid',
-    borderRadius: '1.8vh',
-    fontSize: '2.5vh',
-    color: theme.palette.secondary.main,
+export const classes = (color) => {
+  return makeStyles(theme => ({
+    containerDesktop: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      width: '50vw',
+      marginBottom: '1vh',
+      padding: '0.35vh 1vh',
+      border: '1px solid',
+      borderRadius: '1.2vh',
+      borderColor: color.main,
+      fontSize: '3.5vh',
+      backgroundColor: theme.palette.secondary.main,
+      color: color.main,
+      '&:hover': {
+        backgroundColor: color.hover,
+      },
+      '&:active': {
+        backgroundColor: color.active,
+      },
 
-    '&:hover': {
-      backgroundColor: theme.palette.primary.hover,
-    },
-    '&:active': {
-      backgroundColor: theme.palette.primary.active,
-    },
-
-    '& p': {
-      webkitRouchCallout: 'none',
-      webkitUserSelect: 'none',
-      khtmlUserSelect: 'none',
-      mozUserSelect: 'none',
-      msUserSelect: 'none',
-      userSelect: 'none',
-    },
-  },
-
-  roomContainerMobile: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    margin: '0 1vh 1vh 1vh',
-    padding: '0 0.75vh',
-    height: '5vh',
-    width: '33.5vh',
-    border: '1px solid',
-    borderRadius: '1.8vh',
-    fontSize: '2.5vh',
-    color: theme.palette.secondary.main,
-
-    '&:active': {
-      backgroundColor: theme.palette.primary.active,
+      '& p': {
+        webkitRouchCallout: 'none',
+        webkitUserSelect: 'none',
+        khtmlUserSelect: 'none',
+        mozUserSelect: 'none',
+        msUserSelect: 'none',
+        userSelect: 'none',
+      },
     },
 
-    '& p': {
-      webkitRouchCallout: 'none',
-      webkitUserSelect: 'none',
-      khtmlUserSelect: 'none',
-      mozUserSelect: 'none',
-      msUserSelect: 'none',
-      userSelect: 'none',
+    containerMobile: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      width: '90vw',
+      marginBottom: '1vh',
+      padding: '0.5vh 0.75vh',
+      border: '1px solid',
+      borderRadius: '1.2vh',
+      fontSize: '3vh',
+      borderColor: color.main,
+      color: color.main,
+
+      '&:active': {
+        backgroundColor: color.active,
+      },
+
+      '& p': {
+        webkitRouchCallout: 'none',
+        webkitUserSelect: 'none',
+        khtmlUserSelect: 'none',
+        mozUserSelect: 'none',
+        msUserSelect: 'none',
+        userSelect: 'none',
+      },
     },
-  },
 
-  avatarIcon: {
-    height: '3.5vh',
-    width: '3.5vh',
-    marginRight: '0.75vh',
-  },
+    textContainer: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      height: '3.5vh',
+      width: '3.5vh',
+      margin: '0.5vh',
+      border: '1px solid',
+      borderColor: color.main,
+      borderRadius: '100%',
+      position: 'relative',
+    },
 
-  levelText: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '3.5vh',
-    width: '3.5vh',
-    marginRight: '0.5vh',
-    border: '1px solid',
-    borderColor: theme.palette.secondary.main,
-    borderRadius: '100%',
-  },
+    bigTextContainer: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      height: '3.5vh',
+      minWidth: '3.5vh',
+      margin: '0.5vh',
+      padding: '0.35vw',
+      border: '1px solid',
+      borderColor: color.main,
+      borderRadius: '16px',
+      position: 'relative',
+    },
 
-  genderMale: {
-    height: '3.5vh',
-    width: '3.5vh',
-  },
+    genderIcon: {
+      height: '3.5vh',
+      width: '3.5vh',
+    },
 
-  genderFemale: {
-    height: '3.5vh',
-    width: '3.5vh',
-  },
+    rightContainer: {
+      display: 'flex',
+      alignItems: 'center',
+    },
 
-  rightContainer: {
-    display: 'flex',
-    alignItems:'center',
-  },
+    leftContainer: {
+      display: 'flex',
+      alignItems: 'center',
+      width: '60%',
+    },
 
-  leftContainer: {
-    display: 'flex',
-    alignItems:'center',
-    width: '70%',
-  },
+    usernameText: {
+      width: '80%',
+      whiteSpace: 'nowrap',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      marginLeft: '0.5vh',
+    },
 
-  usernameText:{
-    width: '80%',
-    whiteSpace: 'nowrap',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-  },
-}));
+    creatorIcon: {
+      height: '4vh',
+      width: '4vh',
+      marginLeft: '0.5vh',
+    },
+  }));
+}

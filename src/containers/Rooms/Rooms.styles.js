@@ -1,23 +1,22 @@
 import { makeStyles } from "@material-ui/core";
 
-export const roomClasses = makeStyles(theme => ({
-  scrollContainer: {
-    width: '100%',
+export const roomsClasses = makeStyles(theme => ({
+  scrollContentContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    width: '100vw',
     height: '92vh',
     zIndex: 1,
   },
 
   topScrollContainer: {
-    margin: '10vh 0 0.5vh 0',
-    width: '52vw'
-  },
-
-  scrollContentContainer: {
     display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    justifyContent: 'space-between',
+    margin: '10vh 0 0.5vh 0',
+    width: '52vw',
   },
-
+  
   bottomScrollContainer: {
     display: 'flex',
     flexDirection: 'column',
@@ -31,11 +30,10 @@ export const roomClasses = makeStyles(theme => ({
     justifyContent: 'center',
   },
 
-  addRoomButton: {
+  topButton: {
     fontSize: '1.75vh',
     borderRadius: '8px',
     fontWeight: 600,
-    color: theme.palette.primary.main,
   },
 
   button: {
@@ -46,13 +44,13 @@ export const roomClasses = makeStyles(theme => ({
   },
 
   roomSideMenuEnabled: {
-    width: '32ch',
+    width: '18vw',
     height: '98vh',
     position: 'fixed',
     transition: '300ms',
     top: '6vh',
     right: 0,
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: theme.palette.background.main,
   },
 
   roomSideMenuDisabled: {
@@ -62,7 +60,7 @@ export const roomClasses = makeStyles(theme => ({
     transition: '600ms',
     top: '6vh',
     right: '-100%',
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: theme.palette.background.main,
   },
 
   iconContainer: {

@@ -1,21 +1,32 @@
 import { makeStyles } from "@material-ui/core";
 
-export const roomClasses = makeStyles(theme => ({
-  scrollContainer: {
-    width: '100%',
-    height: '92vh',
+export const roomsClasses = makeStyles(theme => ({
+  scrollContentContainer:{
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    width: '100vw',
+    height: '91vh',
     zIndex: 1,
   },
 
   topScrollContainer: {
-    marginTop: '13vh',
-    width: '90vw'
+    display: 'flex',
+    justifyContent: 'space-between',
+    marginTop: '10vh',
+    width: '90vw',
   },
 
-  scrollContentContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+  sortIcon: {
+    padding:'0.25vh',
+    fontSize: '3.75vh',
+    position: 'absolute',
+    bottom: 0,
+    right: '1vw',
+    borderRadius: '8px',
+    '&:active': {
+      backgroundColor: theme.palette.background.active
+    }
   },
 
   bottomScrollContainer: {
@@ -31,11 +42,10 @@ export const roomClasses = makeStyles(theme => ({
     justifyContent: 'center',
   },
 
-  addRoomButton: {
+  topButton: {
     fontSize: '1.75vh',
     borderRadius: '8px',
     fontWeight: 600,
-    color: theme.palette.primary.main,
   },
 
   button: {
@@ -51,9 +61,9 @@ export const roomClasses = makeStyles(theme => ({
     position: 'fixed',
     transition: '100ms',
     right: 0,
-    top: '8vh',
+    top: '16vw',
     zIndex: 2,
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: theme.palette.background.main,
   },
 
   roomSideMenuDisabled: {
@@ -64,12 +74,11 @@ export const roomClasses = makeStyles(theme => ({
     right: '-100%',
     top: '8vh',
     zIndex: 2,
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: theme.palette.background.main,
   },
 
   iconContainer: {
     padding: '1vh',
-    borderRadius: '6px',
     fontSize: '4vh',
     position: 'absolute',
     top: 0,

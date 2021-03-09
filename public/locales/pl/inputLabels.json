@@ -1,0 +1,12 @@
+{
+  "inGameName": "Ksywka",
+  "username": "Nazwa użytkownika",
+  "email": "Email",
+  "password": "Hasło",
+  "rePassword": "Powtórz hasło",
+  "genderMale": "Mężczyzna",
+  "genderFemale": "Kobieta",
+  "roomName":"Nazwa pokoju",
+  "slots": "Sloty",
+  "roomPassword":"Hasło pokoju"
+}

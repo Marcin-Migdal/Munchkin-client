@@ -1,81 +1,28 @@
-import { Avatar, Button , makeStyles } from "@material-ui/core";
-import { grey } from "@material-ui/core/colors";
-import { spacing } from "@material-ui/system";
-import React, { createRef, useState } from "react";
+import { Avatar } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
+import userService from '../../api/user.api';
+import { classes } from './MyAvatar.styles';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: "flex",
-    "& > *": {
-      margin: theme.spacing(1)
+export default function MyAvatar({ customStyles, inGameName, id }) {
+  const [avatar, setAvatar] = useState();
+  const styles = classes();
+
+  useEffect(() => {
+    let isMounted = true
+    const getAvatar = () => {
+      userService.getAvatar(id)
+        .then(res => setAvatar(URL.createObjectURL(res)))
+        .catch(e => console.log(e))
     }
-  },
-  large: {
-    width: theme.spacing(24),
-    height: theme.spacing(24)
-  }
-}));
 
-const AvatarUpload = () => {
-  const classes = useStyles();
+    isMounted && getAvatar();
 
-  const [image, _setImage] = useState(null);
-  const inputFileRef = createRef(null);
-
-  const cleanup = () => {
-    URL.revokeObjectURL(image);
-    inputFileRef.current.value = null;
-  };
-
-  const setImage = (newImage) => {
-    if (image) {
-      cleanup();
+    return () => {
+      isMounted = false
     }
-    _setImage(newImage);
-  };
-
-  const handleOnChange = (event) => {
-    const newImage = event.target?.files?.[0];
-
-    if (newImage) {
-      setImage(URL.createObjectURL(newImage));
-    }
-  };
-
-  const handleClick = (event) => {
-    if (image) {
-      event.preventDefault();
-      setImage(null);
-    }
-  };
+  }, [id]);
 
   return (
-    <div>
-      <Avatar
-        className={classes.large}
-        alt="Avatar"
-        src={image || "/static/img/avatars/default-profile.svg"}
-      />
-      <input
-        ref={inputFileRef}
-        accept="image/*"
-        hidden
-        id="avatar-image-upload"
-        type="file"
-        onChange={handleOnChange}
-      />
-      <label htmlFor="avatar-image-upload">
-        <Button
-          variant="contained"
-          color="primary"
-          component="span"
-          onClick={handleClick}
-        >
-          {image ? "Limpar" : "Upload"}
-        </Button>
-      </label>
-    </div>
-  );
-};
-
-export default AvatarUpload;
+    <Avatar className={customStyles ? customStyles : styles.avatarIcon} src={avatar}>{!avatar && inGameName.charAt(0)}</Avatar>
+  )
+}

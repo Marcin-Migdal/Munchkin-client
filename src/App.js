@@ -1,19 +1,21 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import ResponsiveComponent from './components/ResponsiveComponent/ResponsiveComponent';
-import DefaultPage from './components/DefaultPage/DefaultPage';
+import WelcomePage from './containers/WelcomePage/WelcomePage';
 import Login from './containers/Login/Login';
 import Register from './containers/Register/Register';
 import MainLayout from './containers/MainLayout/Desktop/MainLayout';
 import MainLayoutMobile from './containers/MainLayout/Mobile/MainLayoutMobile';
-import { desktopClasses } from './components/DefaultPage/DefaultPage.styles'
-import { mobileClasses } from './components/DefaultPage/DefaultPageMobile.styles'
+import { desktopClasses } from './containers/WelcomePage/WelcomePage.styles'
+import { mobileClasses } from './containers/WelcomePage/WelcomePageMobile.styles'
+import { links } from './utils/linkUtils';
+import FallbackLoading from './components/FallbackLoading/FallbackLoading';
 import api from './api/api';
 import './App.css'
 
-function App() {
+export default function App() {
   const HomePage = () => {
-    if (localStorage.getItem('token') && api.validateToken()) {
+    if (api.validateToken()) {
       return (
         <ResponsiveComponent
           MobileComponent={<MainLayoutMobile />}
@@ -22,27 +24,27 @@ function App() {
     } else {
       return (
         < ResponsiveComponent
-          MobileComponent={< DefaultPage classes={mobileClasses} />}
-          DesktopComponent={< DefaultPage classes={desktopClasses} />} />
+          MobileComponent={< WelcomePage classes={mobileClasses} />}
+          DesktopComponent={< WelcomePage classes={desktopClasses} />} />
       )
     }
   }
 
   return (
-    <Router>
-      <Switch>
-        <Route path="/login">
-          <Login />
-        </Route>
-        <Route path="/register">
-          <Register />
-        </Route>
-        <Route path="/">
-          <HomePage />
-        </Route>
-      </Switch>
-    </Router>
+    <Suspense fallback={<FallbackLoading />}>
+      <Router>
+        <Switch>
+          <Route path={links.login}>
+            <Login />
+          </Route>
+          <Route path={links.register}>
+            <Register />
+          </Route>
+          <Route path="/">
+            <HomePage />
+          </Route>
+        </Switch>
+      </Router>
+    </Suspense>
   );
 }
-
-export default App;

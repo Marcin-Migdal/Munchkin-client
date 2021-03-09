@@ -10,40 +10,39 @@ export const classes = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'center',
     height: '6vh',
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: theme.palette.background.main,
   },
 
-  bottomConteinerSideMenu: {
+  bottomContainerSideMenu: {
     display: 'flex',
     flexDirection: 'row',
     height: '94vh',
     width: '100vw',
   },
 
-  sideMenuConteinerEnabled: {
+  sideMenuContainerEnabled: {
     height: '100%',
     width: '18vw',
     position: 'fixed',
     transition: '300ms',
     left: 0,
     zIndex: 2,
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: theme.palette.background.main,
   },
 
-  sideMenuConteinerDisabled: {
+  sideMenuContainerDisabled: {
     height: '100%',
     width: '18vw',
     position: 'fixed',
     transition: '600ms',
     left: '-100%',
     zIndex: 2,
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: theme.palette.background.main,
   },
 
-  contentConteiner: {
+  contentContainer: {
     display: 'flex',
     justifyContent: 'center',
-    height: '100%',
     width: '100%',
   }
 }));

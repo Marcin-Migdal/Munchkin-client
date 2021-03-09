@@ -6,6 +6,7 @@ export const classes = makeStyles(theme => ({
     flexDirection: 'column',
     alignItems: 'center',
     width: '100%',
+    color: theme.palette.secondary.main,
   },
 
   textContainer: {
@@ -20,7 +21,7 @@ export const classes = makeStyles(theme => ({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-evenly',
-    width: '90%',
+    width: '14vw',
     '& .MuiButton-root': {
       width: '11vh'
     }
@@ -29,7 +30,7 @@ export const classes = makeStyles(theme => ({
   button: {
     margin: '0.75vh 0 1.75vh 0',
     borderRadius: '6px',
-    fontSize: '1.75vh',
+    fontSize: '0.80vw',
     fontWeight: 600,
     backgroundColor: theme.palette.secondary.main,
     '&.MuiButton-root:hover': {
@@ -41,7 +42,6 @@ export const classes = makeStyles(theme => ({
     textAlign: 'center',
     margin: '0.75vh 0',
     fontSize: '2.65vh',
-    color: theme.palette.secondary.main,
   },
 
   roomNameText: {
@@ -52,7 +52,6 @@ export const classes = makeStyles(theme => ({
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-    color: theme.palette.secondary.main,
   },
 
   notificationText: {
@@ -60,7 +59,6 @@ export const classes = makeStyles(theme => ({
     textAlign: 'center',
     marginBottom: '1.75vh',
     fontSize: '2.5vh',
-    color: theme.palette.secondary.main,
   },
 
   playersContainer: {
@@ -72,18 +70,28 @@ export const classes = makeStyles(theme => ({
 
   playerText: {
     fontSize: '2.5vh',
-    color: theme.palette.secondary.main,
   },
 
   iconContainer: {
-    padding: '1vh',
     fontSize: '3vh',
     position: 'absolute',
-    top: 0,
-    left: '3vh',
+    top: '1vh',
+    left: '4.5vh',
     '& :hover': {
       borderRadius: '6px',
       backgroundColor: theme.palette.primary.main,
     }
+  },
+
+  input: {
+    '& .MuiTextField-root': {
+      width: '16vw',
+      margin: '1vh 0',
+    },
+
+    '& .MuiInputBase-root': {
+      borderRadius: '8px',
+      color: theme.palette.secondary.main,
+    },
   },
 }));

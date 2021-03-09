@@ -1,0 +1,12 @@
+{
+  "inGameName": "In game name",
+  "username": "Username",
+  "email": "Email",
+  "password": "Password",
+  "rePassword": "Repeat password",
+  "genderMale": "Male",
+  "genderFemale": "Female",
+  "roomName":"Room name",
+  "slots": "Slots",
+  "roomPassword":"Room password"
+}

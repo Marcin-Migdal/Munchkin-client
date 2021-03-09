@@ -5,6 +5,14 @@ class RoomsService {
     return api.httpGET('/api/rooms' + url);
   }
 
+  getRoom(roomId){
+    return api.httpGET('/api/rooms/getRoom/' + roomId)
+  }
+
+  getSearchedRooms(searchInput){
+    return api.httpGET('/api/rooms/search/' + searchInput)
+  }
+
   joinRoom(joinRoomRequest) {
     return api.httpPUT('/api/playerStatus/joinRoom', joinRoomRequest)
   }

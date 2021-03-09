@@ -4,11 +4,11 @@ export const mobileClasses = makeStyles(theme => ({
   sideMenuItem: {
     display: 'flex',
     alignItems: 'center',
-    height: '7vh',
+    height: '14vw',
     width: '86vw',
     margin: '2vw',
     padding: '2vw',
-    fontSize: '3.5vh',
+    fontSize: '7vw',
     borderRadius: '8px',
     color: '#ffffff',
     "&:hover": {
@@ -24,7 +24,7 @@ export const mobileClasses = makeStyles(theme => ({
   },
 
   sideMenuItemText: {
-    marginLeft: '1.3vh',
-    fontSize: '3vh',
+    marginLeft: '2.6vw',
+    fontSize: '6vw',
   },
 }));

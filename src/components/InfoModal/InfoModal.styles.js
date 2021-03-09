@@ -2,16 +2,17 @@ import { makeStyles } from "@material-ui/core";
 
 export const classes = makeStyles(theme => ({
   containerDesktop: {
-    width: '20vw',
+    width: '15vw',
     borderRadius: '8px',
-    fontSize: '1.5vw',
+    fontSize: '1.25vw',
     padding: '0.5vw',
     textAlign: 'center',
     position: 'fixed',
-    bottom: '40%',
+    left:'42.5vw',
+    bottom: '45%',
     zIndex: 4,
     color: theme.palette.secondary.main,
-    backgroundColor: theme.palette.background.default
+    backgroundColor: theme.palette.background.main
   },
 
   containerMobile: {
@@ -24,6 +25,6 @@ export const classes = makeStyles(theme => ({
     bottom: '50%',
     zIndex: 4,
     color: theme.palette.secondary.main,
-    backgroundColor: theme.palette.background.default
+    backgroundColor: theme.palette.background.main
   },
 }));

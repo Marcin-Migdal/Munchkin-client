@@ -1,0 +1,56 @@
+{
+  "title": "Settings",
+  "inputLabel": {
+    "oldPassword": "Old password",
+    "newPassword": "New password"
+  },
+  "response": {
+    "editUser": "Editing the user was successful",
+    "editPassword": "Editing the user password was successful",
+    "saveAvatar": "Avatar was saved",
+    "deleteAvatar": "Avatar was deleted"
+  },
+  "error": {
+    "editUser": "An error occurred while editing the user",
+    "oldPasswordIncorrect": "Old password is not correct",
+    "editPassword": "An error occurred while changing password",
+    "saveAvatar": "An error occurred while saving avatar",
+    "fileTooBig": "Choosen file is too big, the maximum file size is 500kb",
+    "deleteAvatar": "An error occurred while deleting avatar"
+  },
+  "button": {
+    "userSettings": "User settings",
+    "passwordSettings": "Password settings",
+    "savePassword": "Change password",
+    "avatarSettings": "Avatar Settings",
+    "languageSettings": "Change language",
+    "english": "English",
+    "polish": "Polish"
+  },
+  "validation": {
+    "user": {
+      "empty": {
+        "username": "Enter username",
+        "inGameName": "Enter in game name"
+      },
+      "tooShort": {
+        "username": "Username is too short",
+        "inGameName": "In game name is too short"
+      },
+      "tooLong": {
+        "username": "Username is too long",
+        "inGameName": "In game name is too long"
+      }
+    },
+    "password": {
+      "empty": {
+        "oldPassword": "Enter old password",
+        "newPassword": "Enter new password"
+      },
+      "doNotMatch": "Passwords do not match",
+      "newPasswordMatchAsOld": "New password is the same as old password",
+      "tooShort": "Password is too short",
+      "tooLong": "Password is too long"
+    }
+  }
+}

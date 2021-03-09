@@ -1,69 +1,83 @@
 import React, { useState } from 'react'
-import { classes } from './InputImage.styles'
+import { desktopClasses } from './InputImage.styles'
+import { mobileClasses } from './InputImageMobile.styles'
 import * as AiIcons from 'react-icons/ai'
-import { IconContext } from 'react-icons/lib';
 import { Avatar, Button } from '@material-ui/core';
-import userService from '../../api/user.api';
+import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
+import { layoutSelector } from '../../slices/layout';
 
-export default function InputImage() {
+export default function InputImage({ hasAvatar, saveAvatar, deleteAvatar }) {
+  const { t } = useTranslation(['buttons']);
+
+  const { layout } = useSelector(layoutSelector)
   const [avatar, setAvatar] = useState();
-  const styles = classes();
 
-  const saveAvatar = () => {
-    const fd = new FormData();
-    fd.append('image', avatar, avatar.name);
-    userService.saveAvatar(fd)
-      .then(res => {
-        console.log(res);
-      })
-  }
+  const styles = layout.mobile ? mobileClasses() : desktopClasses();
 
   const selectAvatar = (e) => {
     if (e) {
-      setAvatar(e);
+      setAvatar(e.target.files[0]);
     }
   }
 
-  return (
-    <IconContext.Provider value={{ color: '#ffcc00' }}>
-      <div className={styles.container}>
-        <input
-          id="contained-button-file"
-          type="file"
-          accept="image/*"
-          hidden
-          onInput={(e) => { selectAvatar(e.target.files[0]) }}
-          onClick={(e) => { e.target.value = '' }}
-        />
+  const handleSave = () => {
+    saveAvatar(avatar)
+    setAvatar()
+  }
 
+  return (
+    <div className={styles.container}>
+      <input
+        id="contained-button-file"
+        type="file"
+        accept="image/*"
+        hidden
+        onInput={selectAvatar}
+        onClick={(e) => { e.target.value = '' }}
+      />
+
+      <div  className={styles.buttonContainer}>
         <label htmlFor="contained-button-file">
           <Button
             variant="outlined"
             color="primary"
             component="span"
-            className={styles.addAvatarButton}
-            startIcon={<AiIcons.AiOutlineUpload className={styles.buttonIcon} />}>
-            Wybierz
+            className={styles.button}
+            startIcon={<AiIcons.AiFillFileAdd className={styles.buttonIcon} />}>
+            {t('buttons:chooseAvatar')}
           </Button>
         </label>
-
+        {(hasAvatar && !avatar) &&
+          <Button
+            variant="outlined"
+            color="primary"
+            className={styles.button}
+            startIcon={<AiIcons.AiFillDelete className={styles.buttonIcon} />}
+            onClick={() => deleteAvatar()}>
+            {t('buttons:delete')}
+          </Button>
+        }
         {avatar &&
-          <div className={styles.fileNameContainer} >
-            <Button
-              variant="outlined"
-              color="primary"
-              component="span"
-              className={styles.addAvatarButton}
-              onClick={saveAvatar}>
-              Zapisz
-            </Button>
-            <p className={styles.fileNameText} onClick={() => setAvatar()} >
-              {avatar.name}
-            </p>
-            <Avatar alt="Avatar" src={URL.createObjectURL(avatar)} />
-          </div>
+          <Button
+            variant="outlined"
+            color="primary"
+            className={styles.button}
+            startIcon={<AiIcons.AiOutlineUpload className={styles.buttonIcon} />}
+            onClick={handleSave}>
+            {t('buttons:save')}
+          </Button>
         }
       </div>
-    </IconContext.Provider>
+
+      {avatar &&
+        <div className={styles.fileNameContainer} >
+          <p className={styles.fileNameText} onClick={() => setAvatar()} >
+            {avatar.name}
+          </p>
+          <Avatar alt="Avatar" src={URL.createObjectURL(avatar)} />
+        </div>
+      }
+    </div>
   )
 }

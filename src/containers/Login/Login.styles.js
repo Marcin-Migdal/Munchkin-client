@@ -8,7 +8,7 @@ export const classes = makeStyles( theme => ({
     justifyContent: 'center',
     height: '84vh',
     margin: '8vh 0',
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: theme.palette.background.main,
   },
 
   containerMobile: {
@@ -17,7 +17,7 @@ export const classes = makeStyles( theme => ({
     alignItems: 'center',
     justifyContent: 'center',
     height: '100vh',
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: theme.palette.background.main,
   },
 
   button: {

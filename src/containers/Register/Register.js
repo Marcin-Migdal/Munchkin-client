@@ -1,23 +1,52 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { FormControlLabel, Radio, RadioGroup, useMediaQuery } from '@material-ui/core';
+import { Button, FormControlLabel, Radio, RadioGroup, useMediaQuery } from '@material-ui/core';
 import authService from '../../api/authentication.api';
 import useInput from '../../hooks/UseInput/useInput';
-import ButtonComponent from '../../components/ButtonComponent/ButtonComponent';
 import val from '../../utils/ValidationUtil';
 import { classes } from './Register.styles'
+import { links } from '../../utils/linkUtils';
+import { useTranslation } from 'react-i18next';
 
 export default function Register() {
-  const [inGameNameInput, inGameName, setInGameName] = useInput({ inputType: "text", inputLabel: "Ksywka" });
-  const [userNameInput, userName, setUserName] = useInput({ inputType: "text", inputLabel: "Login" });
-  const [emailInput, email, setEmail] = useInput({ inputType: "text", inputLabel: "Email" });
-  const [passwordInput, password, setPassword] = useInput({ inputType: "password", inputLabel: "Hasło" });
-  const [rePasswordInput, rePassword, setRePassword] = useInput({ inputType: "password", inputLabel: "Powtórz hasło" });
+  const { t } = useTranslation(['auth', 'inputLabels']);
+  const history = useHistory();
+
   const [gender, setGender] = useState('male');
   const [error, setError] = useState('');
-  const history = useHistory();
-  const styles = classes();
 
+  const [inGameNameInput, inGameName, setInGameName] = useInput({
+    inputType: "text",
+    inputLabel: t('inputLabels:inGameName'),
+    size: 'medium',
+    color: 'secondary'
+  });
+  const [userNameInput, userName, setUserName] = useInput({
+    inputType: "text",
+    inputLabel: t('inputLabels:username'),
+    size: 'medium',
+    color: 'secondary'
+  });
+  const [emailInput, email, setEmail] = useInput({
+    inputType: "text",
+    inputLabel: t('inputLabels:email'),
+    size: 'medium',
+    color: 'secondary'
+  });
+  const [passwordInput, password, setPassword] = useInput({
+    inputType: "password",
+    inputLabel: t('inputLabels:password'),
+    size: 'medium',
+    color: 'secondary'
+  });
+  const [rePasswordInput, rePassword, setRePassword] = useInput({
+    inputType: "password",
+    inputLabel: t('inputLabels:rePassword'),
+    size: 'medium',
+    color: 'secondary'
+  });
+
+  const styles = classes();
   const mobile = useMediaQuery('(max-width:620px)');;
 
   const handleChange = (event) => {
@@ -26,10 +55,10 @@ export default function Register() {
 
   const signUp = () => {
     if (val.signUp(inGameName, setInGameName, userName, setUserName, email, setEmail,
-      password, setPassword, rePassword, setRePassword)) {
-           
+      password, setPassword, rePassword, setRePassword, t)) {
+
       const signUpRequest = {
-        inGameName: `${inGameName.value}`,
+        inGameName: `${capitalize(inGameName.value)}`,
         username: `${userName.value}`,
         email: `${email.value}`,
         userPassword: `${password.value}`,
@@ -38,7 +67,7 @@ export default function Register() {
       };
 
       authService.signUp(signUpRequest)
-        .then(resp => history.replace('/login'))
+        .then(res => history.replace(links.login))
         .catch(e => setError(
           <div className={styles.errorBadCredentials}>
             {e.response.data.message}
@@ -47,25 +76,37 @@ export default function Register() {
     }
   }
 
+  const capitalize = (inGameName) => {
+    if (typeof inGameName !== 'string') return ''
+    return inGameName.charAt(0).toUpperCase() + inGameName.slice(1)
+  }
+
   return (
     <div className={mobile ? styles.containerMobile : styles.containerDesktop}>
-      <span className={styles.title}>Rejestracja</span>
+      <span className={styles.title}>{t('auth:signUp.title')}</span>
       <div className={styles.container}>
         {inGameNameInput}
         {userNameInput}
         {emailInput}
         {passwordInput}
         {rePasswordInput}
-        <RadioGroup className={styles.genderRadioContener} aria-label="gender" name="gender1" value={gender} onChange={handleChange}>
-          <FormControlLabel value="female" control={<Radio />} label="Female" />
-          <FormControlLabel value="male" control={<Radio />} label="Male" />
+        <RadioGroup className={styles.genderRadioContainer} value={gender} onChange={handleChange}>
+          <FormControlLabel
+            value="female"
+            control={<Radio />}
+            label={t('inputLabels:genderFemale')} />
+          <FormControlLabel
+            value="male"
+            control={<Radio />}
+            label={t('inputLabels:genderMale')} />
         </RadioGroup>
-        <ButtonComponent
-          text='Stwórz konto'
-          btnStyle={styles.button}
-          variantStyle='contained'
-          paletteColor='secondary'
-          action={signUp} />
+        <Button
+          variant="contained"
+          color="secondary"
+          className={styles.button}
+          onClick={signUp}>
+          {t('auth:buttons.signUp')}
+        </Button>
         {error && error}
       </div>
     </div>

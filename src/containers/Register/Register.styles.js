@@ -8,7 +8,7 @@ export const classes = makeStyles(theme => ({
     flexDirection: 'column',
     height: '84vh',
     margin: '8vh 0',
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: theme.palette.background.main,
   },
 
   containerMobile: {
@@ -17,7 +17,7 @@ export const classes = makeStyles(theme => ({
     justifyContent: 'center',
     flexDirection: 'column',
     height: '100vh',
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: theme.palette.background.main,
   },
 
   container: {
@@ -34,7 +34,7 @@ export const classes = makeStyles(theme => ({
     color: theme.palette.secondary.main,
   },
 
-  genderRadioContener: {
+  genderRadioContainer: {
     width: '100%',
   },
 

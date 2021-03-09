@@ -1,10 +1,96 @@
 import { makeStyles } from "@material-ui/core";
 
-export const classes = makeStyles(theme => ({
+export const settingsClasses = makeStyles(theme => ({
   container: {
-    width:'100%',
-    height: 'fit-content',
-    margin: '10vh 0 0 18vw',
+    display: 'flex',
+    flexDirection: 'column',
+    width: '100vw',
+    marginTop: '10vh',
+  },
+
+  title: {
+    width: '100vw',
+    textAlign: 'center',
+    marginBottom: '10vh',
+    fontSize: '6vh',
+    color: theme.palette.primary.main,
+  },
+
+  showSegmentButton: {
+    justifyContent: 'space-between',
+    width: '44vw',
+    margin: '1vh 0 1vh 28vw',
+    borderRadius: '8px',
+    fontSize: '1.25vw',
+    color: theme.palette.background.main,
+    '&.MuiButton-text': {
+      padding: '3px 8px',
+    }
+  },
+
+  customHr: {
+    height: '1px',
+    width: '58vw',
+    margin: '1vh 22vw 1vh 22vw',
+    border: 0,
+    borderColor: theme.palette.secondary.main,
+    backgroundColor: theme.palette.background.main,
+  },
+
+  inputContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    width: 'fit-content',
+    margin: '0 0 1vh 28vw',
+  },
+
+  input: {
+    '& .MuiTextField-root': {
+      fontSize: '5vh',
+      width: '20vw',
+      minWidth: '175px',
+      marginBottom: '1vh',
+    },
+
+    '& .MuiInputBase-root': {
+      borderRadius: '8px',
+      height: '37px',
+      color: theme.palette.primary.main,
+    },
+  },
+
+  genderRadioContainer: {
+    width: '100%',
+  },
+
+  button: {
+    width: 'fit-content',
+    height: '37px',
+    borderRadius: '8px',
+    fontSize: '0.8vw',
+    fontWeight: 600,
+    '&.MuiButton-root:hover': {
+      backgroundColor: theme.palette.secondary.main,
+    },
+    '&#languageButton': {
+      marginRight: '1vh',
+    }
+  },
+
+  notificationText: {
+    marginTop: '1vh',
+    fontSize: '2.5vh',
+    color: theme.palette.primary.main,
+  },
+
+
+  avatarContainer: {
+    marginLeft: '28vw',
+  },
+
+  languageContainer: {
+    marginLeft: '28vw',
   },
 }));
 

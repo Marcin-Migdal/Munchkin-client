@@ -9,20 +9,19 @@ export const classes = makeStyles( theme => ({
   topContainer: {
     display: 'flex',
     alignItems: 'center',
-    height:'8vh',
+    height:'16vw',
     width:'100vw',
     position:'fixed',
     top:0,
     
     zIndex: 2,
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: theme.palette.background.main,
   },
 
   bottomContainer: {
     display:'flex',
-    height:'92vh',
     width:'100vw',
-    marginTop:'8vh',
+    marginTop:'16vw',
   },
 
   sideMenuEnabled: {
@@ -32,7 +31,7 @@ export const classes = makeStyles( theme => ({
     transition: '100ms',
     left: 0,
     zIndex: 2,
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: theme.palette.background.main,
   },
 
   sideMenuDisabled:{
@@ -42,12 +41,11 @@ export const classes = makeStyles( theme => ({
     transition: '200ms',
     left: '-100%',
     zIndex: 2,
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: theme.palette.background.main,
   },
 
   contentContainer: {
     zIndex: 1,
-    height: '100%',
     width:'100%',
   },
 }));

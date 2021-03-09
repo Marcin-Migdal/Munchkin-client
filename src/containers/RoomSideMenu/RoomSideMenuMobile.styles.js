@@ -6,6 +6,7 @@ export const mobileClasses = makeStyles(theme => ({
     flexDirection: 'column',
     alignItems: 'center',
     width: '100%',
+    color: theme.palette.secondary.main,
   },
 
   textContainer: {
@@ -41,7 +42,6 @@ export const mobileClasses = makeStyles(theme => ({
     textAlign: 'center',
     marginTop: '1vh',
     fontSize: '3.25vh',
-    color: theme.palette.secondary.main,
   },
 
   roomNameText: {
@@ -52,7 +52,6 @@ export const mobileClasses = makeStyles(theme => ({
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
-    color: theme.palette.secondary.main,
   },
 
   notificationText: {
@@ -60,7 +59,6 @@ export const mobileClasses = makeStyles(theme => ({
     textAlign: 'center',
     marginBottom: '1.75vh',
     fontSize: '2.25vh',
-    color: theme.palette.secondary.main,
   },
 
   playersContainer: {
@@ -69,6 +67,30 @@ export const mobileClasses = makeStyles(theme => ({
 
   playerText: {
     fontSize: '2.5vh',
-    color: theme.palette.secondary.main,
-  }
+  },
+
+  iconContainer: {
+    padding: '1vh',
+    borderRadius: '6px',
+    fontSize: '4vh',
+    position: 'absolute',
+    top: 0,
+    left: '4.5vh',
+    '& :hover': {
+      borderRadius: '6px',
+      backgroundColor: theme.palette.primary.main,
+    }
+  },  
+  
+  input: {
+    '& .MuiTextField-root': {
+      width: '60vw',
+      margin: '1vh 0',
+    },
+
+    '& .MuiInputBase-root': {
+      borderRadius: '8px',
+      color: theme.palette.secondary.main,
+    },
+  },
 }));
