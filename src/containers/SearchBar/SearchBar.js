@@ -65,6 +65,7 @@ export default function SearchBar({ disableSearchBar }) {
           setError()
         })
         .catch(e => {
+          console.log(e)
           setSearchResult()
           setError(t('menu:searchBar.error'))
         })

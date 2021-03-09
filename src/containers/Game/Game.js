@@ -125,7 +125,6 @@ export default function Game({ classes }) {
   }, [playerStatusRefreshFlag, location, history, currentUser]);
 
   const goToGameSummary = () => {
-    console.log(room)
     history.replace({
       pathname: links.gameSummary,
       state: {
