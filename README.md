@@ -3,7 +3,7 @@
 ## Description:
 Munchtrack is a Service created with a though to allow muncking card game to be easier to follow. 
 
-This repository contain front-end part of the service, it is made using React and Javascript and other external libraries like:<br />
+This repository contains front-end part of the service, it is made using React and Javascript and other external libraries like:<br />
 - [Material-ui](https://material-ui.com/)<br />
 - [i18next](https://react.i18next.com/)<br />
 - [React-redux](https://react-redux.js.org)<br />
